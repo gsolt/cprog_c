@@ -644,12 +644,15 @@ sT[0].sTI[25].nType = TYP_TMOK;
 	sT[0].sMOT[25].nIEC_DP				= 38;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[25].nIEC_NM				= 90;		/* Mérések IEC kezdõcíme */
 
-/* 30-44 TMOK ZE -----------------------------------------------------------*/
+/* 34-68 (30-44) TMOK ZE -----------------------------------------------------------*/
 sT[0].sTI[26].nType = TYP_TMOK;
 
 	sT[0].sMOT[26].nIEC_SP				= 488;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[26].nIEC_DP				= 39;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[26].nIEC_NM				= 93;		/* Mérések IEC kezdõcíme */
+	/*sT[0].sMOT[26].nIEC_NM				= 93;		 Mérések IEC kezdõcíme */
+	sT[0].sMOT[26].nIEC_NM				= 1036;		 /* Mérések IEC kezdõcíme */
+	sT[0].sMOT[26].nNMNum      			= 4;
+
 
 /* 85-46 TMOK  -----------------------------------------------------------*/
 sT[0].sTI[27].nType = TYP_TMOK;
@@ -1255,8 +1258,7 @@ sT[0].sTI[98].nType = TYP_MOT;
 	sT[0].sMOT[98].nNMNum				= 0;		/* Analóg mérések száma*/
 	
 /* Tatabanya, Ipari park ---------------------------------------------------------------*/
-sT[0].sTI[99].nType = TYP_MOT;	
-	
+sT[0].sTI[99].nType = TYP_MOT;		
 	sT[0].sMOT[99].nIEC_SP				= 1952;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[99].nIEC_SP_NUM			= 14;		/* Egybites értékek száma*/
 	sT[0].sMOT[99].nIEC_DP				= 255;		/* Kétbites értékek IEC kezdõcíme*/
