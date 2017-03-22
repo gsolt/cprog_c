@@ -642,7 +642,9 @@ sT[0].sTI[25].nType = TYP_TMOK;
 
 	sT[0].sMOT[25].nIEC_SP				= 472;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[25].nIEC_DP				= 38;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[25].nIEC_NM				= 90;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[25].nIEC_NM				= 1112;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[25].nNMNum      			= 4;
+
 
 /* 34-68 (30-44) TMOK ZE -----------------------------------------------------------*/
 sT[0].sTI[26].nType = TYP_TMOK;
@@ -859,7 +861,9 @@ sT[0].sTI[55].nType = TYP_TMOK;
 
 	sT[0].sMOT[55].nIEC_SP				= 936;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[55].nIEC_DP				= 67;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[55].nIEC_NM				= 177;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[55].nIEC_NM				= 1124;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[55].nNMNum      			= 4;
+
 
 /* 34-18 TMOK  -----------------------------------------------------------*/
 sT[0].sTI[56].nType = TYP_TMOK;
