@@ -636,7 +636,8 @@ sT[0].sTI[24].nType = TYP_TMOK;
 
 	sT[0].sMOT[24].nIEC_SP				= 456;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[24].nIEC_DP				= 37;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[24].nIEC_NM				= 87;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[24].nIEC_NM				= 1092;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[24].nNMNum      			= 4;
 
 /* 40-85 TMOK ZE -----------------------------------------------------------*/
 sT[0].sTI[25].nType = TYP_TMOK;
@@ -726,7 +727,8 @@ sT[0].sTI[35].nType = TYP_TMOK;
 
 	sT[0].sMOT[35].nIEC_SP				= 664;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[35].nIEC_DP				= 50;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[35].nIEC_NM				= 126;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[35].nIEC_NM				= 1088;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[35].nNMNum      			= 4;
 
 /* 37-15 TMOK ZE -----------------------------------------------------------*/
 sT[0].sTI[36].nType = TYP_TMOK;
@@ -1011,7 +1013,8 @@ sT[0].sTI[72].nType = TYP_TMOK;
 
 	sT[0].sMOT[72].nIEC_SP				= 1250;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[72].nIEC_DP				= 99;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[72].nIEC_NM				= 235;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[72].nIEC_NM				= 1104;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[72].nNMNum      			= 4;
 
 /* Szombathely, 11-es Huszar uti gazmotor -------------------------------------------------------------*/
 sT[0].sTI[73].nType = TYP_MOT;	
