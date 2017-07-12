@@ -2042,7 +2042,8 @@ sT[0].sTI[198].nType = TYP_TMOK;
 
 	sT[0].sMOT[198].nIEC_SP				= 3637;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[198].nIEC_DP				= 509;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[198].nIEC_NM				= 647;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[198].nIEC_NM				= 1148;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[198].nNMNum				= 4;		/* Analóg mérések száma*/
 	
 /* Zalaegerszeg, Kórház ---------------------------------------------------------------*/
 sT[0].sTI[199].nType = TYP_MOT;	
