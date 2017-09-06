@@ -1,22 +1,45 @@
-/**+*****************************************************************************
-* NAME           :  cprog_c.c                                                 	*
-* DESCRIPTION    :                                                            	*
-* PROCESS        :  															*
-*                                                                             	*
-* [C] Copyright Zsolt Gergely,  2005.  All Rights Reserved                    	*
-*                                                                             	*
-* REV    DATE     PROGRAMMER         REVISION HISTORY                         	*
-* V2.0	2006.03.09	Zsolt Gergely	Parancskuldes modositasa				  	*
-* V3.0	2007.08.11	Zsolt Gergely	1 db. CPU 2 db. TALUS-ra valo felkészítés 	*
-* V4.0	2008.07.21	Zsolt Gergely	Idõbélyeg fogadás MOSCAD állomás esetén 	*
-
-*********************************************************************************/
+/**+**************************************************************************
+* NAME           :  command.c                                                *
+* DESCRIPTION    :  This example demonstrates a way of self learning the     *
+*                   site ID and the link ID. By pushing PB1, the RTU sends a *
+*                   broadcast message to inform the other RTU about its      *
+*                   own site ID and link ID. After this stage, each RTU may  *
+*                   send a message to the other RTU and expects to get an    *
+*                   echo which will be logged in the error logger.           *
+*                   By pushing PB2, the RTU sends the string "THE QUICK.." to*
+*                   the designated RTU. The designated RTU echoes the same   *
+*                   string as an answer. The source RTU logs the message in  *
+*                   the error logger.                                        *
+* PROCESS        :  The example includes three functions -                   *
+*                                                                            *
+*                   tx_new_site:- The function sets the first line in the    *
+*                   static site table with site id 0 (using                  *
+*                   MOSCAD_set_sitetable), and sends its own site/link as a  *
+*                   a broadcast.                                             *
+*                                                                            *
+*                   tx:- The function sends the string "THE QUICK.." to      *
+*                   designated RTU.                                          *
+*                                                                            *
+*                   rx- should be called all the time.  rx may receive three *
+                    types of messages:                                       *
+*                       1) TxFrm message- This means that PB1 was pushed and *
+*                          the receiving buffer contains the site ID and     *
+*                          the link ID of the sender.                        *
+*                       2) SndFrm message-This means that PB2 was pushed and *
+*                          the receiving buffer contains the string. It      *
+*                          echoes it as an answer.                           *
+*                       3) AnsFrm Message-The receiving buffer contains echo.*
+*                          It logs it in the error logger.                   *
+*                                                                            *
+* [C] Copyright Zsolt Gergely,  2003.  All Rights Reserved                 *
+*                                                                            *
+* REV    DATE     PROGRAMMER         REVISION HISTORY                        *
+*****************************************************************************/
 
 #include "CAPPLIC.H"
 #include <stdio.h>
 /* Parameterek strukturaja */
 #include "strPar.H"
-
 
 #define  BYTE					unsigned char
 #define  RSlink1  				51
@@ -24,7 +47,7 @@
 #define  SetCall  				0
 #define  VALID  				1
 #define  LEKERDEZES_TIMEOUT		100
-#define  COMMAND_LENGTH			14
+#define  COMMAND_LENGTH			6
 
 
 /*--------------------------------------------------------------------------*/
@@ -38,24 +61,24 @@ extern void fnSetDataPar(void);
 extern void fnWriteSPData(int nIEC_Offset, int nData, int nMS1, int nMS2, int nMin, int nCTAct);
 extern int  fnReadSPData(int nIEC_Offset);
 extern void fnDPTblIndx(int nIECOffset, int *nDPTblIndx, int *nIndx);
+extern void fnWriteSPStatus(int nIEC_Offset, int nData);
+extern void fnWriteDPStatus(int nIEC_Offset, int nData);
+extern void fnWriteNMStatus(int nIEC_Offset, int nData);
 void MOT_DATA(STATION_DESC_MOT	*pMOT, unsigned char *buf);
 void MOT_DATA2(STATION_DESC_MOT	*pMOT, unsigned char *buf);
 void TALUS_EVENT(STATION_DESC_TALUS *pTAL, unsigned char *rx_buf);
 void TALUS_DAT(STATION_DESC_TALUS *pTAL, unsigned char *rx_buf);
 void TMOK_DATA(STATION_DESC_MOT	*pMOT, unsigned char *buf);
 void fnWriteDPData(int nIEC_Offset, int nDataH,int nDataL, int nMS1, int nMS2, int nMin, int nCTAct);
-void AUCHAN_EVENT( unsigned char *rx_buf);
-void AUCHAN_DAT(unsigned char *rx_buf);
 
 extern void fnWriteNM( int nIECOffset,unsigned int nData);
 
 
 extern void com_check();
 extern void rx();
-extern void tx_command(); 
+extern void tx_command();
 extern void fnLekR(void);
-extern void fnSetDinamicSiteTable(void);
-
+void G1_DAT(unsigned char *rx_buf);
 int value_BX(int );
 int value_CErrX(int nI);
 int value_CComX(int nI);
@@ -67,6 +90,7 @@ void setvalue_CStatusX(int nI, int nValue);
 void setvalue_CComX(int nI, int nValue);
 void setvalue_CRcvdX(int nI, int nValue);
 void setvalue_CLekX(int nI, int nValue);
+extern void fnSetDinamicSiteTable(void);
 /**********************************************/
 /* Globals                                     */
 /**********************************************/
@@ -75,7 +99,7 @@ unsigned short	nTableNum1 = 1;
 unsigned short	nTableNum2 = 2;
 
 
-CB_TABLE_INFO   table_DC2;
+/*CB_TABLE_INFO   table_DC2;*/
 short          *p_col_DC2;
 
 CB_TABLE_INFO   table_CStat1;
@@ -93,18 +117,18 @@ short          *p_col_CCom2;
 short          *p_col_CErr2;
 
 
-CB_TABLE_INFO   table_SC2;
+/*CB_TABLE_INFO   table_SC2;*/
 short          *p_col_SC2;
 
 CB_TABLE_INFO   table_Controls;
 short          *p_col_Controls;
 
-/*CB_TABLE_INFO   table_CBuf;
+CB_TABLE_INFO   table_CBuf;
 CB_TABLE_INFO   table_parBool;
-
+CB_TABLE_INFO   table_parInt;
 CB_TABLE_INFO   table_RxMon;
 CB_TABLE_INFO   table_Stat;
-CB_TABLE_INFO   table_SP;
+/*CB_TABLE_INFO   table_SP;
 CB_TABLE_INFO   table_SP1;
 CB_TABLE_INFO   table_SP2;
 CB_TABLE_INFO   table_SP3;
@@ -112,16 +136,14 @@ CB_TABLE_INFO   table_SP4;
 CB_TABLE_INFO   table_SP5;
 
 CB_TABLE_INFO   table_NM;
-
+CB_TABLE_INFO   table_DC;*/
 CB_TABLE_INFO   table_EVT;
-
-CB_TABLE_INFO	table_ComBuf;*/
-CB_TABLE_INFO	table_Timers;
-CB_TABLE_INFO   table_DP;
-CB_TABLE_INFO   table_DC;
 CB_TABLE_INFO   table_SC;
-CB_TABLE_INFO   table_parInt;
-CB_TABLE_INFO   table_Stat;
+CB_TABLE_INFO	table_ComBuf;
+CB_TABLE_INFO	table_Timers;
+
+CB_TABLE_INFO   table_DP;
+
 /* MOSCAD tablak oszlopai */
 short          *p_col_parBool;	
 short          *p_col_parInt;
@@ -229,7 +251,8 @@ unsigned char  current_link;
 unsigned short dest_site;
 unsigned short dest_inx;
 unsigned char  dest_link;
-
+int				nActIndx;
+int				nActIndx2;
 int				nRxLen;
 int				nTxLen;
 
@@ -249,15 +272,13 @@ STATION_TYPE_INDEX 	sTI[MAX_RTU];
 /*STATION_DESC_MOT	sMOT[250];*/
 STATION_DESC_TALUS	sTAL[MAX_RTU];
 STATION_COMM_DATA	sCD[MAX_RTU];
+
 /*RTU_RAD				sRAD;*/
+RTU_LIN				sLIN;
 
 RTU_RAD_NEW			sRAD_K1;
 RTU_RAD_NEW			sRAD_K2;
 RTU_RAD_NEW			sRAD_K3;
-
-
-RTU_LIN				sLIN;
-STATION_DESC_SEPAM	sSep[3];
 
 /*	unsigned short				nTableNumPar;			
 	int							nIEC_SP;			
@@ -289,8 +310,8 @@ const CB_JUMPTBL user_jumptable[]=
 /*-------------------------------------*/
 /* For the use of MOSCAD_find_func     */
 /*-------------------------------------*/
-static CB_FUNC setdat_c;
-static CB_FUNC setdat2_c;
+static CB_FUNC setdat;
+static CB_FUNC setdat2;
 /*--------------------------------------------------------------------------*/
 /* 'C' Block Initialization and Completion                                  */
 /*--------------------------------------------------------------------------*/
@@ -305,12 +326,13 @@ int 			nOffset;
 short			*p_col_DCAct;
 short			*p_col_SCAct;
 	
+	
+	
    switch(control)
       {
          case CB_INIT :
          	
-         	 setdat_c.func_adr = 0L;
-         	 setdat2_c.func_adr = 0L;
+         	 setdat.func_adr = 0L;
          	 
          	 /* sT struktura feltoltese*/
          	 sT.sCP  = &sCP;
@@ -324,18 +346,20 @@ short			*p_col_SCAct;
          	 sT.nNumOfSites =&nNumOfSites;	
 			 sT.nSiteList   =nSiteList;	
 			 sT.nLinkList	=nLinkList;	
-			 sT.sSep		= sSep; 
 
-         	          	
+         	 
+             nActIndx  = 0;
+         	 nActIndx2 = 0;
+         	
         	 MOSCAD_available_mem(&lTotal,&lLargest);
-	   		 MOSCAD_sprintf(message,"Total: %d, Largest: %d, Version: V4.0",lTotal,lLargest);
-   			 MOSCAD_error(message );
+	   		 /*MOSCAD_sprintf(message,"Total: %d, Largest: %d",lTotal,lLargest);
+   			 MOSCAD_error(message );*/
 
              fnReadPar();  
              
-             if (MOSCAD_find_func("setd2", &setdat2_c) == 0)
+             if (MOSCAD_find_func("setd2", &setdat2) == 0)
 		     {
-         		MOSCAD_ucall_1(&setdat2_c, (unsigned char *)(&sT));
+         		MOSCAD_ucall_1(&setdat2, (unsigned char *)(&sT));
          		MOSCAD_error("cbSetData2 found");
       		 }
       		 else
@@ -344,9 +368,9 @@ short			*p_col_SCAct;
       		 }
 
              
-             if (MOSCAD_find_func("setdat", &setdat_c) == 0)
+             if (MOSCAD_find_func("setdat", &setdat) == 0)
 		     {
-         		MOSCAD_ucall_1(&setdat_c, (unsigned char *)(&sT));
+         		MOSCAD_ucall_1(&setdat, (unsigned char *)(&sT));
          		MOSCAD_error("cbSetData found");
       		 }
       		 else
@@ -354,19 +378,22 @@ short			*p_col_SCAct;
          		MOSCAD_error("cbSetData NOT found");
       		 }
       		 
-      		 MOSCAD_set_sitetable(250,nSiteList,nLinkList,byComStat);
+       		 
       		 
+         MOSCAD_set_sitetable(250,nSiteList,nLinkList,byComStat);
+		 
       		/* Statikus site tabla feltoltese */
 			/*fnSetStatSiteTable();*/
-
-      		/* Dinamikus site tabla feltoltese */
+			
+			/* Dinamikus site tabla feltoltese */
 			/*fnSetDinamicSiteTable();*/
 
 			
 			/* Parancs kuldes parameterei */
 			/*fnSetComPar();*/
 
-/*Nyugta inicializalas*/
+			
+     /*Nyugta inicializalas*/
 
 for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
 {
@@ -381,11 +408,30 @@ for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
 /* Statusok inicializalasa */
 for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
 {
-	fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, TOPICAL);
-	fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, TOPICAL);
+	fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, VALID);
+	fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, VALID);
 }
 
-      		                     
+
+     
+                    
+            /*if(MOSCAD_get_user_flash_block(&p_flash, &lSize) == 0)
+   			{
+   				MOSCAD_sprintf(message,"Parameter file found, size: %ld",lSize);
+   			 	MOSCAD_error(message );
+   			 	
+   				sT = (TOTAL_PAR*) p_flash;
+				
+    			MOSCAD_sprintf(message,"nRtuNum: %d",sT->nRtuNum);
+   			 	MOSCAD_error(message );
+  				
+   			}
+   			else
+   			{
+   				MOSCAD_sprintf(message,"Parameter file NOT found");
+   			 	MOSCAD_error(message );
+
+   			}*/                    
             break;
 
          case CB_EXIT :
@@ -403,121 +449,116 @@ for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
 /*--------------------------------------------------------------------------*/
 void com_check()
 {
-
 int			nI;
 int			nRet;
-char		message[100];
-int			nTimerTblIndx;
 int			nTemp;
-
-
 
   		for (nI=0;nI<sCP.nRtuNum;nI++)
   		{
-  			  			
-  			 if (value_BX(nI)== 1)
-  			 {
-  			 	MOSCAD_sprintf(message,"Timer expired, index: %d",nI);
-   			 	MOSCAD_error(message );
+  			if (value_BX(nI)== 1)
+  			/*if (p_col_B1[nI]== 1)*/
+  			{
 
 				/* Visszatörli a timer indito bitet */
-  			 	setvalue_LiX(nI,0);					
-  				 					  				 					
- 				/* Ha nem volt elõtte lekérdezés */
-  				if ( fnReadSPData(sCP.sCPR[nI].nSPOffsetLek) == 0 )
+				setvalue_LiX(nI,0);	
+  				 		
+  				 					
+  				/* Ha nem volt elõtte lekérdezés */
+  				if ( fnReadSPData(sCP.sCPR[nI].nSPOffsetLek) == 0)
   				{
+
   					 /* Hiba szamlalo novelese */
   					if (sCD[nI].nError < 100)
   					{
   						sCD[nI].nError = sCD[nI].nError + 1;
-  				
+  						
   						nTemp = value_CErrX(nI);
-  						setvalue_CErrX(nI,nTemp+1);						
+  						setvalue_CErrX(nI,nTemp+1);	
+  						
+						/*if (nI < 250)
+						{
+ 							p_col_CErr1[nI] = p_col_CErr1[nI] + 1;   		
+						}*/
   					}
   					
    					if (sCD[nI].nError > 2)
   					{
-  				    	fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
-  				    	
-  				    	/*Az IEC drivernek jelzi, hogy ervenytelenek az adatok*/
+  						fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
+  						
+  						
+  						/*Az IEC drivernek jelzi, hogy erventelenek az adatok*/
   						fnSetStatus(nI, NOT_TOPICAL);
-
-  					if (nI == 87) /*Szombathely*/
-					{
-						fnSetStatus(88, NOT_TOPICAL);
-					}
-
-
+  						
   						if (sCP.sCPR[nI].nSCNum == 2)
 						{
 							fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS2, 1,  0,0,0,0);			
+							fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS2, TOPICAL);
 						}
-  						  						
-  						setvalue_CStatusX(nI,1);
-  						fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, TOPICAL);
+						fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, TOPICAL);
 	  					fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, TOPICAL);
-
-  						   					
-  					}
- 					
-  				}/* end Ha nem volt elõtte lekérdezés*/  				 					
- 				 					
+						
+						setvalue_CStatusX(nI,1);
+  					} /* end if (sCD[nI].nError > 3) */
   				 					
+  				}/* end if ( fnReadSPData(sCP.sCPR[nI].nSPOffsetLek) == 0) */
+  				
+  				
   				/* Ha volt elõtte IEC-s lekérdezés parancs*/
   				if ( fnReadSPData(sCP.sCPR[nI].nSPOffsetLek) == 1 && sCP.sCPR[nI].nSPOffsetLek > 0)
   				{
 
   					 MOSCAD_sprintf(message,"Komm hiba = 1: %d",nI);
    					 MOSCAD_error(message );
-   					 
-    					 
- 					/*Az IEC drivernek jelzi, hogy ervenytelenek az adatok*/
-					fnSetStatus(nI, NOT_TOPICAL);
-  					if (nI==87) /*Radison hotel*/
-					{
-						fnSetStatus(88, NOT_TOPICAL);
-					}
-
   					
   					fnWriteSPData(sCP.sCPR[nI].nSPOffsetLek,0,0,0,0,0); /* Lekérdezés visszatörlése */
   					fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
-
+ 					
+  					/*Az IEC drivernek jelzi, hogy erventelenek az adatok*/
+  					fnSetStatus(nI, NOT_TOPICAL);
+  					
   					if (sCP.sCPR[nI].nSPOffsetCS2 > 0)
   					{
-  						fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS2,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
+						fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS2,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
+	  					fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS2, TOPICAL);
+ 
   					}
   					
    					fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, TOPICAL);
   					fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, TOPICAL);
-  					
+ 
   					
   				}
+
   				/* Ha volt elõtte IEC-s lekérdezés parancs*/
   				if ( fnReadSPData(sCP.sCPR[nI].nSPOffsetLek2) == 1 && sCP.sCPR[nI].nSPOffsetLek2 > 0)
   				{
-					/*Az IEC drivernek jelzi, hogy ervenytelenek az adatok*/
-					fnSetStatus(nI, NOT_TOPICAL);
 
+  					 MOSCAD_sprintf(message,"Komm hiba = 1: %d",nI);
+   					 MOSCAD_error(message );
+   					 
+  					/*Az IEC drivernek jelzi, hogy erventelenek az adatok*/
+  					fnSetStatus(nI, NOT_TOPICAL);
   					
 	    			fnWriteSPData(sCP.sCPR[nI].nSPOffsetLek2,0,0,0,0,0); /* Lekérdezés visszatörlése */
   					fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS2,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
 					
 					fnWriteSPData(sCP.sCPR[nI].nSPOffsetCS,1,0,0,0,0) ; /* Komm. hiba 1-be allitasa */
-  				}
-  				
+					
 	   				fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS, TOPICAL);
 	   				fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetCS2, TOPICAL);
   					fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, TOPICAL);
-  				
-  				
-  				
-  			 }/*end if p_col_B1[nI]== 1*/
-  			
-  		} /*end for*/
+ 				
+					
+  				} 					  				
+  			}
+  		}
 
 
 
 } /* end com_check */
+
+
+
 
 /*--------------------------------------------------------------------------*/
 /* Táviratok fogadása és adatfeldolgozás                                    */
@@ -544,18 +585,25 @@ void rx()
    /*---------------------*/
    /* Receive the frame.  */
    /*---------------------*/
-   if(MOSCAD_RcvFrm(&site_inx, rx_buffer, &buff_len, &type) == 0)
+   if( (MOSCAD_RcvFrm(&site_inx, rx_buffer, &buff_len, &type) == 0) )
    {
-   				MOSCAD_sprintf(message,"Frame received, index: %d",site_inx);
+   				MOSCAD_sprintf(message,"Frame rec., index: %d",site_inx);
    			 	MOSCAD_error(message ); 				
 
-   	if(site_inx<=MAX_RTU)
+   	
+   	if (site_inx<MAX_RTU)
    	{
    	   	
+/*		MOSCAD_sprintf(message,"RxBuf[0]: %d, RxBuf[1]: %d",p_col_Rx[0],p_col_Rx[1]);
+	 	MOSCAD_error(message ); 				
+   	
+		MOSCAD_sprintf(message,"TxBuf[0]: %d, TxBuf[1]: %d",p_col_Tx[0],p_col_Tx[1]);
+	 	MOSCAD_error(message ); 				*/
 
       switch (type)
       {
-      	
+      			
+
 
         case CB_GROUPCALL_TYPE:
             break;
@@ -567,88 +615,61 @@ void rx()
 			
 			
         case CB_MSG_TYPE:
-	
-			
-				nTemp = value_CRcvdX(site_inx);
+        	
+        		nTemp = value_CRcvdX(site_inx);
 				setvalue_CRcvdX(site_inx,nTemp+1);
 				
 				setvalue_CStatusX(site_inx,0);
 				
 				/* Visszatörli a timer indito bitet */
 				setvalue_LiX(site_inx,0);
-				
-			/* ~~~2008.01.28*/	
-			if (site_inx==87) /*Szombathely, szennyvíztisztító*/
-			{
-				setvalue_LiX(88,0);
-			}
-				
-			
+
+        	
+				/*MOSCAD_sprintf(message,"Frame received, index: %d",site_inx);				
+   			 	MOSCAD_error(message ); 				*/
 
 
 			/*  Növeli a kommunikáció számlálót */
-			/* sCD[site_inx].nCtrComm = sCD[site_inx].nCtrComm + 1; */
+			/*sCD[site_inx].nCtrComm = sCD[site_inx].nCtrComm + 1;*/
  		
  			/* Nullázza a hiba számlálót */
  			sCD[site_inx].nError = 0;
  		
  			/* Nullázza a komm. hibát */
- 			/* sCD[site_inx].nState = 0; 		*/
- 			
- 			/*Az IEC drivernek jelzi, hogy ervenyesek az adatok*/
-  			fnSetStatus(site_inx, TOPICAL);
-			
-			if (site_inx==87) /*Szombathely, szennyvíztisztító*/
-			{
-	  			fnSetStatus(88, TOPICAL);
-				fnWriteSPStatus(sCP.sCPR[88].nSPOffsetCS, TOPICAL);
-
-			}
+ 			/*sCD[site_inx].nState = 0; 		*/
  			
  			/* Nullázza a komm. hibát az IEC táblában */
-			fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetCS, 0,  0,0,0,0);   			
-			fnWriteSPStatus(sCP.sCPR[site_inx].nSPOffsetCS, TOPICAL);
+			fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetCS, 0,  0,0,0,0);
 			
-			if (site_inx==87) /*Szombathely, szennyvíztisztító*/
-			{
-			fnWriteSPData(sCP.sCPR[88].nSPOffsetCS, 0,  0,0,0,0);   			
-			fnWriteSPStatus(sCP.sCPR[88].nSPOffsetCS, TOPICAL);
+			/*Az IEC drivernek jelzi, hogy ervenyesek az adatok*/
+  			fnSetStatus(site_inx, VALID);
 
-			}
-			
-			
+			fnWriteSPStatus(sCP.sCPR[site_inx].nSPOffsetCS, TOPICAL);
+
 			if (sCP.sCPR[site_inx].nSCNum == 2)
 			{
 				fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetCS2, 0,  0,0,0,0);
 				fnWriteSPStatus(sCP.sCPR[site_inx].nSPOffsetCS2, TOPICAL);
-							
-			}
 			
-		
+			}
+ 		
  			/* Nullázza a lekerdezes folyamatban szot az IEC táblában */
 			fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetLek, 0,   0,0,0,0);
 			fnWriteSPStatus(sCP.sCPR[site_inx].nSPOffsetLek, TOPICAL);
-			
-			if (site_inx==87) /*Radison hotel*/
-			{
-				fnWriteSPData(sCP.sCPR[88].nSPOffsetLek, 0,   0,0,0,0);
-				fnWriteSPStatus(sCP.sCPR[88].nSPOffsetLek, TOPICAL);
 
-			}
-			
 			
 			if (sCP.sCPR[site_inx].nSCNum == 2)
 			{
-				fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetLek2, 0,  0,0,0,0);
+				fnWriteSPData(sCP.sCPR[site_inx].nSPOffsetLek2, 0,  0,0,0,0);			
 				fnWriteSPStatus(sCP.sCPR[site_inx].nSPOffsetLek2, TOPICAL);
-							
+
 			}
  			
 
 			/* Elvégzi az adatfeldolgozást */
  			nType = sTI[site_inx].nType;
  			
- 				MOSCAD_sprintf(message,"Frame received, index: %d, type: %d, rx_buffer[0]: %d,rx_buffer[2]: %d, length: %d",site_inx,nType,nRxBuf[0],nRxBuf[2],buff_len);
+ 				MOSCAD_sprintf(message,"Frame received, index: %d, type: %d, rx_buffer[0]: %d,rx_buffer[2]: %d",site_inx,nType,nRxBuf[0],nRxBuf[2]);
    			 	MOSCAD_error(message ); 				
  
 			/*Szinkronizalasi igeny erkezett*/
@@ -660,66 +681,21 @@ void rx()
    			 	MOSCAD_error(message ); 				
 
 			}
- 			
- 			if (nType == TYP_TAL && (nRxBuf[0] == 2048 || nRxBuf[0] == 2049) && nRxBuf[2] == 2048 && buff_len < 42 * 2)
+				 			
+ 			if (nType == TYP_TAL && nRxBuf[0] == 2048 && nRxBuf[2] == 2048 && buff_len < 42 * 2)
  			{
- 	 				if ( (site_inx != 87) && (site_inx != 88))
-	 				{
- 						TALUS_EVENT(&sTAL[site_inx],rx_buffer);
-	 				}
- 				if (  (site_inx == 87) || (site_inx == 88) )
- 				{
- 					if (nRxBuf[0] == 2048)
- 					{
- 		 				MOSCAD_sprintf(message,"Szombathely event 1.");
-		   			 	MOSCAD_error(message ); 				
-
-	 					TALUS_EVENT(&sTAL[87],rx_buffer);
- 					}
- 					if (nRxBuf[0] == 2049)
- 					{
- 		 				MOSCAD_sprintf(message,"Szombathely event 2.");
-		   			 	MOSCAD_error(message ); 	
-		   			 				
- 						TALUS_EVENT(&sTAL[88],rx_buffer);
- 					}
- 				}		
+ 				TALUS_EVENT(&sTAL[site_inx],rx_buffer);
  			}
- 			
- 			
  			else if (nType == TYP_TAL && nRxBuf[0] != 2048 && buff_len == 42 * 2 )
  			{
- 				
- 				 if ((site_inx != 87) && (site_inx != 88) )
+ 				TALUS_DAT(&sTAL[site_inx],rx_buffer);
+ 				if (site_inx == 6)
  				{
-					TALUS_DAT(&sTAL[site_inx],rx_buffer);
+ 					G1_DAT(rx_buffer);
  				}
- 				
-				if (  (site_inx == 87) || (site_inx == 88) )
- 				{
-
-					if (nRxBuf[30] == 1)
- 					{
-		 				MOSCAD_sprintf(message,"Szombathely data 1.");
-		   			 	MOSCAD_error(message ); 	
-		   			 	
-	 					TALUS_DAT(&sTAL[87],rx_buffer);
- 					}
- 					if (nRxBuf[30] == 2 )
- 					{
- 						TALUS_DAT(&sTAL[88],rx_buffer);
- 						
-		 				MOSCAD_sprintf(message,"Szombathely data 2.");
-		   			 	MOSCAD_error(message ); 	
-
- 					}
- 				}
- 				
- 				
- 				
- 				
  			}
-			
+
+ 			
 			else if (nType == TYP_MOT &&  buff_len == 42 * 2)
  			{
 
@@ -730,6 +706,11 @@ void rx()
  			{
  				TMOK_DATA(&sMOT[site_inx],rx_buffer);
  			} 	
+ 			else if (nType == TYP_MOT2 && nRxBuf[0] == 31 )
+ 			{
+ 				MOT_DATA2(&sMOT[site_inx],rx_buffer);
+ 			} 			
+		
  			else
  			{
 				MOSCAD_sprintf(message,"Type parameter error: index: %d, type: %d",site_inx,nType);
@@ -737,10 +718,10 @@ void rx()
  			} 			
 
            break;
-
-      } /*end switch*/
-   	} /*end if site_inx<MAX_RTU*/
-   }/*end if == 0*/
+		
+       } /*end switch */
+      }/*end if site_inx<MAX_RTU */
+   } /*end if == 0*/
 }
 /*--------------------------------------------------------------------------------------------------------------------*/
 /*Elkuld egy parancsot a DC vagy SC tabla alapjan																								  */
@@ -754,13 +735,13 @@ void tx_command()
    unsigned char	nLinkId;
    int				nI;  
    int				nJ;  
-   int				nK;
    int				nRet;
    unsigned short *nTxBuf;
    int nOffset;
    short	*p_col_DCAct;
    short	*p_col_SCAct;
-   int		nTemp;	
+   int		nTemp;
+
 
    
    nTxBuf = (unsigned short *)tx_buffer;
@@ -768,7 +749,7 @@ void tx_command()
 	fnReadPar();
    
    /* Ha talal nem nullat a DC tablaban, elkuldi a parancsot a megfelelo RTU-nak, majd vissza nullaz */
-   for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
+   for (nI=0;nI<sCP.nRtuNum;nI++)
    {
    	for (nJ=sCP.sCPR[nI].nDCStart;nJ<sCP.sCPR[nI].nDCStart+sCP.sCPR[nI].nDCNum;nJ++)
    	{
@@ -776,6 +757,10 @@ void tx_command()
    		
    		if (p_col_DCAct[nJ-nOffset]>0)
    		{
+   			
+   				/*MOSCAD_sprintf(message,"nI:%d, nJ:%d ,nOffset: %d",nI, nJ,nOffset);
+   			 	MOSCAD_error(message ); 				*/
+
    		   	/*tx_buffer[0] = 8;							
    		   	tx_buffer[1] = nJ - sCP.sCPR[nI].nDCStart;	
    		   	tx_buffer[2] = p_col_DC[nJ];				*/
@@ -785,109 +770,38 @@ void tx_command()
    		   	nTxBuf[2] = 0;
    		   	nTxBuf[3] = 0;
    		   	nTxBuf[4] = 0;
-   		   	nTxBuf[5] = 0;
-   		   	nTxBuf[6] = 0;
-    		nTxBuf[7] = 0;
-   		   	nTxBuf[8] = 0;    		   	
-   		   	nTxBuf[9] = 0;    		   	
-   		   	nTxBuf[10] = 0;    		   	
-   		   	nTxBuf[11] = 0;    		   	
-   		   	nTxBuf[12] = 0;    		   	
-   		   	nTxBuf[13] = 0;    		   	
-    		   	
-    		
    		   	
- 		   	MOSCAD_sprintf(message,"Parancs aktiv,nI: %d, Value: %d, nJ: %d",nI,p_col_DCAct[nJ-nOffset],nJ );
-   			MOSCAD_error(message ); 
- 
+   	   		nTxBuf[5] = value_CComX(nI)+1;
+	   	
    		   	
-			/* Tavirat elkuldese */
-			
-			if ( (nI!=87) && (nI!=88)  && (nI!=76) && (sTAL[nI].nLeagNum<8))
-			/*if ( sTAL[nI].nLeagNum<8 && nI!=76)*/
-			{
-				nTxBuf[9] = value_CComX(nI)+1;   		   	   		   	
-   		   		nTxBuf[nJ - sCP.sCPR[nI].nDCStart] = p_col_DCAct[nJ-nOffset];
-	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-			}
-			else if ( nI==76)
-			{
-				nTxBuf[9] = 0;
-				nTxBuf[13] = value_CComX(nI)+1;   		   	   		   	
-   		   		nTxBuf[nJ - sCP.sCPR[nI].nDCStart] = p_col_DCAct[nJ-nOffset];
-
-	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, 17*2) !=0 )
- 			  	{
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-			}
-     		
-    		else if (nI==87)
-   			{
-   				nTxBuf[9] = value_CComX(nI)+1;   		   	   		   	
-   		   		nTxBuf[nJ - sCP.sCPR[nI].nDCStart] = p_col_DCAct[nJ-nOffset];
-
-   				nTxBuf[6] = 1; 
- 	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
- 			  		
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-   				else
-   				{
-					MOSCAD_sprintf(message,"Szombathely 1. parancs");
-   				 	MOSCAD_error(message ); 				
-    					
-   				}
-  			}
-   			else if (nI==88)
-   			{
-   				nTxBuf[9] = value_CComX(nI)+1;   		   	   		   	
-   		   		nTxBuf[nJ - sCP.sCPR[nI].nDCStart] = p_col_DCAct[nJ-nOffset];
-
-   				nTxBuf[6] = 2;
- 	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
- 			  		
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-   				else
-   				{
-					MOSCAD_sprintf(message,"Szombathely 2. parancs");
-   				 	MOSCAD_error(message ); 				
-    					
-   				}
-
-  			}
-   		
-    			
+   		   	nTxBuf[nJ - sCP.sCPR[nI].nDCStart] = p_col_DCAct[nJ-nOffset];
+   		   	
 		   		/* Mindenkeppen visszanullaz */
    				p_col_DCAct[nJ-nOffset] = 0;
-			
+
+ 		   	
+			/* Tavirat elkuldese */
+ 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
+ 		  	{
+				MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
+   			 	MOSCAD_error(message ); 				
+   			}
+		   	else
+		   	{
+
+   				
+			} 
 			
 			nTemp = value_CComX(nI);
 			setvalue_CComX(nI,nTemp+1);
-			
+
   			   	
    		} /* end if   */
    	} /* end for nJ */   	
    } /* end for nI */
    
-   
-   						/*MOSCAD_sprintf(message,"Single command: nI: %d, nJ: %d",nI, nJ);
-   			 	MOSCAD_err1or(message ); 				*/
-  
-  
-  
    /* Lekerdezes parancs: ha talal nem nullat az SC tablaban, elkuldi a parancsot a megfelelo RTU-nak, majd vissza nullaz */
-   for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
+   for (nI=0;nI<sCP.nRtuNum;nI++)
    {
    	
    	
@@ -895,12 +809,10 @@ void tx_command()
    	{
    		fnSCTblIndx(nJ, &nSCTblIndx, &nOffset, &p_col_SCAct);
    		
-   						/*MOSCAD_sprintf(message,"Single command: nI: %d, nJ: %d",nI, nJ);
-   			 	MOSCAD_error(message ); 				*/
-
-   		
    		if (p_col_SCAct[nJ-nOffset]>0)
    		{
+   			
+
    			
    		   	nTxBuf[0] = 8;							/* SC parancs */  
    		   	
@@ -914,36 +826,31 @@ void tx_command()
 				MOSCAD_sprintf(message,"Could not send lekerdezes ,nI: %d",nI);
    			 	MOSCAD_error(message ); 				
     			}
-		   	/*else
-		   	{*/
+		   	else
+		   	{
    				
-   				/* Jelzi, hogy lekérdezés folyamatban van */ 
+   				/* Jelzi, hogy lekérdezés folyamatban van */
    				if (nJ == sCP.sCPR[nI].nSCStart)
    				{
-   	  				/*Jelzi, hogy a lekerdezes folyamatban bit ervenyes*/
-	   				fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek, TOPICAL);
-
 	   				fnWriteSPData(sCP.sCPR[nI].nSPOffsetLek,1,   0,0,0,0);
    				}
    				else if (nJ == sCP.sCPR[nI].nSCStart + 1)
    				{
-   	   				/*Jelzi, hogy a lekerdezes folyamatban bit ervenyes*/
-	   				fnWriteSPStatus(sCP.sCPR[nI].nSPOffsetLek2, TOPICAL);
-   					
 	   				fnWriteSPData(sCP.sCPR[nI].nSPOffsetLek2,1,   0,0,0,0);   					
    				}
    				
-   				 /* Beállítja a 'lekérdezés indult' belso bitet, ez indítja a timert is  */
-   				setvalue_LiX(nI,1);
    				            	           
+	            /* Beállítja a 'lekérdezés indult' belso bitet, ez indítja a timert is  */
+	            setvalue_LiX(nI,1);
+
 	            			
-			/*}  end else */  			   	
+			} /* end else */  			   	
    		} /* end if SC>0  */
    	} /* end for nJ */  
    } /* end for nI */
    
    /* Nyugta parancs: ha talal nullat az SC tablaban, elkuldi a parancsot a megfelelo RTU-nak, majd ujra 1-be irja */
-   for (nI=0;nI<sCP.nRtuNum && nI<MAX_RTU;nI++)
+   for (nI=0;nI<sCP.nRtuNum;nI++)
    {
    	for (nJ=sCP.sCPR[nI].nAckStart;nJ<sCP.sCPR[nI].nAckStart+sCP.sCPR[nI].nAckNum;nJ++)
    	{
@@ -959,64 +866,27 @@ void tx_command()
    		   	nTxBuf[1] = 0;
    		   	nTxBuf[2] = 0;
    		   	nTxBuf[3] = 0;
-   		   	nTxBuf[4] = 0;
-   		   	nTxBuf[5] = 0;
-   		   	nTxBuf[6] = 0;
-    		nTxBuf[7] = 0;
-   		   	nTxBuf[8] = 1;    		   	
-   		   	nTxBuf[9] = 0;    		   	
-   		   	nTxBuf[10] = 0;    		   	
-   		   	nTxBuf[11] = 0;    		   	
-   		   	nTxBuf[12] = 0;    		   	
-   		   	nTxBuf[13] = 0;    	 	
-   		   	
+   		   	nTxBuf[4] = 1;
    		   	
    		   	nTemp = value_CComX(nI);
-   		   	nTxBuf[9] = nTemp+1;
-   		   	 		   	   		
+   		   	nTxBuf[5] = nTemp+1;
+   		   	
+   		   	setvalue_CComX(nI,nTemp+1);
 
-			/* Tavirat elkuldese */
-			
-		
-			if ( (nI!=87) && (nI!=88) &&  (nI!=76)&& (sTAL[nI].nLeagNum<8))
-			/*if ( sTAL[nI].nLeagNum<8 && nI!=76)*/
-			{
-	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
-					MOSCAD_sprintf(message,"Could not send ACK ,nI,nJ: %d, %d",nI,nJ);
-   				 	MOSCAD_error(message ); 				
-	   			}
-   				/* elinditja a megfelelo timert */			
-			}/* end if  sTAL[nI].nLeagNum<8  */
-			
-    			else if (nI==87)
-   			{
-   				nTxBuf[6] = 1;
- 	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
- 			  		
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-  			}
-   			else if (nI==88)
-   			{
-   				nTxBuf[6] = 2;
- 	 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
- 			  	{
- 			  		
-					MOSCAD_sprintf(message,"Could not send parancs ,nI: %d",nI);
-   				 	MOSCAD_error(message ); 				
-   				}
-  			}
-  			
 		   		/* Mindenkeppen visszanullaz */
    				p_col_SCAct[nJ-nOffset] = 1;
-			
-			setvalue_CComX(nI,nTemp+1);
-			
-			
-			
+
+
+			/* Tavirat elkuldese */
+ 		  	if (MOSCAD_TxFrm(nI, tx_buffer, COMMAND_LENGTH*2) !=0 )
+ 		  	{
+				MOSCAD_sprintf(message,"Could not send ACK ,nI,nJ: %d",nI,nJ);
+   			 	MOSCAD_error(message ); 				
+   			}
+		   	else
+		   	{
+   				
+			}   			   	
    		} /* end if   */
    	} /* end for nJ */  
    } /* end for nI */
@@ -1052,33 +922,26 @@ int 	nDataH;
 int		nERL;
 int		nERH;
 int		nVal;
+int		nValH;
+int		nValL;
 short          *p_col_SPAct;
 short          *p_col_SP_CTAct;
 CB_TABLE_INFO   table_SPAct;
-int		nValH; 
-int		nValL; 
-int		nMin;
-int		nMs1;
-int		nMs2;
-int		nSynchronized;
+
 
 
 	p_col_RxBuf = (short *)(rx_buf);	
 
 
-
-
- 		nMin		 = p_col_RxBuf[18] & 0xff;
-		nMs1		 = p_col_RxBuf[19] & 0xff;
-		nMs2		 = p_col_RxBuf[19] >>8;
-		nSynchronized= p_col_RxBuf[13];
-
-        MOSCAD_sprintf(message,"TMOK data: nMin: %d, nMs1: %d, nMs2: %d, nSync: %d", nMin, nMs1, nMs2, nSynchronized);
-        MOSCAD_error(message );
-
+	/* Egesz parameterek */
 	
-
-
+   	if (MOSCAD_get_table_info (2,&table_parInt)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",2);
+        MOSCAD_error(message );
+        return;
+   		}
+	p_col_parInt = (short *)(table_parInt.ColDataPtr[0]);	
 
 
 
@@ -1101,34 +964,20 @@ if (pMOT->nNMNum > 0)
 /* Egybites jelzések feldolgozása ----------------------------------------------------------------------------------------*/
 if (pMOT->nIEC_SP_NUM > 0)
 {
-	for (nI=0; nI < pMOT->nIEC_SP_NUM && nI<32; nI++)
+	for (nI=0; nI < pMOT->nIEC_SP_NUM && nI<16; nI++)
 	{
-		if (nI<16)
-		{
-			nData = p_col_RxBuf[0];
-			nVal = (nData << nI) & 0x8000;
-		}
-		else if (nI>=16 && nI<32)
-		{
-			nData = p_col_RxBuf[1];
-			nVal = (nData << (nI-16)) & 0x8000;
-		}
+
 		
 		nIEC_Offset = pMOT->nIEC_SP + nI;
-				
-		if (nSynchronized == 0)
-		{		
-		fnWriteSPData(nIEC_Offset,nVal,  0,0,0,0);			
-		}
-		else
-		{
-		fnWriteSPData(nIEC_Offset,nVal,  nMs1,nMs2,nMin,1);				
-		}
+		nData = p_col_RxBuf[0];
 		
+		nVal = (nData << nI) & 0x8000;		
+		fnWriteSPData(nIEC_Offset,nVal,  0,0,0,0);			
+			
 	} /*end for*/
 } /*end if*/
 /* Egybites FLAG jelzések feldolgozása ----------------------------------------------------------------------------------------*/
-/*if (pMOT->nIEC_SP_FLAG_NUM > 0)
+if (pMOT->nIEC_SP_FLAG_NUM > 0)
 {
 	for (nI=0; nI < pMOT->nIEC_SP_FLAG_NUM && nI<16; nI++)
 	{
@@ -1140,14 +989,14 @@ if (pMOT->nIEC_SP_NUM > 0)
 		
 				
 		
-	} 
-}end if*/
+	} /*end for*/
+} /*end if*/
 /* Kétbites állásjelzések, feldolgozása ----------------------------------------------------------------------------------------*/
 /* A program feltetelezi, hogy a ketbites jelzesek a 8. szotol kezdodnek az RxBuf-ban*/
 
 	/*Terhelés szakaszolók állásjelzései*/
 	
-	nDPStart = 	pMOT->nIEC_DP;
+	nDPStart = nDPStart = 	pMOT->nIEC_DP;
 	/* DP tabla indexe, es offsete */
 	fnDPTblIndx(nDPStart,&nDPTblIndx,&nMoscadOffset);
 
@@ -1161,32 +1010,30 @@ if (pMOT->nIEC_SP_NUM > 0)
 
 	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
 	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 		
-	p_col_DP_MS1  = (short *)(table_DP.ColDataPtr[2]);
-	p_col_DP_MS2  = (short *)(table_DP.ColDataPtr[3]);
-	p_col_DP_MIN  = (short *)(table_DP.ColDataPtr[4]);
-
-					
+	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
 		
 	nDPStart = 	pMOT->nIEC_DP;
 	nData = p_col_RxBuf[8];	
 if (	nDPStart > 0)
 {
-	for (nI=0; nI < pMOT->nIEC_DP_NUM && nI < 16; nI++)
+	for (nI=0; nI < pMOT->nIEC_DP_NUM; nI++)
 	{	
+
+		p_col_DP_CT[nDPStart+nI- nMoscadOffset]	= 0;
+	
 		if ( nI < 8 )
 		{
 			nData = p_col_RxBuf[8];	
 			nValH = (nData << nI*2) & 0x8000;		
 			nValL = (nData << nI*2+1) & 0x8000;				
 		}
-		else if (nI >= 8 && nI <16)
+		else
 		{
 			nData = p_col_RxBuf[9];	
 			nValH = (nData << (nI-8)*2 ) & 0x8000;	
 			nValL = (nData << (nI-8)*2+1) & 0x8000;								
 		}
-		
+
  				if (nValH > 0)
 					{
 						p_col_DPH[nDPStart+nI - nMoscadOffset]= 1;
@@ -1203,38 +1050,247 @@ if (	nDPStart > 0)
 					else
 					{
 						p_col_DPL[nDPStart+nI - nMoscadOffset]= 0;
-
-
 					}	
-		if (nSynchronized == 0)
-		{		
-			/* A front end idõt kell használni */
-			p_col_DP_CT[nDPStart+nI-nMoscadOffset] = 0;	
-		}
-		else
-		{
-			/* Az RTU-ból jött idõt kell használni */
-			p_col_DP_CT[nDPStart+nI-nMoscadOffset] = 1;	
-		}
-						
-					
-			/* Perc beirasa */		
-			p_col_DP_MIN[nDPStart+nI - nMoscadOffset] = nMin;	
-															
-			/* MS1 beirasa */		
-			p_col_DP_MS1[nDPStart+nI- nMoscadOffset] = nMs1;
-						
-			/* MS2 beirasa */		
-			p_col_DP_MS2[nDPStart+nI- nMoscadOffset] = nMs2;
-					
-					
-					
+	
+	
+	
+	
+		
+		/*nVal = (nData << nI*2) & 0x8000;
+ 				if (nVal > 0)
+					{
+						p_col_DPH[nDPStart+nI - nMoscadOffset]= 1;
+					}
+					else
+					{
+						p_col_DPH[nDPStart+nI - nMoscadOffset]= 0;
+					}
+	
+ 		
+		nVal = (nData << nI*2+1) & 0x8000;
+				if (nVal > 0)
+					{
+						p_col_DPL[nDPStart+nI - nMoscadOffset]= 1;
+					}
+					else
+					{
+						p_col_DPL[nDPStart+nI - nMoscadOffset]= 0;
+					}		 		*/
 	}
+}/*end if*/
+	
+/*Földelõ szakaszolók állásjelzései*/
+/* A program feltetelezi, hogy a foldelo szakaszolo jelzesek a 9. szotol kezdodnek az RxBuf-ban*/
+
+	nDPStart = 	pMOT -> nIEC_DP_FSZ1;
+	nData = p_col_RxBuf[9];	
+	
+if (	nDPStart > 0)
+{	
+	for (nI=0; nI < pMOT->nIEC_DP_FSZ_NUM && nI<4; nI++)
+	{			
+ 		p_col_DP_CT[nDPStart+nI - nMoscadOffset]	= 0;
+ 		
+		nVal = (nData << nI*2) & 0x8000;
+ 				if (nVal > 0)
+					{
+						p_col_DPH[nDPStart+nI - nMoscadOffset]= 1;
+					}
+					else
+					{
+						p_col_DPH[nDPStart+nI - nMoscadOffset]= 0;
+					}
+	
+ 		
+		nVal = (nData << nI*2+1) & 0x8000;
+				if (nVal > 0)
+					{
+						p_col_DPL[nDPStart+nI - nMoscadOffset]= 1;
+					}
+					else
+					{
+						p_col_DPL[nDPStart+nI - nMoscadOffset]= 0;
+					}		 		
+	}/*end for*/
 }/*end if*/	
 
 }
 
 /************************************************************************************************************************/
+/****************************************************************************/
+/* MOTOROLA allomas adatfeldolgozas											*/
+/****************************************************************************/
+void MOT_DATA2(STATION_DESC_MOT	*pMOT, unsigned char *rx_buf)
+{
+int		nI,nJ,nK;				
+int		nEventNum;
+int		nIEC_Offset;
+int		nMOSCAD_Offset;
+int		nMOSCAD_OffsetDP;
+int		nSPTblIndx;
+int		nDPTblIndx;
+int		nValidityOffset;
+int		nTA;
+int		nEZ;	
+int		nNMTblIndx;
+int		nNMStart;
+int		nSPStart;
+int		nDPStart;
+unsigned int		nData;
+int		nDP_IEC;
+int		nDPL;
+int		nDPH;
+int		nShiftL;
+int		nShiftH;
+int 	nDataL;
+int 	nDataH;
+int		nERL;
+int		nERH;
+int		nVal;
+short          *p_col_SPAct;
+short          *p_col_SP_CTAct;
+CB_TABLE_INFO   table_SPAct;
+int		nMin;
+int		nMs1;
+int		nMs2;
+int		nWord;
+int		nBit;
+
+
+	p_col_RxBuf = (short *)(rx_buf);	
+
+
+
+
+ 		nMin		 = p_col_RxBuf[41] & 0xff;
+		nMs1		 = p_col_RxBuf[42] & 0xff;
+		nMs2		 = p_col_RxBuf[42] >>8;
+
+ 
+
+	/* Egesz parameterek */
+	
+   	if (MOSCAD_get_table_info (2,&table_parInt)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",2);
+        MOSCAD_error(message );
+        return;
+   		}
+	p_col_parInt = (short *)(table_parInt.ColDataPtr[0]);	
+
+
+
+
+	/* Mérések feldolgozása ----------------------------------------------------------------------------------------*/
+	/*  !!!!! Ha LiveZero = 1, akkor azt a letra programban kell jelezni !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+	
+	for (nI=0; nI < pMOT->nNMNum && nI<32; nI++)
+	{
+		nNMStart = pMOT->nIEC_NM;
+		if (nNMStart>0)
+		{		
+	   		/*p_col_NM     = (short *)(table_NM.ColDataPtr[0]);
+		   	p_col_NM_LZ  = (short *)(table_NM.ColDataPtr[1]);
+			p_col_NM[nNMStart+nI] = p_col_RxBuf[4+nI];*/
+			
+			fnWriteNM( nNMStart+nI,p_col_RxBuf[9+nI]);			
+			
+		}
+	} /*end for*/
+	
+/* Egybites jelzések feldolgozása ----------------------------------------------------------------------------------------*/
+if (pMOT->nIEC_SP_NUM > 0)
+{
+	for (nI=0; nI < pMOT->nIEC_SP_NUM && nI<48; nI++)
+	{
+		nWord = nI/16;
+		nBit  = nI - nWord * 16;
+
+		
+		nIEC_Offset = pMOT->nIEC_SP + nI;
+		nData = p_col_RxBuf[1+nWord];
+		
+		nVal = (nData << nBit) & 0x8000;		
+		fnWriteSPData(nIEC_Offset,nVal,  nMs1,nMs2,nMin,1);			
+			
+	} /*end for*/
+
+} /*end if*/
+
+/* Kétbites állásjelzések, feldolgozása ----------------------------------------------------------------------------------------*/
+/* A program feltetelezi, hogy a ketbites jelzesek a 8. szotol kezdodnek az RxBuf-ban*/
+
+		
+	nDPStart = 	pMOT->nIEC_DP;
+	
+	/* DP tabla indexe, es offsete */
+	fnDPTblIndx(nDPStart,&nDPTblIndx,&nMOSCAD_OffsetDP);
+
+	/* 2 bites */
+   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
+        MOSCAD_error(message );
+        return;
+   		}
+
+	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
+	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
+	p_col_DP_MS1  = (short *)(table_DP.ColDataPtr[2]);
+	p_col_DP_MS2  = (short *)(table_DP.ColDataPtr[3]);
+	p_col_DP_MIN  = (short *)(table_DP.ColDataPtr[4]);
+	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
+
+	
+if (	nDPStart > 0)
+{
+	for (nI=0; nI < pMOT->nIEC_DP_NUM && nI<32; nI++)
+	{	
+		nWord = nI/8;
+		nBit = nI - nWord * 8;
+	
+	
+		nData = p_col_RxBuf[5 + nWord];
+		
+		nVal = (nData << (nBit * 2)) & 0x8000;
+ 										
+			/* Perc beirasa */		
+			p_col_DP_MIN[nDPStart+nI - nMOSCAD_OffsetDP] = nMin;	
+															
+			/* MS1 beirasa */		
+			p_col_DP_MS1[nDPStart+nI- nMOSCAD_OffsetDP] = nMs1;
+						
+			/* MS2 beirasa */		
+			p_col_DP_MS2[nDPStart+nI- nMOSCAD_OffsetDP] = nMs2;
+ 				 				 				
+ 				if (nVal > 0)
+					{
+						p_col_DPH[nDPStart+nI- nMOSCAD_OffsetDP]= 1;
+					}
+					else
+					{
+						p_col_DPH[nDPStart+nI- nMOSCAD_OffsetDP]= 0;
+					}
+	
+ 		
+				nVal = (nData << (nBit*2+1)) & 0x8000;
+				
+				if (nVal > 0)
+					{
+						p_col_DPL[nDPStart+nI- nMOSCAD_OffsetDP]= 1;
+					}
+					else
+					{
+						p_col_DPL[nDPStart+nI- nMOSCAD_OffsetDP]= 0;
+					}		 		
+					
+			/* A kapott idõt kell használni */
+			p_col_DP_CT[nDPStart+nI- nMOSCAD_OffsetDP]	 = 1;	
+
+	} /* end for */			
+
+}/*end if*/	
+} /*MOT_DATA2*/
 
 /************************************************************************************************************************/
 
@@ -1244,7 +1300,6 @@ if (	nDPStart > 0)
 /****************************************************************************/
 void fnLekR(void)
 {
-
 unsigned char tx_buffer[160];
 
 static int	nCtrRS;
@@ -1264,7 +1319,6 @@ static int	nActIndxK1;
 static int	nActIndxK2;
 static int	nActIndxK3;
 static int	nActIndxRS;
-
 int			nFirstCycle1;
 int			nFirstCycle2;
 int			nFirstCycle3;
@@ -1275,42 +1329,38 @@ nFirstCycle2 = p_col_Stat[11];
 nFirstCycle3 = p_col_Stat[12];
 
 
-/*nLimitRadioK1 = 22;
-nLimitRadioK2 = 24;
-nLimitRadioK3 = 25;*/
-	
-nLimitRslink = 65;
-
 if (nFirstCycle1 == 0)
 {
 	nLimitRadioK1 = 2;
 }
 else
 {
-	nLimitRadioK1 = 322;
+	nLimitRadioK1 = 30;
 }
 
 if (nFirstCycle2 == 0)
 {
-	nLimitRadioK2 = 3;
+	nLimitRadioK2 = 2;
 }
 else
 {
-	nLimitRadioK2 = 324;
+	nLimitRadioK2 = 26;
 }
 
 if (nFirstCycle3 == 0)
 {
-	nLimitRadioK3 = 3;
+	nLimitRadioK3 = 2;
 }
 else
 {
-	nLimitRadioK3 = 95;
+	nLimitRadioK3 = 34;
 }
 
-
-
-
+/*nLimitRadioK1 = 35;
+nLimitRadioK2 = 30;
+nLimitRadioK3 = 41;*/
+	
+nLimitRslink = 85;
 
 nCtrRS++;
  
@@ -1332,8 +1382,8 @@ if (nCtrK1 >= nLimitRadioK1)
    			}
    			else
    			{
-			 	MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K1.nIndx[nActIndxK1]);
-			 	MOSCAD_error(message );
+			 	/* MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K1.nIndx[nActIndxK1]);
+			 	MOSCAD_error(message ); */
    				
 	            /* Beállítja a 'lekérdezés indult' belso bitet, ez indítja a timert is  */
    	            setvalue_LiX(sRAD_K1.nIndx[nActIndxK1],1);
@@ -1350,7 +1400,6 @@ if (nCtrK1 >= nLimitRadioK1)
 			{
 				nActIndxK1=0;
 				p_col_Stat[10] = 1;
-				
 			}
 			
 		nCtrK1 = 0;
@@ -1371,8 +1420,8 @@ if (nCtrK2 >= nLimitRadioK2)
    			}
    			else
    			{
-			 	MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K2.nIndx[nActIndxK2]);
-			 	MOSCAD_error(message );
+			 /*	MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K2.nIndx[nActIndxK2]);
+			 	MOSCAD_error(message ); */
    				
 	            /* Beállítja a 'lekérdezés indult' belso bitet, ez indítja a timert is  */
    	            setvalue_LiX(sRAD_K2.nIndx[nActIndxK2],1);
@@ -1389,7 +1438,6 @@ if (nCtrK2 >= nLimitRadioK2)
 			{
 				nActIndxK2=0;
 				p_col_Stat[11] = 1;
-				
 			}
 			
 		nCtrK2 = 0;
@@ -1409,8 +1457,8 @@ if (nCtrK3 >= nLimitRadioK3)
    			}
    			else
    			{
-			 	MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K3.nIndx[nActIndxK3]);
-			 	MOSCAD_error(message );
+			 /*	MOSCAD_sprintf(message,"Periodikus lekerdezes indult RADIO RTU: %d",sRAD_K3.nIndx[nActIndxK3]);
+			 	MOSCAD_error(message ); */
    				
 	            /* Beállítja a 'lekérdezés indult' belso bitet, ez indítja a timert is  */
    	            setvalue_LiX(sRAD_K3.nIndx[nActIndxK3],1);
@@ -1427,7 +1475,6 @@ if (nCtrK3 >= nLimitRadioK3)
 			{
 				nActIndxK3=0;
 				p_col_Stat[12] = 1;
-				
 			}
 			
 		nCtrK3 = 0;
@@ -1437,8 +1484,6 @@ if (nCtrK3 >= nLimitRadioK3)
 /* RSLINK -------------------------------------------------------------------------------------------------------*/	
 else if (nCtrRS >=nLimitRslink)
 {
-	if (sLIN.nRtuNumLin>0)
-	{
    		   	tx_buffer[0] = 8;							/* SC parancs */
    	   		
 			/* Tavirat elkuldese */
@@ -1466,8 +1511,7 @@ else if (nCtrRS >=nLimitRslink)
 				nActIndxRS = 0;
 			}
 		
-		nCtrRS = 0;
-		}/* end if sLIN.nRtuNumLin>0*/
+	nCtrRS = 0;	
 	
 	} /*  end if nCtrRS >=nLimitRslink */	
 	
@@ -1494,7 +1538,7 @@ int		nEZ;
 int		nDPStart;
 int		nData;
 unsigned short	*nRxBuf;
-int		nOsszevontZarlat;
+
 
 
 
@@ -1502,6 +1546,20 @@ int		nOsszevontZarlat;
 nRxBuf = (unsigned short *)rx_buf;
 
 		
+
+
+	/* Egesz parameterek */
+	/*pTAL->nTableNumPar = 2;  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+   	if (MOSCAD_get_table_info (2,&table_parInt)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",2);
+        MOSCAD_error(message );
+        return;
+   		}
+	p_col_parInt = (short *)(table_parInt.ColDataPtr[0]);	
+
+
+
 
 
 	/* Esemény struktúra tömb kitöltése */
@@ -1554,7 +1612,7 @@ for (nI=0;nI<nEventNum && nI<4; nI++)
 	if (	pTAL->nIEC_SP > 0)
 		{
 		/* Ha egybites jelzés jött -------------------------------------------------------------------------------*/
-		if (strTE[nI].nTalusAddr >= 896 && strTE[nI].nTalusAddr <= 959 )
+		if (strTE[nI].nTalusAddr >= 896 && strTE[nI].nTalusAddr <= 927 )
 		{
 
 		nData = strTE[nI].nValue;		
@@ -1573,7 +1631,7 @@ if (pTAL->nIEC_DP > 0)
         MOSCAD_error(message );*/
 
 
-		if (strTE[nI].nTalusAddr >= 832 && strTE[nI].nTalusAddr <= 847 )
+		if (strTE[nI].nTalusAddr >= 832 && strTE[nI].nTalusAddr <= 839 )
 		{
 			
 			/* Double point  */
@@ -1617,44 +1675,14 @@ if (pTAL->nIEC_DP > 0)
 }/*end if iec cim > 0 */
 			
 		/* Ha 1 bitbõl képzett kétbites jelzés jött, foldelo szakaszolo ------------------------------------------------*/
-		if ((strTE[nI].nTalusAddr >= 904 && strTE[nI].nTalusAddr <= 907 && pTAL->nIEC_DP_FSZ1!=0) || ( (strTE[nI].nTalusAddr >= 936 && strTE[nI].nTalusAddr <= 939 && pTAL->nIEC_DP_FSZ1!=0)) )
+		if (strTE[nI].nTalusAddr >= 904 && strTE[nI].nTalusAddr <= 907 && pTAL->nIEC_DP_FSZ1!=0)
 		{
 			
 			/* Double point  */
+						
+			nIEC_Offset = strTE[nI].nTalusAddr - 904  + pTAL->nIEC_DP_FSZ1;			
 			
-			if (strTE[nI].nTalusAddr >= 904 && strTE[nI].nTalusAddr <= 907)
-			{			
-				nIEC_Offset = strTE[nI].nTalusAddr - 904  + pTAL->nIEC_DP_FSZ1;			
-			}
-			if (strTE[nI].nTalusAddr >= 936 && strTE[nI].nTalusAddr <= 939)
-			{			
-				nIEC_Offset = strTE[nI].nTalusAddr - 936  + pTAL->nIEC_DP_FSZ1;			
-			}
-		
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nIEC_Offset,&nDPTblIndx,&nMOSCAD_OffsetDP);
-	
-        /*MOSCAD_sprintf(message,"nDPStart: %d,nDPTblIndx: %d, nMOSCAD_OffsetDP: %d",nDPStart,nDPTblIndx,nMOSCAD_OffsetDP);
-        MOSCAD_error(message );*/
-	
-
-	/* 2 bites */
-   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        MOSCAD_error(message );
-        return;
-   		}
-								
-		   	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);
-		   	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);
-		   	p_col_DP_MS1  = (short *)(table_DP.ColDataPtr[2]);
-		   	p_col_DP_MS2  = (short *)(table_DP.ColDataPtr[3]);
-		   	p_col_DP_MIN  = (short *)(table_DP.ColDataPtr[4]);
-		   	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
-	
-			
-        /*MOSCAD_sprintf(message,"FSZ: nIEC_Offset: %d,nTalusAddr: %d ",nIEC_Offset, strTE[nI].nTalusAddr);
+        /*MOSCAD_sprintf(message,"nIEC_Offset: %d",nIEC_Offset);
         MOSCAD_error(message );*/
 			
 
@@ -1692,7 +1720,6 @@ if (pTAL->nIEC_DP > 0)
 			nTA = strTE[nI].nTalusAddr;
 						
 			
-			
 			if  (nTA==pTAL->nIEC_DP_2BIT_KINT1 || nTA==pTAL->nIEC_DP_2BIT_BENT1 || nTA==pTAL->nIEC_DP_2BIT_KINT2 || nTA==pTAL->nIEC_DP_2BIT_BENT2 || nTA==pTAL->nIEC_DP_2BIT_KINT3 || nTA==pTAL->nIEC_DP_2BIT_BENT3)
 			{
 				if (nTA==pTAL->nIEC_DP_2BIT_KINT1 || nTA==pTAL->nIEC_DP_2BIT_BENT1)
@@ -1712,27 +1739,6 @@ if (pTAL->nIEC_DP > 0)
 			
 				/* Double point  */
 					
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nIEC_Offset,&nDPTblIndx,&nMOSCAD_OffsetDP);
-	
-        /*MOSCAD_sprintf(message,"nDPStart: %d,nDPTblIndx: %d, nMOSCAD_OffsetDP: %d",nDPStart,nDPTblIndx,nMOSCAD_OffsetDP);
-        MOSCAD_error(message );*/
-	
-
-	/* 2 bites */
-   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        MOSCAD_error(message );
-        return;
-   		}
-								
-		   	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);
-		   	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);
-		   	p_col_DP_MS1  = (short *)(table_DP.ColDataPtr[2]);
-		   	p_col_DP_MS2  = (short *)(table_DP.ColDataPtr[3]);
-		   	p_col_DP_MIN  = (short *)(table_DP.ColDataPtr[4]);
-		   	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
 
 						
 				/* A kapott idõt kell használni */
@@ -1773,27 +1779,6 @@ if (pTAL->nIEC_DP > 0)
 			
 			nIEC_Offset = pTAL->nIEC_DP_12BIT1;	
 			
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nIEC_Offset,&nDPTblIndx,&nMOSCAD_OffsetDP);
-	
-        /*MOSCAD_sprintf(message,"nDPStart: %d,nDPTblIndx: %d, nMOSCAD_OffsetDP: %d",nDPStart,nDPTblIndx,nMOSCAD_OffsetDP);
-        MOSCAD_error(message );*/
-	
-
-	/* 2 bites */
-   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        MOSCAD_error(message );
-        return;
-   		}
-								
-		   	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);
-		   	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);
-		   	p_col_DP_MS1  = (short *)(table_DP.ColDataPtr[2]);
-		   	p_col_DP_MS2  = (short *)(table_DP.ColDataPtr[3]);
-		   	p_col_DP_MIN  = (short *)(table_DP.ColDataPtr[4]);
-		   	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
 				   		
 			
 						
@@ -1942,37 +1927,21 @@ if (pTAL->nIEC_DP > 0)
  	/*Összevont zárlati hiba ------------------------------------------------------------------------------------------*/
 				if (pTAL->nIEC_OsszevontHiba != 0)
 				{
-					nOsszevontZarlat=0;
 					
 					for (nI=0;nI<8;nI++)
 					{
 						if (fnReadSPData(pTAL->nIEC_SP + nI) == 1) 
 						{
-							nOsszevontZarlat=1;																					
-						}/*end if*/						
+							fnWriteSPData(pTAL->nIEC_OsszevontHiba,1 , 0,0,0,0);
+							
+							
+						}/*end if*/
 					} /*end for*/
-					
-					
-					if (pTAL->nLeagNum>4)
-					{
-						for (nI=0;nI<8;nI++)
+					if (fnReadSPData(pTAL->nIEC_SP + 0)==0 && fnReadSPData(pTAL->nIEC_SP + 1)==0 && fnReadSPData(pTAL->nIEC_SP + 2)==0 && fnReadSPData(pTAL->nIEC_SP + 3)==0 && fnReadSPData(pTAL->nIEC_SP + 4)==0 && fnReadSPData(pTAL->nIEC_SP + 5)==0 && fnReadSPData(pTAL->nIEC_SP + 6)==0 && fnReadSPData(pTAL->nIEC_SP + 7)==0 )
 						{
-							if (fnReadSPData(pTAL->nIEC_SP + 32 + nI) == 1) 
-							{
-								nOsszevontZarlat=1;																					
-							}/*end if*/						
-						} /*end for*/						
-						
-					} /*end if */
-					
-					
-					fnWriteSPData(pTAL->nIEC_OsszevontHiba,nOsszevontZarlat , 0,0,0,0);
-					
-					
-					/*if (fnReadSPData(pTAL->nIEC_SP + 0)==0 && fnReadSPData(pTAL->nIEC_SP + 1)==0 && fnReadSPData(pTAL->nIEC_SP + 2)==0 && fnReadSPData(pTAL->nIEC_SP + 3)==0 && fnReadSPData(pTAL->nIEC_SP + 4)==0 && fnReadSPData(pTAL->nIEC_SP + 5)==0 && fnReadSPData(pTAL->nIEC_SP + 6)==0 && fnReadSPData(pTAL->nIEC_SP + 7)==0 )
-						{
-							fnWriteSPData(pTAL->nIEC_OsszevontHiba,0 , 0,0,0,0);							
-						}end if*/
+							fnWriteSPData(pTAL->nIEC_OsszevontHiba,0 , 0,0,0,0);
+							
+						}/*end if*/
 					
 				
 				}		
@@ -2015,23 +1984,16 @@ int		nDP;
 int		nShift;
 int		nVal;
 unsigned short	*nRxBuf;
-int		nLeagNum;
-int 	nOsszevontZarlat;
+
 
 nRxBuf = (unsigned short *)rx_buf;
 
-nLeagNum = 4;
-if (pTAL->nLeagNum>0 && pTAL->nLeagNum<=8 )
-{
-	nLeagNum = 	pTAL->nLeagNum;
-}
+	
 	
 /* Mérések feldolgozása ----------------------------------------------------------------------------------------*/
 
 if (pTAL->nNMNum > 0)
 {		
-
-
 	nNMStart = pTAL->nIEC_NM;
 		
 	for (nI=0; nI<4 && nI<pTAL->nNMNum; nI++)
@@ -2040,25 +2002,13 @@ if (pTAL->nNMNum > 0)
 	} /*end for*/
 	
 	/*Ha van PM500 vagy SEPAM*/
-	for (nI=4; nI<pTAL->nNMNum && nI<20; nI++) 
+	for (nI=4; nI<pTAL->nNMNum && nI<16; nI++) 
 	{
-		if (nI<16)
-		{
-			
-			if (nNMStart > 0)
-			{				
-				fnWriteNM( nNMStart+nI,nRxBuf[12+nI]);
+		nNMStart = pTAL->nIEC_NM;
+		if (nNMStart > 0)
+		{				
+			fnWriteNM( nNMStart+nI,nRxBuf[12+nI]);
 
-			}
-		}
-		if (nI>=16)
-		{
-			
-			if (nNMStart > 0)
-			{				
-				fnWriteNM( nNMStart+nI,nRxBuf[17+nI]);
-
-			}
 		}
 		
 	} /*end for*/
@@ -2068,12 +2018,7 @@ if (pTAL->nNMNum > 0)
 /* Egybites jelzések feldolgozása ----------------------------------------------------------------------------------------*/
 if (pTAL->nIEC_SP > 0)
 {
-
-        /*MOSCAD_sprintf(message,"nLeagNum: %d",nLeagNum);
-        MOSCAD_error(message );*/
-
-
-for (nJ=1; nJ<nLeagNum/2+1; nJ++)
+for (nJ=1; nJ<3; nJ++)
 	{	
 	for (nI=0; nI<16; nI++)
 	{
@@ -2096,72 +2041,47 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 	/*Terhelés szakaszolók állásjelzései*/
 	nDPStart = 	pTAL->nIEC_DP;
 
+	/* DP tabla indexe, es offsete */
+	fnDPTblIndx(nDPStart,&nDPTblIndx,&nMOSCAD_OffsetDP);
+
+
 	nData = nRxBuf[9];	
 		
 
+	/* DP */
+   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
+        MOSCAD_error(message );
+        return;
+   		}
+	
+	
+	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
+	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
+	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
 		
 	
 
 	if (nDPStart > 0)
 	{ 
 	
-		for (nI=0; nI<nLeagNum; nI++)
-		{			
-			/* DP tabla indexe, es offsete */
-			fnDPTblIndx(nDPStart+nI,&nDPTblIndx,&nMOSCAD_OffsetDP);
-	
-			/* DP */
-		   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   			{
-	        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-    	    MOSCAD_error(message );
-        	return;
-   			}
-		
-			p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-			p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-			p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
-	
+		for (nI=0; nI<4; nI++)
+		{				
  			p_col_DPL[nDPStart+nI-nMOSCAD_OffsetDP] = (nData >> nI*2)   & 1;
 	 		p_col_DPH[nDPStart+nI-nMOSCAD_OffsetDP] = (nData >> nI*2+1) & 1;
 	 		p_col_DP_CT[nDPStart+nI-nMOSCAD_OffsetDP]= 0;
 		}
 	}  /*end if*/
 	
-	/*Földelõ szakaszolók állásjelzései---------------------------------------*/
+	/*Földelõ szakaszolók állásjelzései*/
 	nDPStart = 	pTAL->nIEC_DP_FSZ1;
 	nData = nRxBuf[1];	
-		
+	
 	if (nDPStart > 0)
 	{ 
-		for (nI=0; nI<nLeagNum; nI++)
-		{	
-			/* DP tabla indexe, es offsete */
-			fnDPTblIndx(nDPStart+nI,&nDPTblIndx,&nMOSCAD_OffsetDP);
-			
-			/* DP */
-		   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   			{
-	        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-    	    MOSCAD_error(message );
-        	return;
-   			}
-   			
-			p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-			p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-			p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
-
-		
-			if (nI<4)
-			{
-				nData = nRxBuf[1];
-			}
-			else if (nI>=4 && nI<8)
-			{
-				nData = nRxBuf[3];
-			}
-		
-		
+		for (nI=0; nI<4; nI++)
+		{			
 			if (    ((nData >> (8+nI)) & 1) == 1      )
 			{
  				p_col_DPH[nDPStart+nI-nMOSCAD_OffsetDP] = 1;
@@ -2175,33 +2095,18 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 			
 			p_col_DP_CT[nDPStart+nI-nMOSCAD_OffsetDP]= 0;	
 		}/*end for*/
-		
-		
-		
 	}  /*end if*/
 	
-	
-	
 		/*1 bitbõl képzett 2 bites állásjelzések, 1. altalanos*/	
-		
 	if(	pTAL->nIEC_DP_12BIT1 != 0)
 	{
-		nDP_IEC = pTAL->nIEC_DP_12BIT1;	
-		
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);		
-	
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   			{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   			}
-		
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
+		nDP_IEC = pTAL->nIEC_DP_12BIT1;
 		
 		nDP   = pTAL->nIEC_DP_2BIT_BK1;
+		
+		/* DP tabla indexe, es offsete */
+		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
+
 		
 		nER = nDP/16;
 		
@@ -2221,27 +2126,16 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 			}		
 			p_col_DP_CT[nDP_IEC-nMOSCAD_OffsetDP]= 0;
 	}
-		
+		/*1 bitbõl képzett 2 bites állásjelzések, 2. altalanos*/	
 	if(	pTAL->nIEC_DP_12BIT2 != 0)
 	{
 		nDP_IEC = pTAL->nIEC_DP_12BIT2;
-
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);		
-	
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   			{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   			}
-		
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
 		
 		nDP   = pTAL->nIEC_DP_2BIT_BK2;
-				
+		
+		/* DP tabla indexe, es offsete */
 		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
+
 		
 		nER = nDP/16;
 		
@@ -2261,26 +2155,17 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 			}		
 			p_col_DP_CT[nDP_IEC-nMOSCAD_OffsetDP]= 0;
 	}	
-		
+		/*1 bitbõl képzett 2 bites állásjelzések, 3. altalanos*/	
 	if(	pTAL->nIEC_DP_12BIT3 != 0)
 	{
-		nDP_IEC = pTAL->nIEC_DP_12BIT3;		
-				
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
-	
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   			{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   			}
+		nDP_IEC = pTAL->nIEC_DP_12BIT3;
 		
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 	
-							
 		nDP   = pTAL->nIEC_DP_2BIT_BK3;
+	
+		/* DP tabla indexe, es offsete */
+		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
 
+		
 		nER = nDP/16;
 		
 		nData = nRxBuf[nDP/16-55];
@@ -2300,7 +2185,7 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 			p_col_DP_CT[nDP_IEC-nMOSCAD_OffsetDP]= 0;
 	}	
 		/*1 bitbõl képzett 2 bites állásjelzések, 4. altalanos*/	
-	/*if(	pTAL->nIEC_DP_12BIT4 != 0)
+	if(	pTAL->nIEC_DP_12BIT4 != 0)
 	{
 		nDP_IEC = pTAL->nIEC_DP_12BIT4;
 		
@@ -2323,30 +2208,13 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 	 			p_col_DPL[nDP_IEC-nMOSCAD_OffsetDP] = 1;
 			}		
 			p_col_DP_CT[nDP_IEC-nMOSCAD_OffsetDP]= 0;
-	}*/	
+	}	
 	
 		
 	/*2 bitbõl képzett 2 bites állásjelzések*/	
 	if(	pTAL->nIEC_DP_2BIT1 != 0)
 	{
 		nDP_IEC = pTAL->nIEC_DP_2BIT1;
-		
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
-
-		/* DP */
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   		}
-	
-	
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
-
 		
 		nDPL = pTAL->nIEC_DP_2BIT_KINT1;
 		nDPH = pTAL->nIEC_DP_2BIT_BENT1;
@@ -2368,21 +2236,6 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 	if(	pTAL->nIEC_DP_2BIT2 != 0)
 	{
 		nDP_IEC = pTAL->nIEC_DP_2BIT2;
-
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
-
-		/* DP */
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   		}
-		
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 								
 		
 		nDPL = pTAL->nIEC_DP_2BIT_KINT2;
 		nDPH = pTAL->nIEC_DP_2BIT_BENT2;
@@ -2404,22 +2257,6 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 	if(	pTAL->nIEC_DP_2BIT3 != 0)
 	{
 		nDP_IEC = pTAL->nIEC_DP_2BIT3;
-
-		/* DP tabla indexe, es offsete */
-		fnDPTblIndx(nDP_IEC,&nDPTblIndx,&nMOSCAD_OffsetDP);
-
-		/* DP */
-   		if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-   		{
-        	MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-        	MOSCAD_error(message );
-        	return;
-   		}
-		
-		p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-		p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-		p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 								
-
 		
 		nDPL = pTAL->nIEC_DP_2BIT_KINT3;
 		nDPH = pTAL->nIEC_DP_2BIT_BENT3;
@@ -2438,37 +2275,32 @@ for (nJ=1; nJ<nLeagNum/2+1; nJ++)
 		p_col_DP_CT[nDP_IEC-nMOSCAD_OffsetDP]   = 0; 		
 	}	
 	
+	
+	
  	/*Összevont zárlati hiba ------------------------------------------------------------------------------------------*/
 				if (pTAL->nIEC_OsszevontHiba != 0)
 				{
-					nOsszevontZarlat=0;
+					nEZ = pTAL->nIEC_SP-nMOSCAD_Offset;
 					
 					for (nI=0;nI<8;nI++)
 					{
-						if (fnReadSPData(pTAL->nIEC_SP + nI) == 1) 
+						if (fnReadSPData(pTAL->nIEC_SP + nI) == 1)  /*    p_col_SP[nEZ + nI]==1)*/
 						{
-							nOsszevontZarlat=1;																					
-						}/*end if*/						
+							fnWriteSPData(pTAL->nIEC_OsszevontHiba,1 , 0,0,0,0);	/*p_col_SP_CT[pTAL->nIEC_OsszevontHiba-nMOSCAD_Offset] = 0;*/
+							
+							
+						}/*end if*/
 					} /*end for*/
-					
-					
-					if (pTAL->nLeagNum>4)
-					{
-						for (nI=0;nI<8;nI++)
+					if (fnReadSPData(pTAL->nIEC_SP + 0)==0 && fnReadSPData(pTAL->nIEC_SP + 1)==0 && fnReadSPData(pTAL->nIEC_SP + 2)==0 && fnReadSPData(pTAL->nIEC_SP + 3)==0 && fnReadSPData(pTAL->nIEC_SP + 4)==0 && fnReadSPData(pTAL->nIEC_SP + 5)==0 && fnReadSPData(pTAL->nIEC_SP + 6)==0 && fnReadSPData(pTAL->nIEC_SP + 7)==0 )
 						{
-							if (fnReadSPData(pTAL->nIEC_SP + 32 + nI) == 1) 
-							{
-								nOsszevontZarlat=1;																					
-							}/*end if*/						
-						} /*end for*/						
-						
-					} /*end if */
+							fnWriteSPData(pTAL->nIEC_OsszevontHiba,0 , 0,0,0,0);
+							/*p_col_SP_CT[pTAL->nIEC_OsszevontHiba-nMOSCAD_Offset] = 0;
+							p_col_SP[pTAL->nIEC_OsszevontHiba-nMOSCAD_Offset]    = 0;*/
+							
+						}/*end if*/
 					
-					
-					fnWriteSPData(pTAL->nIEC_OsszevontHiba,nOsszevontZarlat , 0,0,0,0);
-				}
-	
-	
+				
+				}	
 				
 /*TALUS-Moscad kommunikacio ------------------------------------------------------------------------------------*/
 if (pTAL->nIEC_MT_KommHiba != 0)
@@ -2480,7 +2312,7 @@ if (pTAL->nIEC_MT_KommHiba != 0)
 					
 					fnWriteSPData(pTAL->nIEC_MT_KommHiba,nData , 0,0,0,0);
 					}
-					else /* az nRxBuf[29] bitjeit lerakja pTAL->nIEC_MT_KommHiba cimtol max. pTAL->nKommStatusNum darabszammal  */
+					else
 					{
 						
 						for (nI=0; nI<pTAL->nKommStatusNum && nI<16; nI++)
@@ -2496,69 +2328,6 @@ if (pTAL->nIEC_MT_KommHiba != 0)
 					} /* end else */
 				} /* end if */
 
-/*Extra 1 bites ------------------------------------------------------------------------------------*/
-
-/* az nRxBuf[31] bitjeit lerakja pTAL->nSP_EXTRA_OFFSET cimtol max. pTAL->nSP_EXTRA_NUM darabszammal  */
-if (pTAL->nSP_EXTRA_NUM > 0)
-				{
-				MOSCAD_sprintf(message,"nRxBuf[31]: %d, pTAL->nSP_EXTRA_NUM: %d",nRxBuf[31],pTAL->nSP_EXTRA_NUM);
-        		MOSCAD_error(message );
-
-						for (nI=0; nI<pTAL->nSP_EXTRA_NUM && nI<16; nI++)
-						{							
-							nData = nRxBuf[31];
-							nVal = (nData << nI) & 0x8000;    
-		
-							fnWriteSPData(pTAL->nSP_EXTRA_OFFSET + nI, nVal ,0,0,0,0);			
-						} /*end for*/																
-				} /* end if */
-				
-/*Extra 2 bites ------------------------------------------------------------------------------------*/
-if (pTAL->nDP_EXTRA_NUM > 0)
-				{
-				/*Kezdocim*/
-				nDPStart = 	pTAL->nDP_EXTRA_OFFSET;
-
-				/* DP tabla indexe, es offsete */
-				fnDPTblIndx(nDPStart,&nDPTblIndx,&nMOSCAD_OffsetDP);
-						
-				/* DP */
-   				if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
-		   		{
-        			MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
-		        	MOSCAD_error(message );
-        			return;
-		   		}
-		
-				p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
-				p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
-				p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 								
-				
-				nData = nRxBuf[32];	
-							
-						for (nI=0; nI<pTAL->nDP_EXTRA_NUM && nI<8; nI++)
-						{							
-							if (  ((nData << nI*2) & 0x8000) > 0     )
-							{
-								p_col_DPL[nDPStart+nI-nMOSCAD_OffsetDP] = 1;
-							}
-							else
-							{
-								p_col_DPL[nDPStart+nI-nMOSCAD_OffsetDP] = 0;
-							}
-							
-							if (  ((nData << nI*2+1) & 0x8000) > 0     )
-							{
-								p_col_DPH[nDPStart+nI-nMOSCAD_OffsetDP] = 1;
-							}
-							else
-							{
-								p_col_DPH[nDPStart+nI-nMOSCAD_OffsetDP] = 0;
-							}
-							
-	 						p_col_DP_CT[nDPStart+nI-nMOSCAD_OffsetDP]= 0;
-						} /*end for*/																
-				} /* end if */
 
 }
 
@@ -2567,7 +2336,7 @@ if (pTAL->nDP_EXTRA_NUM > 0)
 /****************************************************************************/
 void TMOK_DATA(STATION_DESC_MOT	*pMOT, unsigned char *rx_buf)
 {
-int		nI,nJ,nK;	
+int		nI,nJ,nK;				
 int		nEventNum;
 int		nIEC_Offset;
 int		nMOSCAD_Offset;
@@ -2611,6 +2380,15 @@ int		nMs2;
 
  
 
+	/* Egesz parameterek */
+	
+   	if (MOSCAD_get_table_info (2,&table_parInt)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",2);
+        MOSCAD_error(message );
+        return;
+   		}
+	p_col_parInt = (short *)(table_parInt.ColDataPtr[0]);	
 
 
 
@@ -2639,6 +2417,9 @@ int		nMs2;
 		nNMStart = pMOT->nIEC_NM2;
 		if (nNMStart>0)
 		{		
+	   		/*p_col_NM     = (short *)(table_NM.ColDataPtr[0]);
+		   	p_col_NM_LZ  = (short *)(table_NM.ColDataPtr[1]);
+			p_col_NM[nNMStart+nI] = p_col_RxBuf[4+nI];*/
 			
 			fnWriteNM( nNMStart+nI,p_col_RxBuf[10+nI]);			
 			
@@ -2661,7 +2442,6 @@ if (pMOT->nIEC_SP_NUM > 0)
 			
 	} /*end for*/
 	
-	
 	for (nI=16; nI < pMOT->nIEC_SP_NUM && nI<32; nI++)
 	{		
 		nIEC_Offset = pMOT->nIEC_SP + nI;
@@ -2671,7 +2451,6 @@ if (pMOT->nIEC_SP_NUM > 0)
 		fnWriteSPData(nIEC_Offset,nVal,  nMs1,nMs2,nMin,1);			
 			
 	} /*end for*/
-	
 	
 } /*end if*/
 
@@ -2703,7 +2482,7 @@ if (pMOT->nIEC_SP_NUM > 0)
 	
 if (	nDPStart > 0)
 {
-	for (nI=0; nI < pMOT->nIEC_DP_NUM && nI<8; nI++)
+	for (nI=0; nI < pMOT->nIEC_DP_NUM && nI<4; nI++)
 	{	
 		
 		nVal = (nData << nI*2) & 0x8000;
@@ -2746,7 +2525,101 @@ if (	nDPStart > 0)
 }/*end if*/	
 } /*TMOK_DATA*/
 /*-----------------------------------------------------------------------------------------------*/
+/****************************************************************************/
+/* Gyor G1 allomas adatfeldolgozas											*/
+/****************************************************************************/
+void G1_DAT(unsigned char *rx_buf)
+{
+int		nI,nJ,nK;				
+char	message[100];
+int		nEventNum;
+int		nIEC_Offset;
+int		nMOSCAD_Offset;
+int		nMOSCAD_OffsetDP;
+int		nMOSCAD_OffsetNM;
+int		nSPTblIndx;
+int		nDPTblIndx;
+int		nValidityOffset;
+int		nTA;
+int		nEZ;	
+int		nNMTblIndx;
+int		nNMStart;
+int		nSPStart;
+int		nDPStart;
+unsigned int		nData;
+int		nDP_IEC;
+int		nDPL;
+int		nDPH;
+int		nShiftL;
+int		nShiftH;
+int 	nDataL;
+int 	nDataH;
+int		nERL;
+int		nERH;
+int		nER;
+int		nDP;
+int		nShift;
+int		nVal;
+unsigned short	*nRxBuf;
 
+
+nRxBuf = (unsigned short *)rx_buf;
+
+	
+	
+/* Mérések feldolgozása ----------------------------------------------------------------------------------------*/
+
+		
+	nNMStart = 14;
+		
+	for (nI=0; nI<20; nI++)
+	{
+		fnWriteNM( nNMStart+nI,nRxBuf[12+nI]);
+	} /*end for*/
+	
+/* Kétbites jelzések feldolgozása ----------------------------------------------------------------------------------------*/
+	/*Terhelés szakaszolók állásjelzései*/
+	nDPStart = 	22;
+
+	/* DP tabla indexe, es offsete */
+	fnDPTblIndx(nDPStart,&nDPTblIndx,&nMOSCAD_OffsetDP);
+
+
+	nData = nRxBuf[39];	
+		
+
+	/* DP */
+   	if (MOSCAD_get_table_info (nDPTblIndx,&table_DP)!=0 )
+   		{
+        MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
+        MOSCAD_error(message );
+        return;
+   		}
+	
+	
+	p_col_DPH     = (short *)(table_DP.ColDataPtr[0]);			/* DPH -> CLOSE */
+	p_col_DPL     = (short *)(table_DP.ColDataPtr[1]);			/* DPL -> OPEN */
+	p_col_DP_CT   = (short *)(table_DP.ColDataPtr[5]); 						
+		
+	
+
+	if (nDPStart > 0)
+	{ 
+	
+		for (nI=0; nI<4; nI++)
+		{				
+ 			p_col_DPL[nDPStart+nI-nMOSCAD_OffsetDP] = (nData >> nI*2)   & 1;
+	 		p_col_DPH[nDPStart+nI-nMOSCAD_OffsetDP] = (nData >> nI*2+1) & 1;
+	 		p_col_DP_CT[nDPStart+nI-nMOSCAD_OffsetDP]= 0;
+		}
+	}  /*end if*/
+	
+/*TALUS-Moscad kommunikacio ------------------------------------------------------------------------------------*/
+			nData = nRxBuf[41];	
+			fnWriteSPData(122,nData , 0,0,0,0);
+
+
+}
 /*-----------------------------------------------------------------------------------------------*/
 /****************************************************************************/
 /* Parameter tabla kiolvasas												*/
@@ -2770,7 +2643,7 @@ int 				nI;
 
 
 	/* Double command */
-	nDCTblIndx = p_col_parInt[23];	
+/*	nDCTblIndx = p_col_parInt[23];	
 	if (MOSCAD_get_table_info (nDCTblIndx,&table_DC)!=0 )
    		{
         MOSCAD_sprintf(message,"No valid information in table: %d",nDCTblIndx);
@@ -2778,9 +2651,9 @@ int 				nI;
         return;
    		}
 	p_col_DC = (short *)(table_DC.ColDataPtr[0]);
-
+*/
 	/* Double command 2. */
-	nDCTblIndx2 = p_col_parInt[45];	
+/*	nDCTblIndx2 = p_col_parInt[45];	
 	if (MOSCAD_get_table_info (nDCTblIndx2,&table_DC2)!=0 )
    		{
         MOSCAD_sprintf(message,"No valid information in table: %d",nDCTblIndx2);
@@ -2788,9 +2661,9 @@ int 				nI;
         return;
    		}
 	p_col_DC2 = (short *)(table_DC2.ColDataPtr[0]);
-
+*/
 		/* Single command */
-	nSCTblIndx = p_col_parInt[31];	
+/*	nSCTblIndx = p_col_parInt[31];	
 	if (MOSCAD_get_table_info (nSCTblIndx,&table_SC)!=0 )
    		{
         MOSCAD_sprintf(message,"No valid information in table: %d",nSCTblIndx);
@@ -2798,10 +2671,10 @@ int 				nI;
         return;
    		}
 	p_col_SC = (short *)(table_SC.ColDataPtr[0]);
-	
+*/	
 
 		/* Single command 2. */
-	nSCTblIndx2 = p_col_parInt[46];	
+/*	nSCTblIndx2 = p_col_parInt[46];	
 	if (MOSCAD_get_table_info (nSCTblIndx2,&table_SC2)!=0 )
    		{
         MOSCAD_sprintf(message,"No valid information in table: %d",nSCTblIndx2);
@@ -2809,7 +2682,7 @@ int 				nI;
         return;
    		}
 	p_col_SC2 = (short *)(table_SC2.ColDataPtr[0]);
-
+*/
 
 	/* Timerek */
 	nTimerTblIndx = 33;	
@@ -2853,7 +2726,9 @@ int 				nI;
 	p_col_CLek2   = (short *)(table_CStat2.ColDataPtr[2]);   		
 	p_col_CCom2   = (short *)(table_CStat2.ColDataPtr[3]);
 	p_col_CErr2   = (short *)(table_CStat2.ColDataPtr[4]);
-
+	
+	nTotalRTU = p_col_parInt[66];
+	sCP.nRtuNum = nTotalRTU;				/* Osszes RTU szama, a parancskuldes szempontjabol */
 
 	/* Statisztikak */			
 	nStatTblIndx = 4;	
@@ -2866,14 +2741,7 @@ int 				nI;
 	p_col_Stat = (short *)(table_Stat.ColDataPtr[0]);				
 
 
-	nTotalRTU = p_col_parInt[66];
-	sCP.nRtuNum = nTotalRTU;				/* Osszes RTU szama, a parancskuldes szempontjabol */
-
-
 } /* end fnReadPar()*/
-
-
-
 /********************************************************************************/
 /* Elloallitja az adott indexehez tartozó értéket								*/
 /********************************************************************************/
@@ -3062,7 +2930,7 @@ void setvalue_CLekX(int nI, int nValue)
 /* Modositja a valid/invalid statust a kommunikacios statusztol fuggoen			*/
 /* Bemenetek: 																	*/
 /*				- nI: az adott RTU-hoz tartozo index a site tablaban			*/
-/*				- nValue: TOPICAL (1) vagy NOT_TOPICAL (0)							*/
+/*				- nValue: VALID (1) vagy INVALID (0)							*/
 /********************************************************************************/
 void fnSetStatus(int nI, int nValue)
 {
@@ -3071,19 +2939,11 @@ int		nJ;
 
 if (sTI[nI].nType == TYP_TAL) /* TALUS-os allomas eseten --------------------------*/
 	{
-		/* Egy bites jelzesek ------------------------------------*/
-			for (nJ=0;nJ<32;nJ++)
-			{
-				fnWriteSPStatus( nJ+sTAL[nI].nIEC_SP, nValue);
-			}
-
-		if (sTAL[nI].nLeagNum==8)
+		/* Egy bites jelzesek */
+		for (nJ=0;nJ<32;nJ++)
 		{
-			for (nJ=32;nJ<64;nJ++)
-			{
-				fnWriteSPStatus( nJ+sTAL[nI].nIEC_SP, nValue);
-			}			
-		}		
+			fnWriteSPStatus( nJ+sTAL[nI].nIEC_SP, nValue);
+		}
 		
 		fnWriteSPStatus( sTAL[nI].nIEC_OsszevontHiba, nValue);
 		
@@ -3099,90 +2959,44 @@ if (sTI[nI].nType == TYP_TAL) /* TALUS-os allomas eseten -----------------------
 			fnWriteSPStatus( sTAL[nI].nIEC_MT_KommHiba, nValue);
 		}
 		
-		if (sTAL[nI].nSP_EXTRA_OFFSET>0)
-		{
-			for (nJ=0;nJ<sTAL[nI].nSP_EXTRA_NUM;nJ++)
-			{
-				fnWriteSPStatus( nJ + sTAL[nI].nSP_EXTRA_OFFSET, nValue);
-			}
-		}
-		
-		
-		/* Ket bites jelzesek -----------------------------------------*/
+		/* Ket bites jelzesek */
+	        /*MOSCAD_sprintf(message,"sTAL[nI].nIEC_DP: %d, nValue: %d",sTAL[nI].nIEC_DP,nValue);
+	        MOSCAD_error(message );*/
 
 		for (nJ=0;nJ<4;nJ++)
 		{
+
 			fnWriteDPStatus( nJ+sTAL[nI].nIEC_DP, nValue);
-
 		}
-		if (sTAL[nI].nLeagNum==8)
-		{
-			for (nJ=4;nJ<8;nJ++)
-			{
-				fnWriteDPStatus( nJ+sTAL[nI].nIEC_DP, nValue);
-
-			}
-			
-		}
-		
 		
 		if (sTAL[nI].nIEC_DP_FSZ1>0)
 		{
 			for (nJ=0;nJ<4;nJ++)
 			{
 				fnWriteDPStatus( nJ+sTAL[nI].nIEC_DP_FSZ1, nValue);
-
-			}
-			if (sTAL[nI].nLeagNum==8)
-			{
-				for (nJ=4;nJ<8;nJ++)
-				{
-					fnWriteDPStatus( nJ+sTAL[nI].nIEC_DP_FSZ1, nValue);
-
-				}			
-			}
-		} /*end if sTAL[nI].nIEC_DP_FSZ1>0*/
-			
-		if (sTAL[nI].nDP_EXTRA_OFFSET>0)
-		{
-			for (nJ=0;nJ<sTAL[nI].nDP_EXTRA_NUM;nJ++)
-			{
-				fnWriteDPStatus( nJ+sTAL[nI].nDP_EXTRA_OFFSET, nValue);
-
 			}
 		}
 
 		if (sTAL[nI].nIEC_DP_2BIT1>0)
 		{
 			fnWriteDPStatus( sTAL[nI].nIEC_DP_2BIT1, nValue);
-			
 		}
 		if (sTAL[nI].nIEC_DP_2BIT2>0)
 		{
 			fnWriteDPStatus( sTAL[nI].nIEC_DP_2BIT2, nValue);
-
 		}
 
-		if (sTAL[nI].nIEC_DP_12BIT1>0) 
+		if (sTAL[nI].nIEC_DP_12BIT1>0)
 		{
-			fnWriteDPStatus( sTAL[nI].nIEC_DP_12BIT1, 1);
-
-
+			fnWriteDPStatus( sTAL[nI].nIEC_DP_12BIT1, nValue);
 		}
-		if (sTAL[nI].nIEC_DP_12BIT2>0)
+		
+		if (sTAL[nI].nIEC_DP_12BIT1>0)
 		{
-			fnWriteDPStatus( sTAL[nI].nIEC_DP_12BIT2, nValue);
-			
-		}
-		if (sTAL[nI].nIEC_DP_12BIT3>0) 
-		{
-			fnWriteDPStatus( sTAL[nI].nIEC_DP_12BIT3, nValue);
-			
+			fnWriteDPStatus( sTAL[nI].nIEC_DP_12BIT1, nValue);
 		}
 
-
-
-		/* Meresek ------------------------------------------------*/
+		/* Meresek */
 
 		if (sTAL[nI].nIEC_NM>0)
 		{
@@ -3203,23 +3017,50 @@ if (sTI[nI].nType == TYP_MOT || sTI[nI].nType == TYP_TMOK || sTI[nI].nType == TY
 		{
 			fnWriteSPStatus( nJ+sMOT[nI].nIEC_SP, nValue);
 		}
+		if (sMOT[nI].nIEC_SP_FLAG>0)
+		{
+			for (nJ=0;nJ<sMOT[nI].nIEC_SP_FLAG_NUM;nJ++)
+			{
+				fnWriteSPStatus( nJ+sMOT[nI].nIEC_SP_FLAG, nValue);
+			}
+		}
 
 		/* Ket bites jelzesek --------------------------------*/
 		for (nJ=0;nJ<sMOT[nI].nIEC_DP_NUM;nJ++)
 		{
 			fnWriteDPStatus( nJ+sMOT[nI].nIEC_DP, nValue);
 		}
-
-		/* Meresek  --------------------------------*/
-		for (nJ=0;nJ<sMOT[nI].nNMNum;nJ++)
+		if (sMOT[nI].nIEC_DP_FSZ1>0)
 		{
-			fnWriteNMStatus( nJ+sMOT[nI].nIEC_NM, nValue);
+			for (nJ=0;nJ<sMOT[nI].nIEC_DP_FSZ_NUM;nJ++)
+			{
+				fnWriteDPStatus( nJ+sMOT[nI].nIEC_DP_FSZ1, nValue);
+			}
+		}
+
+		/* Meresek --------------------------------*/
+		if (sMOT[nI].nIEC_NM>0)
+		{
+			for (nJ=0;nJ<sMOT[nI].nNMNum;nJ++)
+			{
+				fnWriteNMStatus( nJ+sMOT[nI].nIEC_NM, nValue);
+			}
 		}
 		
 
 	} /* end if type == TYP_MOT vagy TYP_TMOK*/
 	
-
+	if (nI==6) /*Gyor G1 allomas*/
+	{
+		for (nJ=0;nJ<20;nJ++)
+		{
+			fnWriteNMStatus( nJ+14, nValue);
+		}
+		for (nJ=0;nJ<7;nJ++)
+		{
+			fnWriteDPStatus( nJ+19, nValue);
+		}
+	}
+	
 	
 } /* end fnSetStatus */
-
