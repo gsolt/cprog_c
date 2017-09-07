@@ -644,6 +644,7 @@ MOSCAD_init_sitetable();
 /* 319 92-88						ZALA		*/ MOSCAD_add_new_site(5352,RADIO2_6);
 /* 320--------------------------------------329*/	
 /* 320 91-62						ZALA		*/ MOSCAD_add_new_site(5358,RADIO2_6);
+/* 321 Szombathely, Depónia						*/ MOSCAD_add_new_site(7191,RADIO6_6);
 
 
 
