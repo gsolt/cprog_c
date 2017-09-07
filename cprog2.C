@@ -35,7 +35,8 @@
 *                                                                            *
 * REV    DATE     PROGRAMMER         REVISION HISTORY                        *
 Ver1.1			  Gergely Zsolt		Az SC és a DC darabszám meg lett növelve
-	
+Ver2.0	2017.08.  Gergely Zsolt		Ki lett egészítvw 2 függvénnyel az újfajta 
+									reteszkezelés miatt: fnReadDPData, fnWriteDPData	 		
 *****************************************************************************/
 
 #include "CAPPLIC.H"
@@ -934,7 +935,7 @@ int				nOffset;
    					{
 					       MOSCAD_sprintf(message,"No valid information in table: %d",nDPTblIndx);
 					       MOSCAD_error(message );
-					       return;
+					       return 0;
    					}
    					
 					p_col_DPH     = (short *)(table_DPAct.ColDataPtr[0]);			/* DPH -> CLOSE  TILTVA */
