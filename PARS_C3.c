@@ -2831,6 +2831,10 @@ sT[0].sTI[320].nType = TYP_TMOK;
 	sT[0].sMOT[320].nIEC_SP				= 5636;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[320].nIEC_DP				= 722;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[320].nIEC_NM				= 1033;		/* Mérések IEC kezdõcíme */
+
+
+
+
 								
 } /* end fnSetDataPar()*/
 
