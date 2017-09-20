@@ -391,8 +391,8 @@ ST[0].nSiteList[191]	=5225; 		ST[0].nLinkList[191]	=RADIO7_1;	/* RADIO7_1  Móvár
 ST[0].nSiteList[192]	=5226; 		ST[0].nLinkList[192]	=RADIO5_2;	/* RADIO5_2  Tata, Fazekas u.		IG*/
 ST[0].nSiteList[193]	=5227; 		ST[0].nLinkList[193]	=RADIO5_2;	/* RADIO5_2  Tata, Honvéd u.		IG*/
 ST[0].nSiteList[194]	=5357; 		ST[0].nLinkList[194]	=RADIO2_6;	/* RADIO2_6  91-84					ZEG*/
-ST[0].nSiteList[195]	=5229; 		ST[0].nLinkList[195]	=RADIO2_7;	/* RADIO2_7  ZEG, Kálvária			ZEG*/
-ST[0].nSiteList[196]	=5230; 		ST[0].nLinkList[196]	=RADIO2_7;	/* RADIO2_7  ZEG, Kórház			ZEG*/
+ST[0].nSiteList[195]	=5229; 		ST[0].nLinkList[195]	=RADIO2_6;	/* RADIO2_7  ZEG, Kálvária			ZEG*/
+ST[0].nSiteList[196]	=5230; 		ST[0].nLinkList[196]	=RADIO2_6;	/* RADIO2_7  ZEG, Kórház			ZEG*/
 ST[0].nSiteList[197]	=5231; 		ST[0].nLinkList[197]	=RADIO6_1;	/* RADIO6_1  41-75					SZOM*/
 ST[0].nSiteList[198]	=5232; 		ST[0].nLinkList[198]	=RADIO6_6;	/* RADIO6_1  45-23					SZOM*/
 ST[0].nSiteList[199]	=5233; 		ST[0].nLinkList[199]	=RADIO4_2;	/* RADIO4_2  Vönöck					IK*/
