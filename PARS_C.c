@@ -406,7 +406,7 @@ ST[0].nSiteList[205]	=5238; 		ST[0].nLinkList[205]	=RADIO3_7;	/* RADIO3_7  Tatab
 ST[0].nSiteList[206]	=5239; 		ST[0].nLinkList[206]	=RADIO1_1;	/* RADIO1_1  Székesfehérvár,Ipari park	SZVAR*/
 
 ST[0].nSiteList[207]	=5240; 		ST[0].nLinkList[207]	=RADIO9_1;	/* RADIO1_8  30-86					SZVAR*/
-ST[0].nSiteList[208]	=5241; 		ST[0].nLinkList[208]	=RADIO3_8;	/* RADIO3_6  31-77					SZVAR*/
+ST[0].nSiteList[208]	=5241; 		ST[0].nLinkList[208]	=RADIO3_8;	/* RADIO3_6  34-77 (31-77)			SZVAR*/
 ST[0].nSiteList[209]	=5242; 		ST[0].nLinkList[209]	=RADIO1_8;	/* RADIO1_8  32-10					SZVAR*/
 ST[0].nSiteList[210]	=5243; 		ST[0].nLinkList[210]	=RADIO9_1;	/* RADIO1_1  30-60					SZVAR*/
 ST[0].nSiteList[211]	=5244; 		ST[0].nLinkList[211]	=RADIO9_4;	/* RADIO1_1  34-26					SZVAR*/
