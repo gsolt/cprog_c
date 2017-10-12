@@ -3520,7 +3520,7 @@ ReteszesTMOKNum = 2;					/* Ennyi reteszfeltételes TMOK van az adott front-endbe
 																													/**/
 /* 0. TMOK: 40-57 RTU:  Front end E -> Szombathely, Depónia -----------------------*/								/**/
 TMOKAllasjelzesOffsetek[0] = 33; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
-TMOK_ID[0] =1251;						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+TMOK_ID[0] =1251;						/* TMOK azonosítója a kmenõ táviratban = DP offset */								/**/															
 ReteszesRTUIndex[0][0] = 322;			/* E front end */															/**/
 ReteszesTMOK_RTUNum[0] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 
@@ -3528,7 +3528,7 @@ ReteszesTMOK_RTUNum[0] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnáss
 /* 1. TMOK: 40-85 RTU: Szombathely, Depónia -----------------------*/												/**/
 																													/**/
 TMOKAllasjelzesOffsetek[1] = 38; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
-TMOK_ID[1] =1252;						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+TMOK_ID[1] =1252;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
 ReteszesRTUIndex[1][0] = 322;			/* E front end */															/**/
 ReteszesTMOK_RTUNum[1] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 
