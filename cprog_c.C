@@ -3524,7 +3524,7 @@ short				*p_col_DCAct;
 ReteszAllapotokKezdoCim = 725;  /* DP3, 225 */																		/**/
 ReteszParancsokKezdoCim = 1110;	/* DC5, 110 */																		/**/
 																													/**/
-ReteszesTMOKNum = 4;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
+ReteszesTMOKNum = 5;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
 																													/**/
 /* 0. TMOK: 40-57 RTU:  Front end E -> Szombathely, Depónia -----------------------*/								/**/
 TMOKAllasjelzesOffsetek[0] = 33; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
@@ -3555,6 +3555,11 @@ TMOK_ID[3] =1252;						/* TMOK azonosítója a kimenõ táviratban = DP offset */			
 ReteszesRTUIndex[3][0] = 323;			/* G front end */															/**/
 ReteszesTMOK_RTUNum[3] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 					
+/* 5. TMOK: 70-27 RTU: Ostffyasszonyfa biogáz, Front end E  -----------------------*/												/**/																													/**/
+TMOKAllasjelzesOffsetek[4] = 55; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+TMOK_ID[4] =1255;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
+ReteszesRTUIndex[4][0] = 322;			/* E front end */															/**/
+ReteszesTMOK_RTUNum[4] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 																													/**/
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
