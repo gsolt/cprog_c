@@ -2833,6 +2833,17 @@ sT[0].sTI[320].nType = TYP_TMOK;
 	sT[0].sMOT[320].nIEC_NM				= 1033;		/* Mérések IEC kezdõcíme */
 
 
+/* Front end A -----------------------------------------------------------*/
+sT[0].sTI[321].nType = TYP_FRONTEND;
+
+/* Front end E -----------------------------------------------------------*/
+sT[0].sTI[322].nType = TYP_FRONTEND;
+
+/* Front end G -----------------------------------------------------------*/
+sT[0].sTI[323].nType = TYP_FRONTEND;
+
+/* Redundancia A -----------------------------------------------------------*/
+sT[0].sTI[324].nType = TYP_FRONTEND;
 
 
 								
