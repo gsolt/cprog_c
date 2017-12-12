@@ -3555,7 +3555,7 @@ TMOK_ID[3] =1252;						/* TMOK azonosítója a kimenõ táviratban = DP offset */			
 ReteszesRTUIndex[3][0] = 323;			/* G front end */															/**/
 ReteszesTMOK_RTUNum[3] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 					
-/* 5. TMOK: 70-27 RTU: Ostffyasszonyfa biogáz, Front end E  -----------------------*/												/**/																													/**/
+/* 5. TMOK: 70-27 RTU: Ostffyasszonyfa, Kemenesmagosi biogáz, Front end E  -----------------------*/												/**/																													/**/
 TMOKAllasjelzesOffsetek[4] = 55; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
 TMOK_ID[4] =1255;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
 ReteszesRTUIndex[4][0] = 322;			/* E front end */															/**/
