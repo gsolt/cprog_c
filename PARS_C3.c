@@ -435,6 +435,10 @@ sT[0].sCP[0].sCPR[317].nDCStart= 1095; 		sT[0].sCP[0].sCPR[317].nDCNum =1;      
 sT[0].sCP[0].sCPR[318].nDCStart= 1098; 		sT[0].sCP[0].sCPR[318].nDCNum =1;       sT[0].sCP[0].sCPR[318].nSCStart=1099;       sT[0].sCP[0].sCPR[318].nAckStart=1100; 	sT[0].sCP[0].sCPR[318].nAckNum=1;     sT[0].sCP[0].sCPR[318].nSPOffsetCS= 5618;       sT[0].sCP[0].sCPR[318].nSPOffsetLek= 5619;
 sT[0].sCP[0].sCPR[319].nDCStart= 1101; 		sT[0].sCP[0].sCPR[319].nDCNum =1;       sT[0].sCP[0].sCPR[319].nSCStart=1102;       sT[0].sCP[0].sCPR[319].nAckStart=1103; 	sT[0].sCP[0].sCPR[319].nAckNum=1;     sT[0].sCP[0].sCPR[319].nSPOffsetCS= 5634;       sT[0].sCP[0].sCPR[319].nSPOffsetLek= 5635;
 sT[0].sCP[0].sCPR[320].nDCStart= 1105; 		sT[0].sCP[0].sCPR[320].nDCNum =1;       sT[0].sCP[0].sCPR[320].nSCStart=1106;       sT[0].sCP[0].sCPR[320].nAckStart=1107; 	sT[0].sCP[0].sCPR[320].nAckNum=1;     sT[0].sCP[0].sCPR[320].nSPOffsetCS= 5650;       sT[0].sCP[0].sCPR[320].nSPOffsetLek= 5651;
+sT[0].sCP[0].sCPR[321].nDCStart= 0; 		  sT[0].sCP[0].sCPR[321].nDCNum =0;       sT[0].sCP[0].sCPR[321].nSCStart=0;          sT[0].sCP[0].sCPR[321].nAckStart=0; 	  sT[0].sCP[0].sCPR[321].nAckNum=0;     sT[0].sCP[0].sCPR[321].nSPOffsetCS= 0;          sT[0].sCP[0].sCPR[321].nSPOffsetLek= 0;
+sT[0].sCP[0].sCPR[322].nDCStart= 0; 		  sT[0].sCP[0].sCPR[322].nDCNum =0;       sT[0].sCP[0].sCPR[322].nSCStart=0;          sT[0].sCP[0].sCPR[322].nAckStart=0; 	  sT[0].sCP[0].sCPR[322].nAckNum=0;     sT[0].sCP[0].sCPR[322].nSPOffsetCS= 0;          sT[0].sCP[0].sCPR[322].nSPOffsetLek= 0;
+sT[0].sCP[0].sCPR[323].nDCStart= 0; 		  sT[0].sCP[0].sCPR[323].nDCNum =0;       sT[0].sCP[0].sCPR[323].nSCStart=0;          sT[0].sCP[0].sCPR[323].nAckStart=0; 	  sT[0].sCP[0].sCPR[323].nAckNum=0;     sT[0].sCP[0].sCPR[323].nSPOffsetCS= 0;          sT[0].sCP[0].sCPR[323].nSPOffsetLek= 0;
+sT[0].sCP[0].sCPR[324].nDCStart= 0; 		  sT[0].sCP[0].sCPR[324].nDCNum =0;       sT[0].sCP[0].sCPR[324].nSCStart=0;          sT[0].sCP[0].sCPR[324].nAckStart=0; 	  sT[0].sCP[0].sCPR[324].nAckNum=0;     sT[0].sCP[0].sCPR[324].nSPOffsetCS= 0;          sT[0].sCP[0].sCPR[324].nSPOffsetLek= 0;
 
 
 /* TMOK jelszámok inicializálása ciklusban */	
