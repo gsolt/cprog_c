@@ -3514,6 +3514,7 @@ char				message[500];
 int					nDPTblIndx;
 int					nOffset;
 unsigned short		nTxBuf[80];
+unsigned int nRetesz;
 
 
 short				*p_col_DCAct; 
@@ -3562,13 +3563,15 @@ ReteszesRTUIndex[4][0] = 322;			/* E front end */															/**/
 ReteszesTMOK_RTUNum[4] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 																													/**/
                                                           
-/* 5. TMOK: 40-85 RTU: Kõszegdoroszló, PV erõmû, Front end G  -----------------------*/												/**/																													/**/
-TMOKAllasjelzesOffsetek[5] = 38; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
-TMOK_ID[5] =1253;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
-ReteszesRTUIndex[5][0] = 323;			/* E front end */															/**/
-ReteszesTMOK_RTUNum[5] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
-																													/**/
-                                                          
+/* 5. TMOK: 40-85 RTU: Kõszegdoroszló, PV erõmû, Front end G  -----------------------*/											     /**/																													/**/
+TMOKAllasjelzesOffsetek[5] = 38; 		/* Az állásjelzés offsete a DP adatbázisban */								               /**/
+TMOK_ID[5] =1253;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								               /**/															
+ReteszesRTUIndex[5][0] = 323;			/* G front end */															                                 /**/
+ReteszesTMOK_RTUNum[5] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			         /**/
+																												                                                	       /**/
+
+nRetesz = fnReadDPData(ReteszAllapotokKezdoCim+1, 0, 0, 0, 0);                                                   /**/ /* Csak egy parancs tartozik hozzá, de két RTU*/                                                                                                      
+fnWriteDPData(ReteszAllapotokKezdoCim+5,nRetesz, 0, 0, 0, 0);                                                    /**/                                                                                                                                                                     
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
 
