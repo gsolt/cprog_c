@@ -431,7 +431,7 @@ ST[0].nSiteList[229]	=5262; 		ST[0].nLinkList[229]	=RADIO3_6;	/* RADIO3_6  88-80
 ST[0].nSiteList[230]	=5263; 		ST[0].nLinkList[230]	=RADIO6_3;	/* RADIO6_3  Kõszeg, Szot			SZOM*/
 ST[0].nSiteList[231]	=5264; 		ST[0].nLinkList[231]	=RADIO6_1;	/* RADIO6_1	 41-67					SZOM*/
 ST[0].nSiteList[232]	=5286; 		ST[0].nLinkList[232]	=RADIO6_1;	/* RADIO6_1  Szombathely,Vörödmarty SZOM*/
-ST[0].nSiteList[233]	=5287; 		ST[0].nLinkList[233]	=RADIO9_1;	/* RADIO1_1  Szvár,Harmann SZVAR*/
+ST[0].nSiteList[233]	=5287; 		ST[0].nLinkList[233]	=RADIO1_1;	/* RADIO1_1  Szvár,Harmann SZVAR*/
 ST[0].nSiteList[234]	=5288; 		ST[0].nLinkList[234]	=RADIO1_1;	/* RADIO1_1  Szvár,Megyei hivatal	SZVAR*/
 ST[0].nSiteList[235]	=5289; 		ST[0].nLinkList[235]	=RADIO5_2;	/* RADIO5_2  Tata, Csapó			IG*/
 
