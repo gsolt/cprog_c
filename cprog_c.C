@@ -3493,7 +3493,7 @@ elküldi a szintén paraméterként megadott RTU-knak (szintén indexel megadva)
 /****************************************************************************/
 void fnRetesz(void)
 {
-#define  			RETESZ_TMOK_NUM		25	
+#define  			RETESZ_TMOK_NUM		50	
 #define  			RETESZ_RTU_NUM		10	
 #define  			TX_LENGTH			3	
 
@@ -3535,7 +3535,7 @@ int    nReteszOffset[RETESZ_TMOK_NUM];			/* A retesz állapot és parancs offsete,
 ReteszAllapotokKezdoCim = 725;  /* DP3, 225 */																		/**/
 ReteszParancsokKezdoCim = 1110;	/* DC5, 110 */																		/**/
 																													/**/
-ReteszesTMOKNum = 19;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
+ReteszesTMOKNum = 21;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
 																													/**/
 /* 0. TMOK: 40-57 RTU:  Front end E -> Szombathely, Depónia -----------------------*/								/**/
 TMOKAllasjelzesOffsetek[0] = 33; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
@@ -3702,6 +3702,28 @@ ReteszesRTUIndex[18][0] = 323;			/* G front end */															/**/
 ReteszesTMOK_RTUNum[18] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[18] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[18] = 18;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
+
+/* 19. TMOK: 12-51 RTU: Újrónafõ, Jánossomorja J01, J06, J04-05								-----------------------  */								/**/
+TMOKAllasjelzesOffsetek[19] = 1250; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+TMOK_ID[19][0] =1250;						/* TMOK azonosítója a táviratban = DP offset */								/**/			
+TMOK_ID[19][1] =1250;						/* TMOK azonosítója a táviratban = DP offset */								/**/
+TMOK_ID[19][2] =1250;						/* TMOK azonosítója a táviratban = DP offset */								/**/														
+ReteszesRTUIndex[19][0] = 120;			/* J01		 */															/**/
+ReteszesRTUIndex[19][1] = 169;			/* J06			 */															/**/
+ReteszesRTUIndex[19][2] = 171;			/* J04-05			 */															/**/
+ReteszesTMOK_RTUNum[19] = 3;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+nReteszPar[19] = 0;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
+
+/* 20. TMOK: 14-03 RTU: Újrónafõ, Jánossomorja J01, J06, J04-05								-----------------------  */								/**/
+TMOKAllasjelzesOffsetek[20] = 1251; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+TMOK_ID[20][0] =1251;						/* TMOK azonosítója a táviratban = DP offset */								/**/			
+TMOK_ID[20][1] =1251;						/* TMOK azonosítója a táviratban = DP offset */								/**/
+TMOK_ID[20][2] =1251;						/* TMOK azonosítója a táviratban = DP offset */								/**/														
+ReteszesRTUIndex[20][0] = 120;			/* J01		 */															/**/
+ReteszesRTUIndex[20][1] = 169;			/* J06			 */															/**/
+ReteszesRTUIndex[20][2] = 171;			/* J04-05			 */															/**/
+ReteszesTMOK_RTUNum[20] = 3;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+nReteszPar[20] = 0;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
                                                                                                                                                                       
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
