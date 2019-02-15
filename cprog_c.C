@@ -3666,8 +3666,11 @@ TMOK_ID[14][0] =43;   						/* TMOK azonosítója a táviratban = DP offset */					
 ReteszesRTUIndex[14][0] = 170;			/* J02-03 */															/**/
 TMOK_ID[14][1] =43;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
 ReteszesRTUIndex[14][1] = 171;			/* J04-05 */															/**/
+TMOK_ID[14][2] =1251;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+ReteszesRTUIndex[14][2] = 321;			/* A front end */															/**/
 
-ReteszesTMOK_RTUNum[14] = 2;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+
+ReteszesTMOK_RTUNum[14] = 3;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[14] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[14] = 14;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
 
