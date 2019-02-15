@@ -1505,6 +1505,10 @@ sT[0].sTI[120].nType = TYP_TAL;
 		sT[0].sTAL[120].nIEC_NM				= 365;
 		sT[0].sTAL[120].nNMNum		  		= 11;
 		sT[0].sTAL[120].nKommStatusNum		= 2;
+    
+    sT[0].sTAL[120].nSP_EXTRA_OFFSET		= 5652;
+  	sT[0].sTAL[120].nSP_EXTRA_NUM		= 2;
+
 
 /*  82-66 OK2  -----------------------------------------------------------*/
 sT[0].sTI[121].nType = TYP_TMOK;
@@ -1821,6 +1825,9 @@ sT[0].sTI[169].nType = TYP_TAL;
 		sT[0].sTAL[169].nNMNum		  		= 11;
 		sT[0].sTAL[169].nKommStatusNum		= 2;
 
+    sT[0].sTAL[169].nSP_EXTRA_OFFSET		= 5654;
+  	sT[0].sTAL[169].nSP_EXTRA_NUM		= 2;
+
 /* Jánossomorja J02-3, széleromu -----------------------------------------------------------*/
 sT[0].sTI[170].nType = TYP_TAL;
 
@@ -1838,6 +1845,9 @@ sT[0].sTI[170].nType = TYP_TAL;
 		sT[0].sTAL[170].nIEC_DP_2BIT2 		= 416;
 		sT[0].sTAL[170].nIEC_DP_2BIT_KINT2	= 925;
 		sT[0].sTAL[170].nIEC_DP_2BIT_BENT2	= 920;
+
+    sT[0].sTAL[170].nSP_EXTRA_OFFSET		= 5656;
+  	sT[0].sTAL[170].nSP_EXTRA_NUM		= 2;
 		
 /* Jánossomorja J04-5, széleromu -----------------------------------------------------------*/
 sT[0].sTI[171].nType = TYP_TAL;
@@ -1856,6 +1866,9 @@ sT[0].sTI[171].nType = TYP_TAL;
 		sT[0].sTAL[171].nIEC_DP_2BIT2 		= 426;
 		sT[0].sTAL[171].nIEC_DP_2BIT_KINT2	= 925;
 		sT[0].sTAL[171].nIEC_DP_2BIT_BENT2	= 920;
+
+    sT[0].sTAL[171].nSP_EXTRA_OFFSET		= 5658;
+  	sT[0].sTAL[171].nSP_EXTRA_NUM		= 2;
 
 
 /*  92-49 OK2  -----------------------------------------------------------*/
