@@ -3752,8 +3752,8 @@ ReteszesTMOK_RTUNum[23] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnás
 nReteszPar[23] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[23] = 21;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
                                                                                                                                                                       
-/* 24. TMOK: 30-31 RTU: G: Tác PV								-----------------------  */								/**/
-TMOKAllasjelzesOffsetek[24] = 398; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+/* 24. TMOK: 30-98 RTU: G: Tác PV								-----------------------  */								/**/
+TMOKAllasjelzesOffsetek[24] = 13; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
 TMOK_ID[24][0] =1279;						/* TMOK azonosítója a táviratban = DP offset */								/**/			
 ReteszesRTUIndex[24][0] = 323;			/* G front end		 */															/**/
 ReteszesTMOK_RTUNum[24] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
