@@ -3596,7 +3596,7 @@ fnWriteDPData(ReteszAllapotokKezdoCim+5,nRetesz, 0, 0, 0, 0);                   
 
 
 /* 6. TMOK: 30-57 RTU: Kincsesbánya 03-100 PV erõmû, Front end G  -----------------------*/											     /**/																													/**/
-TMOKAllasjelzesOffsetek[6] = 11; 		/* Az állásjelzés offsete a DP adatbázisban */								               /**/
+TMOKAllasjelzesOffsetek[6] = 12; 		/* Az állásjelzés offsete a DP adatbázisban */								               /**/
 TMOK_ID[6][0] =1257;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								               /**/															
 ReteszesRTUIndex[6][0] = 323;			/* G front end */															                                 /**/
 ReteszesTMOK_RTUNum[6] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			         /**/
