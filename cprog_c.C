@@ -3883,7 +3883,7 @@ for (i=0;i<ReteszesTMOKNum;i++)
     }
     else if (nReteszPar[i] == 0)
     {
-    ReteszAllapotok[i] = 0;
+    ReteszAllapotok[i] = 1;
     }	
 } /* end for */
 
