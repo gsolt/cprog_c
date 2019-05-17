@@ -716,7 +716,7 @@ short			*p_col_SCAct;*/
 
 /* Radios RTU-k indexei, periodikus lekerdezes miatt*/
 /* K1 : ZEG, IK */
-ST[0].sRAD_K1[0].nRtuNumRad = 86;
+ST[0].sRAD_K1[0].nRtuNumRad = 87;
 ST[0].sRAD_K1[0].nIndx[0]=7; 
 ST[0].sRAD_K1[0].nIndx[1]=12; 
 ST[0].sRAD_K1[0].nIndx[2]=20; 
@@ -725,11 +725,11 @@ ST[0].sRAD_K1[0].nIndx[4]=32;
 ST[0].sRAD_K1[0].nIndx[5]=34; 
 ST[0].sRAD_K1[0].nIndx[6]=41; 
 ST[0].sRAD_K1[0].nIndx[7]=43; 
-ST[0].sRAD_K1[0].nIndx[8]=43; 
+ST[0].sRAD_K1[0].nIndx[8]=44; 
 ST[0].sRAD_K1[0].nIndx[9]=50; 
 ST[0].sRAD_K1[0].nIndx[10]=51; 
 ST[0].sRAD_K1[0].nIndx[11]=53; 
-ST[0].sRAD_K1[0].nIndx[12]=53; 
+ST[0].sRAD_K1[0].nIndx[12]=54; 
 ST[0].sRAD_K1[0].nIndx[13]=55; 
 ST[0].sRAD_K1[0].nIndx[14]=59; 
 ST[0].sRAD_K1[0].nIndx[15]=61; 
@@ -803,6 +803,7 @@ ST[0].sRAD_K1[0].nIndx[82]=317;
 ST[0].sRAD_K1[0].nIndx[83]=318; 
 ST[0].sRAD_K1[0].nIndx[84]=319; 
 ST[0].sRAD_K1[0].nIndx[85]=320; 
+ST[0].sRAD_K1[0].nIndx[86]=149; 
 
 
 
@@ -864,7 +865,7 @@ ST[0].sRAD_K2[0].nIndx[49]=306;
 
 
 /* K3 : SZVAR, ORNY, IG */
-ST[0].sRAD_K3[0].nRtuNumRad = 181;
+ST[0].sRAD_K3[0].nRtuNumRad = 183;
 
 ST[0].sRAD_K3[0].nIndx[0]=0;
 ST[0].sRAD_K3[0].nIndx[1]=1;
@@ -1048,6 +1049,8 @@ ST[0].sRAD_K3[0].nIndx[177]=312;
 ST[0].sRAD_K3[0].nIndx[178]=313;
 ST[0].sRAD_K3[0].nIndx[179]=314;
 ST[0].sRAD_K3[0].nIndx[180]=315;
+ST[0].sRAD_K3[0].nIndx[181]=125;
+ST[0].sRAD_K3[0].nIndx[182]=291;
 
 
 
