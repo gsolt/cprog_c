@@ -293,6 +293,23 @@ TOTAL_PAR			sT;
 int					nTotalRTU;
 BYTE			nMoscadHours;
 
+unsigned int		ReteszesTMOKNum;									/* Reteszes TMOK-k száma az adott front-endben */
+unsigned int		ReteszesRTUIndex[RETESZ_TMOK_NUM][RETESZ_RTU_NUM];	/* A reteszes TMOK-khoz tartozó RTU-k indexei a site táblában */
+unsigned int		ReteszesTMOK_RTUNum[RETESZ_TMOK_NUM];				/* Adott reteszes TMOK-khoz tartozó RTU-k száma */
+unsigned int		ReteszAllapotokKezdoCim;							/* Retesz állapotok kezdõcíme az IEC táblában */
+unsigned int		ReteszParancsokKezdoCim;							/* Retesz élesítés/bénítás parancsok kezdõcíme az IEC táblában */
+unsigned int		TMOKAllasjelzesOffsetek[RETESZ_TMOK_NUM];			/* Reteszes TMOK-k állásjelzéseinek az offsete */
+unsigned int		TMOK_ID[RETESZ_TMOK_NUM][RETESZ_RTU_NUM];							/* Reteszes TMOK-k azonosítója a táviratban = DP offset */
+
+
+unsigned int		ReteszAllapotok[RETESZ_TMOK_NUM];
+static unsigned int		PrReteszAllapotok[RETESZ_TMOK_NUM];
+unsigned int		TMOKAllasjelzesek[RETESZ_TMOK_NUM];
+
+
+static unsigned int	prevTMOKAllasjelzesek[RETESZ_TMOK_NUM];
+
+
 /*--------------------------------------------------------------------------*/
 /* The list of the function included in this block                          */
 /*--------------------------------------------------------------------------*/
@@ -3499,21 +3516,6 @@ void fnRetesz(void)
 
 
 	
-unsigned int		ReteszesTMOKNum;									/* Reteszes TMOK-k száma az adott front-endben */
-unsigned int		ReteszesRTUIndex[RETESZ_TMOK_NUM][RETESZ_RTU_NUM];	/* A reteszes TMOK-khoz tartozó RTU-k indexei a site táblában */
-unsigned int		ReteszesTMOK_RTUNum[RETESZ_TMOK_NUM];				/* Adott reteszes TMOK-khoz tartozó RTU-k száma */
-unsigned int		ReteszAllapotokKezdoCim;							/* Retesz állapotok kezdõcíme az IEC táblában */
-unsigned int		ReteszParancsokKezdoCim;							/* Retesz élesítés/bénítás parancsok kezdõcíme az IEC táblában */
-unsigned int		TMOKAllasjelzesOffsetek[RETESZ_TMOK_NUM];			/* Reteszes TMOK-k állásjelzéseinek az offsete */
-unsigned int		TMOK_ID[RETESZ_TMOK_NUM][RETESZ_RTU_NUM];							/* Reteszes TMOK-k azonosítója a táviratban = DP offset */
-
-
-unsigned int		ReteszAllapotok[RETESZ_TMOK_NUM];
-static unsigned int		PrReteszAllapotok[RETESZ_TMOK_NUM];
-unsigned int		TMOKAllasjelzesek[RETESZ_TMOK_NUM];
-
-
-static unsigned int	prevTMOKAllasjelzesek[RETESZ_TMOK_NUM];
 unsigned int		i,j;
 char				message[500];
 int					nDPTblIndx;
