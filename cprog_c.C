@@ -3579,8 +3579,8 @@ TMOKAllasjelzesOffsetek[4] = 55; 		/* Az állásjelzés offsete a DP adatbázisban *
 TMOK_ID[4][0] =1255;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
 ReteszesRTUIndex[4][0] = 322;			/* E front end */															/**/
 
-TMOK_ID[4][1] =54;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
-ReteszesRTUIndex[4][1] = 199;			/* Vönöck szélerõmû*/															/**/
+TMOK_ID[4][1] =1305;						/* TMOK azonosítója a kimenõ táviratban = DP offset */								/**/															
+ReteszesRTUIndex[4][1] = 323;			/* G front end */															/**/
 
 ReteszesTMOK_RTUNum[4] = 2;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[4] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
@@ -3701,8 +3701,8 @@ TMOKAllasjelzesOffsetek[17] = 74; 		/* Az állásjelzés offsete a DP adatbázisban 
 TMOK_ID[17][0] =5;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
 ReteszesRTUIndex[17][0] = 324;			/* A redundancia */															/**/
 
-TMOK_ID[17][1] =74;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
-ReteszesRTUIndex[17][1] = 324;			/* Vönöck szélerõmû */															/**/
+TMOK_ID[17][1] =1304;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+ReteszesRTUIndex[17][1] = 323;			/* G front end */															/**/
 
 ReteszesRTUIndex[17][0] = 324;			/* A redundancia */															/**/
 ReteszesTMOK_RTUNum[17] = 2;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
