@@ -584,7 +584,7 @@ MOSCAD_init_sitetable();
 /* 262 30-27						SZVAR		*/ MOSCAD_add_new_site(5304,RADIO1_1);
 /* 263 30-46						SZVAR		*/ MOSCAD_add_new_site(5305,RADIO1_5);
 /* 264 30-63						SZVAR		*/ MOSCAD_add_new_site(5306,RADIO9_4);
-/* 265 30-76						SZVAR		*/ MOSCAD_add_new_site(5307,RADIO1_1);
+/* 265 (30-76)30-77			SZVAR		*/ MOSCAD_add_new_site(5307,RADIO1_1);
 /* 266 31-17						SZVAR		*/ MOSCAD_add_new_site(5309,RADIO1_8);
 /* 267 31-57						SZVAR		*/ MOSCAD_add_new_site(3510,RADIO1_7);
 /* 268 31-83						SZVAR		*/ MOSCAD_add_new_site(5311,RADIO9_4);
@@ -636,7 +636,7 @@ MOSCAD_init_sitetable();
 /* 310--------------------------------------319*/
 /* 310 80-64						ORNY		*/ MOSCAD_add_new_site(5342,RADIO3_6);
 /* 311 80-65						ORNY		*/ MOSCAD_add_new_site(5343,RADIO3_6);
-/* 312 80-75						ORNY		*/ MOSCAD_add_new_site(5344,RADIO3_9);
+/* 312 80-75						ORNY		*/ MOSCAD_add_new_site(5344,RADIO3_8);
 /* 313 80-98						ORNY		*/ MOSCAD_add_new_site(5345,RADIO3_7);
 /* 314 81-18						IG			*/ MOSCAD_add_new_site(5346,RADIO5_2);
 /* 315 85-31						IG			*/ MOSCAD_add_new_site(5347,RADIO5_2);
