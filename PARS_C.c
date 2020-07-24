@@ -280,8 +280,8 @@ ST[0].nSiteList[83]		=5354; 	    ST[0].nLinkList[83]   	=RADIO6_6;	/* RADIO6_2 T
 ST[0].nSiteList[84]		=5104; 	    ST[0].nLinkList[84]   	=RADIO7_1;	/* RADIO7_1 Mecser, TALUS 			MOS */
 ST[0].nSiteList[85]		=5107; 	    ST[0].nLinkList[85]   	=RADIO4_1;	/* RADIO4_1 Sárvár Spirit Hotel		IK */
 ST[0].nSiteList[86]		=5108; 	    ST[0].nLinkList[86]   	=RADIO7_1;	/* RADIO7_1 Mosonszolnok, szélerõmû	MOS */
-ST[0].nSiteList[87]		=5109; 		ST[0].nLinkList[87]		=RADIO6_1; 	/*Szombathely, szennyviztelep 1. rész, 	SZOM*/
-ST[0].nSiteList[88]		=5109; 		ST[0].nLinkList[88]		=RADIO6_1; 	/*Szombathely, szennyviztelep 2. rész, 	SZOM*/
+ST[0].nSiteList[87]		=5109; 		ST[0].nLinkList[87]		=RADIO6_6; 	/*Szombathely, szennyviztelep 1. rész, 	SZOM*/
+ST[0].nSiteList[88]		=5109; 		ST[0].nLinkList[88]		=RADIO6_6; 	/*Szombathely, szennyviztelep 2. rész, 	SZOM*/
 ST[0].nSiteList[89]		=5110; 		ST[0].nLinkList[89]		=RADIO5_1; 	/*Komárom, OHUB, 					IG*/
 ST[0].nSiteList[90]		=5111; 		ST[0].nLinkList[90]		=RADIO5_3; 	/*RADIO5_3 TMOK 20-37 				IG*/
 ST[0].nSiteList[91]		=5112; 		ST[0].nLinkList[91]		=LINE2;		/* RSLINK13 Szentgotthárd átj		ZEG*/
