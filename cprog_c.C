@@ -3893,11 +3893,16 @@ ReteszesTMOK_RTUNum[39] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnás
 nReteszPar[39] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[39] = 37;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
 
-/* 40. TMOK: 54-24 A redundancia, RTU: H front end -> Királyszentistván 017/24_1,2,3 PV erõmû  -----------------------*/								/*  */
+/* 40. TMOK: 54-24 A redundancia, RTU: H front end -> Királyszentistván 017/34,35,36 PV erõmû , -----------------------*/								/*  */
 TMOKAllasjelzesOffsetek[40] = 79; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+
 TMOK_ID[40][0] =11;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
 ReteszesRTUIndex[40][0] = 324;			/* A redundancia */															/**/
-ReteszesTMOK_RTUNum[40] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+
+TMOK_ID[40][1] =1325;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+ReteszesRTUIndex[40][1] = 323;			/* G front end */															/**/
+
+ReteszesTMOK_RTUNum[40] = 2;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[40] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[40] = 38;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
 
