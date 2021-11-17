@@ -3683,9 +3683,14 @@ nReteszOffset[14] = 14;             /* DC parancs és DP állapot offsete, ha tart
 
 /* 15. TMOK: 31-32 RTU: E front end -> Székesfehérvár, Csala  -----------------------*/								/*  */
 TMOKAllasjelzesOffsetek[15] = 693; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+
 TMOK_ID[15][0] =1256;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
 ReteszesRTUIndex[15][0] = 322;			/* E Front end */															/**/
-ReteszesTMOK_RTUNum[15] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+
+TMOK_ID[15][1] =1345;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+ReteszesRTUIndex[15][1] = 323;			/* G Front end */															/**/
+
+ReteszesTMOK_RTUNum[15] = 2;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[15] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[15] = 15;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
 
