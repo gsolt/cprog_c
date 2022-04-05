@@ -332,7 +332,7 @@ ST[0].nSiteList[134]	=5177; 		ST[0].nLinkList[134]	=RADIO1_8;	/* RADIO1_8  31-01
 ST[0].nSiteList[135]	=5178; 		ST[0].nLinkList[135]	=RADIO1_1;	/* RADIO1_1  30-26					SZVAR*/
 ST[0].nSiteList[136]	=5179; 		ST[0].nLinkList[136]	=RADIO1_1;	/* RADIO1_1  30-79					SZVAR*/
 ST[0].nSiteList[137]	=5180; 		ST[0].nLinkList[137]	=RADIO1_1;	/* RADIO1_1  30-93					SZVAR*/
-ST[0].nSiteList[138]	=5181; 		ST[0].nLinkList[138]	=RADIO9_4;	/* RADIO1_2  31-96					SZVAR*/
+ST[0].nSiteList[138]	=5181; 		ST[0].nLinkList[138]	=RADIO9_4;	/* RADIO1_2  34-96 (31-96)					SZVAR*/
 ST[0].nSiteList[139]	=5182; 		ST[0].nLinkList[139]	=RADIO1_8;	/* RADIO1_8  32-19					SZVAR*/
 ST[0].nSiteList[140]	=5183; 		ST[0].nLinkList[140]	=RADIO1_8;	/* RADIO1_8  32-14					SZVAR*/
 ST[0].nSiteList[141]	=5184; 		ST[0].nLinkList[141]	=RADIO1_8;	/* RADIO1_8  32-27					SZVAR*/
@@ -593,7 +593,7 @@ MOSCAD_init_sitetable();
 /* 270 32-55						SZVAR		*/ MOSCAD_add_new_site(5313,RADIO9_1);
 /* 271 32-68						SZVAR		*/ MOSCAD_add_new_site(5314,RADIO1_8);
 /* 272 35-22						SZVAR		*/ MOSCAD_add_new_site(5315,RADIO1_1);
-/* 273 37-198						SZVAR		*/ MOSCAD_add_new_site(5316,RADIO1_8);
+/* 273 32-71 (37-198)		SZVAR		*/ MOSCAD_add_new_site(5316,RADIO1_8);
 /* 274 71-78						IK			*/ MOSCAD_add_new_site(5317,RADIO4_2);
 /* 275 81-99						IG			*/ MOSCAD_add_new_site(5299,RADIO5_2);
 /* 276 86-18						IG			*/ MOSCAD_add_new_site(5300,RADIO5_1);
