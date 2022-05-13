@@ -583,7 +583,7 @@ MOSCAD_init_sitetable();
 /* 261 21-59						IG			*/ MOSCAD_add_new_site(5298,RADIO5_3);
 /* 262 30-27						SZVAR		*/ MOSCAD_add_new_site(5304,RADIO1_1);
 /* 263 30-46						SZVAR		*/ MOSCAD_add_new_site(5305,RADIO1_5);
-/* 264 30-63						SZVAR		*/ MOSCAD_add_new_site(5306,RADIO9_4);
+/* 264 30-63						SZVAR		*/ MOSCAD_add_new_site(5306,RADIO4_7);
 /* 265 (30-76)30-77			SZVAR		*/ MOSCAD_add_new_site(5307,RADIO1_1);
 /* 266 31-17						SZVAR		*/ MOSCAD_add_new_site(5309,RADIO1_8);
 /* 267 31-57						SZVAR		*/ MOSCAD_add_new_site(3510,RADIO1_7);
