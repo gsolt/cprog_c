@@ -3316,6 +3316,10 @@ if (sTI[nI].nType == TYP_MOT || sTI[nI].nType == TYP_TMOK || sTI[nI].nType == TY
 		{
 			fnWriteNMStatus( nJ+sMOT[nI].nIEC_NM, nValue);
 		}
+ 		for (nJ=0;nJ<sMOT[nI].nNMNum2;nJ++)
+		{
+			fnWriteNMStatus( nJ+sMOT[nI].nIEC_NM2, nValue);
+		}
 		
 
 	} /* end if type == TYP_MOT vagy TYP_TMOK*/
