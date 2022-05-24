@@ -291,7 +291,7 @@ ST[0].nSiteList[94]		=5120; 		ST[0].nLinkList[94]		=RADIO1_8;	/* RADIO1_8 TMOK 3
 ST[0].nSiteList[95]		=5116; 		ST[0].nLinkList[95]		=RADIO9_4;	/* RADIO1_2 Mór, Hammerstein 		SZVAR*/
 ST[0].nSiteList[96]		=5117; 		ST[0].nLinkList[96]		=RADIO4_2;	/* RADIO4_2 Nick, vizieromu 		IK*/
 ST[0].nSiteList[97]		=5113; 		ST[0].nLinkList[97]		=RADIO8_1;	/* RADIO8_2 TMOK 42-65				ZEG*/
-ST[0].nSiteList[98]		=5122; 		ST[0].nLinkList[98]		=RADIO6_1;	/* RADIO6_1 Szombathely, Merkur		SZOM*/
+ST[0].nSiteList[98]		=5122; 		ST[0].nLinkList[98]		=LINE13;	  /* RADIO6_1 Szombathely, Merkur		SZOM*/
 ST[0].nSiteList[99]		=5121; 		ST[0].nLinkList[99]		=RADIO3_7;	/* RADIO3_7 Tatabánya, Ipari Park	OR*/
 ST[0].nSiteList[100]	=5115; 		ST[0].nLinkList[100]	=RADIO8_2;	/* RADIO8_2 TMOK 42-70				ZEG*/
 ST[0].nSiteList[101]	=5114; 		ST[0].nLinkList[101]	=RADIO8_1;	/* RADIO8_1 TMOK 42-81				ZEG*/

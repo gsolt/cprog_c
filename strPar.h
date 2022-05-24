@@ -18,6 +18,35 @@
 
 #define	LINE1			21
 #define	LINE2			22
+#define	LINE3			23
+#define	LINE4			24
+#define	LINE5			25
+#define	LINE6			26
+#define	LINE7			27
+#define	LINE8			28
+#define	LINE9			29
+
+#define	LINE10			80
+#define	LINE11			81
+#define	LINE12			82
+#define	LINE13			83
+#define	LINE14			84
+#define	LINE15			85
+#define	LINE16			86
+#define	LINE17			87
+#define	LINE18			88
+#define	LINE19			89
+#define	LINE20			90
+#define	LINE21			91
+#define	LINE22			92
+#define	LINE23			92
+#define	LINE24			94
+#define	LINE25			95
+#define	LINE26			96
+#define	LINE27			97
+#define	LINE28			98
+#define	LINE29			99
+
 
 #define	ALL_LINK		0
 #define	RSLINK1			51
