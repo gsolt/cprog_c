@@ -635,7 +635,7 @@ MOSCAD_init_sitetable();
 /* 309 80-23						ORNY		*/ MOSCAD_add_new_site(5341,RADIO3_9);
 /* 310--------------------------------------319*/
 /* 310 80-64						ORNY		*/ MOSCAD_add_new_site(5342,RADIO3_6);
-/* 311 80-65						ORNY		*/ MOSCAD_add_new_site(5343,RADIO3_6);
+/* 311 80-65						ORNY		*/ MOSCAD_add_new_site(5343,LINE8);
 /* 312 80-75						ORNY		*/ MOSCAD_add_new_site(5344,RADIO3_8);
 /* 313 80-98						ORNY		*/ MOSCAD_add_new_site(5345,RADIO3_7);
 /* 314 81-18						IG			*/ MOSCAD_add_new_site(5346,RADIO5_2);
