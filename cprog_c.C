@@ -3540,7 +3540,7 @@ int     DP1,DP2;          /*  */
 ReteszAllapotokKezdoCim = 725;  /* DP3, 225 */																		/**/
 ReteszParancsokKezdoCim = 1110;	/* DC5, 110 */																		/**/
 																													/**/
-ReteszesTMOKNum = 51;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
+ReteszesTMOKNum = 52;					/* Ennyi reteszfeltételes TMOK van az adott front-endben*/					/**/	
 p_col_Stat[98]  = ReteszesTMOKNum;	/* Hogy lehessen monitorozni */
 
 																													/**/
@@ -4012,6 +4012,14 @@ ReteszesRTUIndex[50][0] = 323;			/* G Front end */															/**/
 ReteszesTMOK_RTUNum[50] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[50] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[50] = 48;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
+
+/* 51. TMOK: 81-46 G front end -> Dunaalmás 0633/PV PV erõmû  -----------------------*/								/*  */
+TMOKAllasjelzesOffsetek[51] = 382; 		/* Az állásjelzés offsete a DP adatbázisban */								/**/
+TMOK_ID[51][0] =1353;   						/* TMOK azonosítója a táviratban = DP offset */								/**/															
+ReteszesRTUIndex[51][0] = 323;			/* G Front end */															/**/
+ReteszesTMOK_RTUNum[51] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
+nReteszPar[51] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
+nReteszOffset[51] = 49;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
                                                                                                                                                                       
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
