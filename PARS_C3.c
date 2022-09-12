@@ -1246,7 +1246,11 @@ sT[0].sTI[90].nType = TYP_TMOK;
 
 	sT[0].sMOT[90].nIEC_SP				= 1743;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[90].nIEC_DP				= 222;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[90].nIEC_NM				= 312;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[90].nIEC_NM				= 1297;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[90].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[90].nIEC_NM2				= 1301;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[90].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /*  Szentgotthard átjátszó -----------------------------------------------------------*/	
 sT[0].sTI[91].nType = TYP_MOT;	
