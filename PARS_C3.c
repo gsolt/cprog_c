@@ -2236,7 +2236,12 @@ sT[0].sTI[210].nType = TYP_TMOK;
 
 	sT[0].sMOT[210].nIEC_SP				= 3835;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[210].nIEC_DP				= 563;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[210].nIEC_NM				= 694;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[210].nIEC_NM				= 1339;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[210].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[210].nIEC_NM2				= 1343;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[210].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /*  34-26 OK2  -----------------------------------------------------------*/
 sT[0].sTI[211].nType = TYP_TMOK;
 
