@@ -362,7 +362,7 @@ ST[0].nSiteList[164]	=5202; 		ST[0].nLinkList[164]	=RADIO8_1;	/* RADIO8_1  Szent
 ST[0].nSiteList[165]	=5203; 		ST[0].nLinkList[165]	=RADIO2_8;	/* RADIO2_6  91-68					ZALA*/
 ST[0].nSiteList[166]	=5204; 		ST[0].nLinkList[166]	=RADIO2_6;	/* RADIO2_6  91-83					ZALA*/
 ST[0].nSiteList[167]	=5205; 		ST[0].nLinkList[167]	=RADIO8_5;	/* RADIO2_8  92-08					ZALA*/
-ST[0].nSiteList[168]	=5158; 		ST[0].nLinkList[168]	=RADIO9_1;	/* RADIO1_1  30-31					SZVAR*/
+ST[0].nSiteList[168]	=5158; 		ST[0].nLinkList[168]	=RADIO1_1;	/* RADIO1_1  30-31					SZVAR*/
 
 ST[0].nSiteList[169]	=5148; 		ST[0].nLinkList[169]	=RADIO7_1;	/* RADIO7_1  Jánossom. J06			MOS*/
 ST[0].nSiteList[170]	=5149; 		ST[0].nLinkList[170]	=RADIO7_1;	/* RADIO7_1  Jánossom. J02-3		MOS*/
