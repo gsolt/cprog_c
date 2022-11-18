@@ -656,6 +656,9 @@ sT[0].sTI[24].nType = TYP_TMOK;
 	sT[0].sMOT[24].nIEC_NM				= 1092;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[24].nNMNum      			= 4;
 
+	sT[0].sMOT[24].nIEC_NM2				  = 1383;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[24].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /* 40-85 TMOK ZE -----------------------------------------------------------*/
 sT[0].sTI[25].nType = TYP_TMOK;
 
