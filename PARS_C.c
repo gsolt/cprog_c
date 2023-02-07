@@ -336,7 +336,7 @@ ST[0].nSiteList[138]	=5181; 		ST[0].nLinkList[138]	=RADIO9_4;	/* RADIO1_2  34-96
 ST[0].nSiteList[139]	=5182; 		ST[0].nLinkList[139]	=RADIO1_8;	/* RADIO1_8  32-19					SZVAR*/
 ST[0].nSiteList[140]	=5183; 		ST[0].nLinkList[140]	=RADIO1_8;	/* RADIO1_8  32-14					SZVAR*/
 ST[0].nSiteList[141]	=5184; 		ST[0].nLinkList[141]	=RADIO1_8;	/* RADIO1_8  32-27					SZVAR*/
-ST[0].nSiteList[142]	=5185; 		ST[0].nLinkList[142]	=RADIO3_8;	/* RADIO1_2  34-11					SZVAR*/
+ST[0].nSiteList[142]	=5185; 		ST[0].nLinkList[142]	=RADIO8_9;	/* RADIO1_2  34-11					SZVAR*/
 ST[0].nSiteList[143]	=5186; 		ST[0].nLinkList[143]	=RADIO1_8;	/* RADIO1_8  35-19					SZVAR*/
 ST[0].nSiteList[144]	=5187; 		ST[0].nLinkList[144]	=RADIO1_1;	/* RADIO1_1  35-62					SZVAR*/
 ST[0].nSiteList[145]	=5151; 		ST[0].nLinkList[145]	=RADIO7_1;	/* RADIO7_1  12-16					MOS*/
