@@ -394,7 +394,7 @@ ST[0].nSiteList[194]	=5357; 		ST[0].nLinkList[194]	=RADIO2_6;	/* RADIO2_6  91-84
 ST[0].nSiteList[195]	=5229; 		ST[0].nLinkList[195]	=RADIO2_6;	/* RADIO2_7  ZEG, Kálvária			ZEG*/
 ST[0].nSiteList[196]	=5230; 		ST[0].nLinkList[196]	=RADIO2_6;	/* RADIO2_7  ZEG, Kórház			ZEG*/
 ST[0].nSiteList[197]	=5231; 		ST[0].nLinkList[197]	=RADIO6_1;	/* RADIO6_1  41-75					SZOM*/
-ST[0].nSiteList[198]	=5232; 		ST[0].nLinkList[198]	=RADIO6_6;	/* RADIO6_1  45-23					SZOM*/
+ST[0].nSiteList[198]	=5232; 		ST[0].nLinkList[198]	=LINE13;	/* RADIO6_1  45-23					SZOM*/
 ST[0].nSiteList[199]	=5233; 		ST[0].nLinkList[199]	=RADIO4_2;	/* RADIO4_2  Vönöck					IK*/
 ST[0].nSiteList[200]	=5234; 		ST[0].nLinkList[200]	=RADIO3_6;	/* RADIO3_6  82-06					ORNY*/
 ST[0].nSiteList[201]	=5167; 		ST[0].nLinkList[201]	=RADIO6_3;	/* RADIO6_3  41-55					SZOM*/

@@ -1184,7 +1184,7 @@ sT[0].sTI[82].nType = TYP_TMOK;
 	sT[0].sMOT[82].nIEC_DP				= 164;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[82].nIEC_NM				= 263;		/* Mérések IEC kezdõcíme */
 
-/* 45-10 TMOK  -----------------------------------------------------------*/
+/* 45-11 TMOK  -----------------------------------------------------------*/
 sT[0].sTI[83].nType = TYP_TMOK;
 
 	sT[0].sMOT[83].nIEC_SP				= 1505;		/* Egybites értékek IEC kezdõcíme*/
@@ -1761,12 +1761,17 @@ sT[0].sTI[144].nType = TYP_TMOK;
 	sT[0].sMOT[144].nIEC_NM				= 445;		/* Mérések IEC kezdõcíme */
 	
 	
-/*  12-16 OK2  -----------------------------------------------------------*/
+/*  12-16 PM6  -----------------------------------------------------------*/
 sT[0].sTI[145].nType = TYP_TMOK;
 
 	sT[0].sMOT[145].nIEC_SP				= 2695;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[145].nIEC_DP				= 368;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[145].nIEC_NM				= 448;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[145].nIEC_NM				= 1405;		/* Mérések IEC kezdõcíme */
+  
+  sT[0].sMOT[145].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[145].nIEC_NM2				= 1409;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[145].nNMNum2				  = 2;		/* Analóg mérések száma*/
+  
 /*  12-37 OK2  -----------------------------------------------------------*/
 sT[0].sTI[146].nType = TYP_TMOK;
 
@@ -2177,6 +2182,8 @@ sT[0].sTI[198].nType = TYP_TMOK;
 	sT[0].sMOT[198].nIEC_DP				= 509;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[198].nIEC_NM				= 1148;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[198].nNMNum				= 4;		/* Analóg mérések száma*/
+		sT[0].sMOT[198].nIEC_NM2				  = 1411;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[198].nNMNum2				  = 2;		/* Analóg mérések száma*/
 	
 /* Zalaegerszeg, Kórház ---------------------------------------------------------------*/
 sT[0].sTI[199].nType = TYP_MOT;	
@@ -2318,7 +2325,10 @@ sT[0].sTI[216].nType = TYP_TMOK;
 
 	sT[0].sMOT[216].nIEC_SP				= 3931;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[216].nIEC_DP				= 569;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[216].nIEC_NM				= 712;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[216].nIEC_NM				= 1419;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[216].nNMNum				= 4;		/* Analóg mérések száma*/
+	sT[0].sMOT[216].nIEC_NM2				  = 1423;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[216].nNMNum2				  = 2;		/* Analóg mérések száma*/
 /*  44-11 OK2  -----------------------------------------------------------*/
 sT[0].sTI[217].nType = TYP_TMOK;
 
