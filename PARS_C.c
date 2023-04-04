@@ -276,7 +276,7 @@ ST[0].nSiteList[79]		=5102; 	    ST[0].nLinkList[79]   	=RADIO1_1;	/* RADIO1_1 S
 ST[0].nSiteList[80]		=314; 	    ST[0].nLinkList[80]   	=RADIO3_7;	/* RADIO3_7 Tatabánya, Szent Borbála gázmotor ORNY */
 ST[0].nSiteList[81]		=5103; 	    ST[0].nLinkList[81]   	=RADIO3_7;	/* RADIO3_7 Tatabánya, Vértes center ORNY */
 ST[0].nSiteList[82]		=5353; 	    ST[0].nLinkList[82]   	=RADIO6_1;	/* RADIO6_1 TMOK, 45-10				SZOM */
-ST[0].nSiteList[83]		=5354; 	    ST[0].nLinkList[83]   	=RADIO6_6;	/* RADIO6_2 TMOK, 45-11				SZOM */
+ST[0].nSiteList[83]		=5354; 	    ST[0].nLinkList[83]   	=RADIO6_1;	/* RADIO6_2 TMOK, 45-11				SZOM */
 ST[0].nSiteList[84]		=5104; 	    ST[0].nLinkList[84]   	=RADIO7_1;	/* RADIO7_1 Mecser, TALUS 			MOS */
 ST[0].nSiteList[85]		=5107; 	    ST[0].nLinkList[85]   	=RADIO4_1;	/* RADIO4_1 Sárvár Spirit Hotel		IK */
 ST[0].nSiteList[86]		=5108; 	    ST[0].nLinkList[86]   	=RADIO7_1;	/* RADIO7_1 Mosonszolnok, szélerõmû	MOS */
