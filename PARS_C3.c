@@ -1189,7 +1189,11 @@ sT[0].sTI[83].nType = TYP_TMOK;
 
 	sT[0].sMOT[83].nIEC_SP				= 1505;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[83].nIEC_DP				= 165;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[83].nIEC_NM				= 266;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[83].nIEC_NM				= 1413;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[83].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[83].nIEC_NM2				  = 1417;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[83].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Mecser, szelgenerator TALUS -------------------------------------------------------------*/
 sT[0].sTI[84].nType = TYP_TAL;	
