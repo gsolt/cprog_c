@@ -662,6 +662,12 @@ short          *p_col_parInt;
 			*nNMTblIndx = p_col_parInt[84]; 	/* Itt van az NM6 tábla sorszáma */
 			*nIndx = nIECOffset - 1200;				
 		}
+		else if (nIECOffset>=1200 && nIECOffset<1440)
+		{
+			/* NM 6. */
+			*nNMTblIndx = p_col_parInt[84]; 	/* Itt van az NM6 tábla sorszáma */
+			*nIndx = nIECOffset - 1200;				
+		}
 
 
 if (*nIndx>239)
