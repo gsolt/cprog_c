@@ -1391,7 +1391,11 @@ sT[0].sTI[101].nType = TYP_TMOK;
 
 	sT[0].sMOT[101].nIEC_SP				= 1920;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[101].nIEC_DP				= 246;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[101].nIEC_NM				= 345;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[101].nIEC_NM				= 165;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[101].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[101].nIEC_NM2				= 169;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[101].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Oroszlány, Takács B ---------------------------------------------------------------*/
 sT[0].sTI[102].nType = TYP_MOT;	
