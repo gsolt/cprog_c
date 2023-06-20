@@ -1093,6 +1093,9 @@ sT[0].sTI[72].nType = TYP_TMOK;
 	sT[0].sMOT[72].nIEC_NM				= 1104;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[72].nNMNum      			= 4;
 
+	sT[0].sMOT[72].nIEC_NM2				  = 34;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[72].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /* Szombathely, 11-es Huszar uti gazmotor -------------------------------------------------------------*/
 sT[0].sTI[73].nType = TYP_MOT;	
 	
@@ -1362,7 +1365,11 @@ sT[0].sTI[97].nType = TYP_TMOK;
 
 	sT[0].sMOT[97].nIEC_SP				= 1888;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[97].nIEC_DP				= 244;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[97].nIEC_NM				= 339;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[97].nIEC_NM				= 871;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[97].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[97].nIEC_NM2				= 875;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[97].nNMNum2				  = 2;		/* Analóg mérések száma*/
 	
 /* Szombathely, Merkur ---------------------------------------------------------------*/
 sT[0].sTI[98].nType = TYP_MOT;	
