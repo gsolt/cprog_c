@@ -1375,7 +1375,7 @@ nFirstCycle3 = p_col_Stat[12];
 nLimitRadioK2 = 24;
 nLimitRadioK3 = 25;*/
 	
-nLimitRslink = 65;
+nLimitRslink = 85;
 
 if (nFirstCycle1 == 0)
 {
@@ -1383,7 +1383,7 @@ if (nFirstCycle1 == 0)
 }
 else
 {
-	nLimitRadioK1 = 322;
+	nLimitRadioK1 = 499;
 }
 
 if (nFirstCycle2 == 0)
@@ -1392,7 +1392,7 @@ if (nFirstCycle2 == 0)
 }
 else
 {
-	nLimitRadioK2 = 324;
+	nLimitRadioK2 = 824;
 }
 
 if (nFirstCycle3 == 0)
@@ -1401,7 +1401,7 @@ if (nFirstCycle3 == 0)
 }
 else
 {
-	nLimitRadioK3 = 326;
+	nLimitRadioK3 = 237;
 }
 
 
