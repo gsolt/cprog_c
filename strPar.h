@@ -39,7 +39,7 @@
 #define	LINE20			90
 #define	LINE21			91
 #define	LINE22			92
-#define	LINE23			92
+#define	LINE23			93
 #define	LINE24			94
 #define	LINE25			95
 #define	LINE26			96
