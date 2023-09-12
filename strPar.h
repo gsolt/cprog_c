@@ -7,8 +7,11 @@
 #define  TYP_TAL_EVENT	4
 #define  TYP_MOT2		5
 #define  TYP_SEP		6
+#define  TYP_ARKAD		7
 #define  TYP_FRONTEND	11
-
+#define  TYP_TAL2		12
+#define  TYP_DP		14
+#define  TYP_T300		15
 
 #define	TOPICAL			1
 #define NOT_TOPICAL		0
@@ -269,6 +272,8 @@ typedef	struct
 	int							nDP_EXTRA_NUM;		/* Extra 2 bites darabszam  */
 	int							nDP_EXTRA_OFFSET;	/* Extra 2 bites cim  */
 	int							nLeagNum;			/* Leadazasok szama: 4,8 */
+  int             nSPNum;       /* SP-k száma T300-nál */
+  int             nDPNum;       /* DP-k száma T300-nál */
 		
 	}	STATION_DESC_TALUS ;	
 	
@@ -300,7 +305,7 @@ typedef struct
 typedef struct 
 {
 	unsigned short			nRtuNumRad ;			/* Osszes RTU szama Radio linken*/
-	unsigned short			nIndx[MAX_RTU]; 			/* RTU-k indexei a site tablaban */
+	unsigned short			nIndx[110]; 			/* RTU-k indexei a site tablaban */
 } RTU_RAD_NEW;
 
 typedef struct 
@@ -380,7 +385,7 @@ typedef struct
 typedef	struct
 	{
 	int				n800H ;
-	int				nTalusAddr ;
+	unsigned int	nTalusAddr ;
 	int				nDummy ;	
 	int				nValue;
 	int				nMin;
