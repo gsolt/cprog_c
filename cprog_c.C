@@ -4020,6 +4020,7 @@ ReteszesRTUIndex[51][0] = 323;			/* G Front end */															/**/
 ReteszesTMOK_RTUNum[51] = 1;				/* Az adott indexû TMOK ennyi kábelköri állomnással kommunikál */			/**/
 nReteszPar[51] = 1;                /* 1: tartozik hozzá DC parancs, 0: nem tartozik hozzá DC parancs */
 nReteszOffset[51] = 49;             /* DC parancs és DP állapot offsete, ha tartozik hozzá DC parancs*/
+
                                                                                                                                                                       
 /**********************************************************************************************************************/
 /**********************************************************************************************************************/
