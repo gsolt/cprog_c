@@ -2719,7 +2719,12 @@ sT[0].sTI[255].nType = TYP_TMOK;
 
 	sT[0].sMOT[255].nIEC_SP				= 4493;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[255].nIEC_DP				= 618;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[255].nIEC_NM				= 821;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[255].nIEC_NM				= 1463;		/* Mérések IEC kezdõcíme */
+  
+  sT[0].sMOT[255].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[255].nIEC_NM2				= 1467;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[255].nNMNum2				  = 2;		/* Analóg mérések száma*/
+  
 /*  86-51   -----------------------------------------------------------*/
 sT[0].sTI[256].nType = TYP_TMOK;
 
