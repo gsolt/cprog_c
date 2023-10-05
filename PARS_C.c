@@ -565,7 +565,7 @@ nSiteIdCheck[69]  = 5352;
 nSiteIdCheck[70]  = 5358;
 nSiteIdCheck[71]  = 5358;
 
-
+/* Az elsõ 13 helyen történõ módosítás után a site configot is le kell tölteni!!!!!!!!!!!!!!!!!!!!!!!!!!!   */                    
 MOSCAD_init_sitetable(); 
 /* 250--------------------------------------------------------------------------259*/
 /* 250 41-14						IK			*/ MOSCAD_add_new_site(5278,RADIO4_1);		
@@ -574,7 +574,7 @@ MOSCAD_init_sitetable();
 /* 253 80-74						ORNY		*/ MOSCAD_add_new_site(5281,RADIO3_7);
 /* 254 85-22						IG			*/ MOSCAD_add_new_site(5282,RADIO5_1);
 /* 255 86-24						IG			*/ MOSCAD_add_new_site(5283,RADIO5_1);
-/* 256 86-51						IG			*/ MOSCAD_add_new_site(5284,RADIO5_1);
+/* 256 86-51						IG			*/ MOSCAD_add_new_site(5284,RADIO3_1);
 /* 257 89-168						IG			*/ MOSCAD_add_new_site(5285,RADIO5_2);
 /* 258 Szombathely, Wesselényi		SZOM		*/ MOSCAD_add_new_site(5310,RADIO6_6);
 /* 259 18-799						MOV			*/ MOSCAD_add_new_site(5318,RADIO7_1);
