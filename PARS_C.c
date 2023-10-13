@@ -572,7 +572,7 @@ MOSCAD_init_sitetable();
 /* 251 20-01						IG			*/ MOSCAD_add_new_site(5279,RADIO5_3);
 /* 252 42-46						IG			*/ MOSCAD_add_new_site(5356,RADIO8_1);
 /* 253 80-74						ORNY		*/ MOSCAD_add_new_site(5281,RADIO3_7);
-/* 254 85-22						IG			*/ MOSCAD_add_new_site(5282,RADIO5_1);
+/* 254 85-22						IG			*/ MOSCAD_add_new_site(5282,RADIO3_2);
 /* 255 86-24						IG			*/ MOSCAD_add_new_site(5283,RADIO5_1);
 /* 256 86-51						IG			*/ MOSCAD_add_new_site(5284,RADIO3_1);
 /* 257 89-168						IG			*/ MOSCAD_add_new_site(5285,RADIO5_2);
