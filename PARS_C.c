@@ -311,7 +311,7 @@ ST[0].nSiteList[114]	=5136; 		ST[0].nLinkList[114]	=RADIO3_7;	/* RADIO3_7  Tatab
 ST[0].nSiteList[115]	=5137; 		ST[0].nLinkList[115]	=RADIO3_7;	/* RADIO3_7  Tatabánya, Sárberek A		ORNY*/
 ST[0].nSiteList[116]	=5138; 		ST[0].nLinkList[116]	=RADIO3_6;	/* RADIO3_6  Oroszlány, Gimnázium		ORNY*/
 ST[0].nSiteList[117]	=5139; 		ST[0].nLinkList[117]	=RADIO3_7;	/* RADIO3_7  Tatabánya, SCI			ORNY*/
-ST[0].nSiteList[118]	=5141; 		ST[0].nLinkList[118]	=RADIO5_2;	/* RADIO5_1  81-92					IG*/
+ST[0].nSiteList[118]	=5141; 		ST[0].nLinkList[118]	=RADIO3_2;	/* RADIO5_1  81-92					IG*/
 ST[0].nSiteList[119]	=5140; 		ST[0].nLinkList[119]	=RADIO5_2;	/* RADIO5_3  81-41					IG*/
 ST[0].nSiteList[120]	=5143; 		ST[0].nLinkList[120]	=RADIO7_1;	/* RADIO7_1  Jánossomorja			MOS*/
 ST[0].nSiteList[121]	=5146; 		ST[0].nLinkList[121]	=RADIO3_6;	/* RADIO3_6  82-66					ORNY*/
