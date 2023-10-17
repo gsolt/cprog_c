@@ -316,7 +316,7 @@ ST[0].nSiteList[119]	=5140; 		ST[0].nLinkList[119]	=RADIO5_2;	/* RADIO5_3  81-41
 ST[0].nSiteList[120]	=5143; 		ST[0].nLinkList[120]	=RADIO7_1;	/* RADIO7_1  Jánossomorja			MOS*/
 ST[0].nSiteList[121]	=5146; 		ST[0].nLinkList[121]	=RADIO3_6;	/* RADIO3_6  82-66					ORNY*/
 ST[0].nSiteList[122]	=5144; 		ST[0].nLinkList[122]	=RADIO3_6;	/* RADIO3_6  82-40					ORNY*/
-ST[0].nSiteList[123]	=5145; 		ST[0].nLinkList[123]	=RADIO3_6;	/* RADIO3_6  82-63					ORNY*/
+ST[0].nSiteList[123]	=5145; 		ST[0].nLinkList[123]	=RADIO8_9;	/* RADIO3_6  82-63					ORNY*/
 ST[0].nSiteList[124]	=5147; 		ST[0].nLinkList[124]	=RADIO3_6;	/* RADIO3_6  82-79					ORNY*/
 
 ST[0].nSiteList[125]	=5168; 		ST[0].nLinkList[125]	=RADIO4_1;	/* RADIO4_1  41-08					ORNY*/
