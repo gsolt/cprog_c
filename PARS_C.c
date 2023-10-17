@@ -354,7 +354,7 @@ ST[0].nSiteList[156]	=5194; 		ST[0].nLinkList[156]	=RADIO5_2;	/* RADIO5_2  81-48
 ST[0].nSiteList[157]	=5195; 		ST[0].nLinkList[157]	=RADIO5_2;	/* RADIO5_2  81-60					IG*/
 ST[0].nSiteList[158]	=5196; 		ST[0].nLinkList[158]	=RADIO5_2;	/* RADIO5_2  81-04					IG*/
 ST[0].nSiteList[159]	=5197; 		ST[0].nLinkList[159]	=RADIO5_2;	/* RADIO5_2  81-46					IG*/
-ST[0].nSiteList[160]	=5198; 		ST[0].nLinkList[160]	=RADIO5_1;	/* RADIO5_1  81-91					IG*/
+ST[0].nSiteList[160]	=5198; 		ST[0].nLinkList[160]	=RADIO3_2;	/* RADIO5_1  81-91					IG*/
 ST[0].nSiteList[161]	=5199; 		ST[0].nLinkList[161]	=RADIO5_2;	/* RADIO5_1  81-96					IG*/
 ST[0].nSiteList[162]	=5200; 		ST[0].nLinkList[162]	=RADIO5_3;	/* RADIO5_3  20-34					IG*/
 ST[0].nSiteList[163]	=5201; 		ST[0].nLinkList[163]	=RADIO2_6;	/* RADIO2_6  91-03					ZALA*/
