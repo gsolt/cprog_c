@@ -2943,7 +2943,12 @@ sT[0].sTI[275].nType = TYP_TMOK;
 
 	sT[0].sMOT[275].nIEC_SP				= 4916;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[275].nIEC_DP				= 677;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[275].nIEC_NM				= 898;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[275].nIEC_NM				= 1513;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[275].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[275].nIEC_NM2				= 1517;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[275].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /*  86-18   -----------------------------------------------------------*/
 sT[0].sTI[276].nType = TYP_TMOK;
 
