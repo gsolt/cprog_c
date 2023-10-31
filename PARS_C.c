@@ -639,7 +639,7 @@ MOSCAD_init_sitetable();
 /* 312 80-75						ORNY		*/ MOSCAD_add_new_site(5344,RADIO3_8);
 /* 313 80-98						ORNY		*/ MOSCAD_add_new_site(5345,RADIO3_7);
 /* 314 81-18						IG			*/ MOSCAD_add_new_site(5346,RADIO5_2);
-/* 315 85-31						IG			*/ MOSCAD_add_new_site(5347,RADIO5_2);
+/* 315 85-31						IG			*/ MOSCAD_add_new_site(5347,RADIO3_2);
 /* 316 90-19						IK			*/ MOSCAD_add_new_site(5338,RADIO4_2);
 /* 317 91-33						ZALA		*/ MOSCAD_add_new_site(5350,RADIO2_6);
 /* 318 92-98						ZALA		*/ MOSCAD_add_new_site(5351,RADIO2_7);
