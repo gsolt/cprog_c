@@ -617,8 +617,8 @@ nMoscadHours = mdt.hours;
    /*---------------------*/
    if(MOSCAD_RcvFrm(&site_inx, rx_buffer, &buff_len, &type) == 0)
    {
-   			/*	MOSCAD_sprintf(message,"Frame received, index: %d",site_inx);
-   			 	MOSCAD_error(message ); 				*/
+   				MOSCAD_sprintf(message,"Frame received, index: %d",site_inx);
+   			 	MOSCAD_error(message ); 				
 
    	if(site_inx<=MAX_RTU)
    	{
