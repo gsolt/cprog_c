@@ -1559,13 +1559,16 @@ sT[0].sTI[112].nType = TYP_MOT;
 	sT[0].sMOT[112].nIEC_NM				= 0;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[112].nNMNum				= 0;		/* Analóg mérések száma*/
 
-/*  82-44 NPS  -----------------------------------------------------------*/
+/*  82-44 PM6  -----------------------------------------------------------*/
 sT[0].sTI[113].nType = TYP_TMOK;
 
 	sT[0].sMOT[113].nIEC_SP				= 2162;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[113].nIEC_DP				= 313;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[113].nIEC_NM				= 354;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[113].nIEC_NM				= 1533;		/* Mérések IEC kezdõcíme */
 
+  sT[0].sMOT[113].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[113].nIEC_NM2				= 1537;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[113].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Tatabánya, Hõközpont ---------------------------------------------------------------*/
 sT[0].sTI[114].nType = TYP_MOT;	
