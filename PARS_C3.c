@@ -895,7 +895,11 @@ sT[0].sTI[48].nType = TYP_TMOK;
 
 	sT[0].sMOT[48].nIEC_SP				= 824;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[48].nIEC_DP				= 60;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[48].nIEC_NM				= 156;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[48].nIEC_NM				= 198;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[48].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[48].nIEC_NM2				= 202;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[48].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* 81-31 TMOK  -----------------------------------------------------------*/
 sT[0].sTI[49].nType = TYP_TMOK;
@@ -1503,7 +1507,7 @@ sT[0].sTI[106].nType = TYP_MOT;
 
 
 
-/* Oroszlány, 8 ---------------------------------------------------------------*/
+/* Oroszlány, 7 ---------------------------------------------------------------*/
 sT[0].sTI[107].nType = TYP_MOT;	
 	
 	sT[0].sMOT[107].nIEC_SP				= 2048;		/* Egybites értékek IEC kezdõcíme*/
@@ -1514,7 +1518,7 @@ sT[0].sTI[107].nType = TYP_MOT;
 	sT[0].sMOT[107].nNMNum				= 0;		/* Analóg mérések száma*/
 
 
-/* Oroszlány, 7 ---------------------------------------------------------------*/
+/* Április 4. utca (Oroszlány, 8) ---------------------------------------------------------------*/
 sT[0].sTI[108].nType = TYP_MOT;	
 	
 	sT[0].sMOT[108].nIEC_SP				= 2064;		/* Egybites értékek IEC kezdõcíme*/
