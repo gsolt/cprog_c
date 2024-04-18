@@ -241,7 +241,7 @@ ST[0].nSiteList[44]		=5042; 	    ST[0].nLinkList[44]   	=RADIO4_1;	/* RADIO4_1 T
 ST[0].nSiteList[45]		=5081; 	    ST[0].nLinkList[45]   	=LINE8;	    /* RADIO5_1 TMOK, 81-19 		IG*/
 ST[0].nSiteList[46]		=5069; 	    ST[0].nLinkList[46]   	=RADIO1_4;	/* RADIO1_4 TMOK, 37-23 		SZVAR*/
 ST[0].nSiteList[47]		=5087; 	    ST[0].nLinkList[47]   	=RADIO3_1;	/* RADIO5_1 TMOK, 86-45 		IG*/
-ST[0].nSiteList[48]		=5051; 	    ST[0].nLinkList[48]   	=RADIO5_2;	/* RADIO3_6 TMOK, 81-01 		ORNY*/
+ST[0].nSiteList[48]		=5051; 	    ST[0].nLinkList[48]   	=LINE8;	    /* RADIO3_6 TMOK, 81-01 		ORNY*/
 ST[0].nSiteList[49]		=5053; 	    ST[0].nLinkList[49]   	=RADIO5_2;	/* RADIO5_3 TMOK, 81-31 		IG*/
 ST[0].nSiteList[50]		=5045; 	    ST[0].nLinkList[50]   	=RADIO2_7;	/* RADIO2_7 TMOK, 92-85 		ZALA*/
 ST[0].nSiteList[51]		=5043; 	    ST[0].nLinkList[51]   	=RADIO2_6;	/* RADIO2_6 TMOK, 91-30 		ZALA*/
@@ -301,7 +301,7 @@ ST[0].nSiteList[104]	=5125; 		ST[0].nLinkList[104]	=RADIO3_6;	/* RADIO3_6  35A		
 ST[0].nSiteList[105]	=5126; 		ST[0].nLinkList[105]	=RADIO3_6;	/* RADIO3_6  35						ORNY*/
 ST[0].nSiteList[106]	=5127; 		ST[0].nLinkList[106]	=RADIO3_6;	/* RADIO3_6  14						ORNY*/
 ST[0].nSiteList[107]	=5129; 		ST[0].nLinkList[107]	=RADIO3_6;	/* RADIO3_6  7						ORNY*/
-ST[0].nSiteList[108]	=5128; 		ST[0].nLinkList[108]	=RADIO3_6;	/* RADIO3_6  8						ORNY*/
+ST[0].nSiteList[108]	=5128; 		ST[0].nLinkList[108]	=RADIO3_6;	/* RADIO3_6  Április 4. utca - 25397 (8	)					ORNY*/
 ST[0].nSiteList[109]	=5130; 		ST[0].nLinkList[109]	=RADIO3_6;	/* RADIO3_6  11						ORNY*/
 ST[0].nSiteList[110]	=5131; 		ST[0].nLinkList[110]	=RADIO3_6;	/* RADIO3_6  33						ORNY*/
 ST[0].nSiteList[111]	=5135; 		ST[0].nLinkList[111]	=RADIO5_3;	/* RADIO5_3  TMOK 21-34, 21-38 NPS-RTU-NPS				IG*/
