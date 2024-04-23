@@ -301,7 +301,7 @@ ST[0].nSiteList[104]	=5125; 		ST[0].nLinkList[104]	=RADIO3_6;	/* RADIO3_6  35A		
 ST[0].nSiteList[105]	=5126; 		ST[0].nLinkList[105]	=RADIO3_6;	/* RADIO3_6  35						ORNY*/
 ST[0].nSiteList[106]	=5127; 		ST[0].nLinkList[106]	=RADIO3_6;	/* RADIO3_6  14						ORNY*/
 ST[0].nSiteList[107]	=5129; 		ST[0].nLinkList[107]	=RADIO3_6;	/* RADIO3_6  7						ORNY*/
-ST[0].nSiteList[108]	=5128; 		ST[0].nLinkList[108]	=RADIO3_6;	/* RADIO3_6  Április 4. utca - 25397 (8	)					ORNY*/
+ST[0].nSiteList[108]	=5128; 		ST[0].nLinkList[108]	=RADIO8_9;	/* RADIO3_6  Április 4. utca - 25397 (8	)					ORNY*/
 ST[0].nSiteList[109]	=5130; 		ST[0].nLinkList[109]	=RADIO3_6;	/* RADIO3_6  11						ORNY*/
 ST[0].nSiteList[110]	=5131; 		ST[0].nLinkList[110]	=RADIO3_6;	/* RADIO3_6  33						ORNY*/
 ST[0].nSiteList[111]	=5135; 		ST[0].nLinkList[111]	=RADIO5_3;	/* RADIO5_3  TMOK 21-34, 21-38 NPS-RTU-NPS				IG*/
