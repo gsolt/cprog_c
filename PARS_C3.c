@@ -1469,8 +1469,8 @@ sT[0].sTI[103].nType = TYP_MOT;
 	sT[0].sMOT[103].nIEC_SP_NUM			= 14;		/* Egybites értékek száma*/
 	sT[0].sMOT[103].nIEC_DP				= 275;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[103].nIEC_DP_NUM			= 4;   		/* Két bites értékek száma*/
-	sT[0].sMOT[103].nIEC_NM				= 0;		/* Mérések IEC kezdõcíme */
-	sT[0].sMOT[103].nNMNum				= 0;		/* Analóg mérések száma*/
+	sT[0].sMOT[103].nIEC_NM				= 1623;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[103].nNMNum				= 6;		/* Analóg mérések száma*/
 
 /* Oroszlány, 35A ---------------------------------------------------------------*/
 sT[0].sTI[104].nType = TYP_MOT;	
