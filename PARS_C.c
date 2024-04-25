@@ -296,7 +296,7 @@ ST[0].nSiteList[99]		=5121; 		ST[0].nLinkList[99]		=RADIO3_7;	/* RADIO3_7 Tatabá
 ST[0].nSiteList[100]	=5115; 		ST[0].nLinkList[100]	=RADIO8_2;	/* RADIO8_2 TMOK 42-70				ZEG*/
 ST[0].nSiteList[101]	=5114; 		ST[0].nLinkList[101]	=RADIO8_1;	/* RADIO8_1 TMOK 42-81				ZEG*/
 ST[0].nSiteList[102]	=5123; 		ST[0].nLinkList[102]	=RADIO3_6;	/* RADIO3_6 Takács B				ORNY*/
-ST[0].nSiteList[103]	=5124; 		ST[0].nLinkList[103]	=RADIO3_6;	/* RADIO3_6  B						ORNY*/
+ST[0].nSiteList[103]	=5124; 		ST[0].nLinkList[103]	=RADIO8_9;	/* RADIO3_6  B						ORNY*/
 ST[0].nSiteList[104]	=5125; 		ST[0].nLinkList[104]	=RADIO3_6;	/* RADIO3_6  35A					ORNY*/
 ST[0].nSiteList[105]	=5126; 		ST[0].nLinkList[105]	=RADIO3_6;	/* RADIO3_6  35						ORNY*/
 ST[0].nSiteList[106]	=5127; 		ST[0].nLinkList[106]	=RADIO3_6;	/* RADIO3_6  14						ORNY*/
