@@ -427,7 +427,7 @@ ST[0].nSiteList[225]	=5258; 		ST[0].nLinkList[225]	=RADIO5_3;	/* RADIO5_3  20-17
 ST[0].nSiteList[226]	=5259; 		ST[0].nLinkList[226]	=RADIO5_3;	/* RADIO5_3  81-23					IG*/
 ST[0].nSiteList[227]	=5260; 		ST[0].nLinkList[227]	=RADIO5_2;	/* RADIO5_2  81-98					IG*/
 ST[0].nSiteList[228]	=5261; 		ST[0].nLinkList[228]	=RADIO8_9;	/* RADIO3_6  82-61					ORNY*/
-ST[0].nSiteList[229]	=5262; 		ST[0].nLinkList[229]	=RADIO3_6;	/* RADIO3_6  88-801					ORNY*/
+ST[0].nSiteList[229]	=5262; 		ST[0].nLinkList[229]	=RADIO5_1;	/* RADIO3_6  88-801					ORNY*/
 ST[0].nSiteList[230]	=5263; 		ST[0].nLinkList[230]	=RADIO6_3;	/* RADIO6_3  Kõszeg, Szot			SZOM*/
 ST[0].nSiteList[231]	=5264; 		ST[0].nLinkList[231]	=RADIO6_1;	/* RADIO6_1	 41-67					SZOM*/
 ST[0].nSiteList[232]	=5286; 		ST[0].nLinkList[232]	=RADIO6_1;	/* RADIO6_1  Szombathely,Vörödmarty SZOM*/
