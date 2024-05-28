@@ -2646,7 +2646,12 @@ sT[0].sTI[229].nType = TYP_TMOK;
 
 	sT[0].sMOT[229].nIEC_SP				= 4139;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[229].nIEC_DP				= 582;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[229].nIEC_NM				= 753;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[229].nIEC_NM				= 1743;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[229].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[229].nIEC_NM2				= 1747;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[229].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /* Kõszeg, Szot ---------------------------------------------------------------*/
 sT[0].sTI[230].nType = TYP_MOT;	
 	
