@@ -119,7 +119,7 @@ sT[0].sCP[0].sCPR[7].nDCStart = 22;   		sT[0].sCP[0].sCPR[7].nDCNum = 1;  	    s
 sT[0].sCP[0].sCPR[8].nDCStart = 24;   		sT[0].sCP[0].sCPR[8].nDCNum = 1;  	    sT[0].sCP[0].sCPR[8].nSCStart= 25;  	    sT[0].sCP[0].sCPR[8].nAckStart=26;    	sT[0].sCP[0].sCPR[8].nAckNum=1;       sT[0].sCP[0].sCPR[8].nSPOffsetCS = 146;     	  sT[0].sCP[0].sCPR[8].nSPOffsetLek = 147;
 sT[0].sCP[0].sCPR[9].nDCStart = 27;   		sT[0].sCP[0].sCPR[9].nDCNum = 1;    	sT[0].sCP[0].sCPR[9].nSCStart= 28;   	    sT[0].sCP[0].sCPR[9].nAckStart=59; 	    sT[0].sCP[0].sCPR[9].nAckNum=1;       sT[0].sCP[0].sCPR[9].nSPOffsetCS = 322;         sT[0].sCP[0].sCPR[9].nSPOffsetLek = 323;		
 sT[0].sCP[0].sCPR[10].nDCStart = 67;   		sT[0].sCP[0].sCPR[10].nDCNum = 1;       sT[0].sCP[0].sCPR[10].nSCStart= 68;         sT[0].sCP[0].sCPR[10].nAckStart=0; 		sT[0].sCP[0].sCPR[10].nAckNum=0;      sT[0].sCP[0].sCPR[10].nSPOffsetCS = 162;        sT[0].sCP[0].sCPR[10].nSPOffsetLek = 163;
-sT[0].sCP[0].sCPR[11].nDCStart = 60;   		sT[0].sCP[0].sCPR[11].nDCNum = 2;       sT[0].sCP[0].sCPR[11].nSCStart= 64;         sT[0].sCP[0].sCPR[11].nAckStart=66; 	sT[0].sCP[0].sCPR[11].nAckNum=1;      sT[0].sCP[0].sCPR[11].nSPOffsetCS = 372;        sT[0].sCP[0].sCPR[11].nSPOffsetLek = 373;		sT[0].sCP[0].sCPR[11].nSPOffsetCS2 = 374;   sT[0].sCP[0].sCPR[11].nSPOffsetLek2 = 375; sT[0].sCP[0].sCPR[11].nSCNum  = 2;
+sT[0].sCP[0].sCPR[11].nDCStart = 60;   		sT[0].sCP[0].sCPR[11].nDCNum = 1;       sT[0].sCP[0].sCPR[11].nSCStart= 61;         sT[0].sCP[0].sCPR[11].nAckStart=0; 	  sT[0].sCP[0].sCPR[11].nAckNum=0;      sT[0].sCP[0].sCPR[11].nSPOffsetCS = 356;        sT[0].sCP[0].sCPR[11].nSPOffsetLek = 357;		
 sT[0].sCP[0].sCPR[12].nDCStart = 69;   		sT[0].sCP[0].sCPR[12].nDCNum = 1;       sT[0].sCP[0].sCPR[12].nSCStart= 70;         sT[0].sCP[0].sCPR[12].nAckStart=71;		sT[0].sCP[0].sCPR[12].nAckNum=1;      sT[0].sCP[0].sCPR[12].nSPOffsetCS = 178;        sT[0].sCP[0].sCPR[12].nSPOffsetLek = 179;
 sT[0].sCP[0].sCPR[13].nDCStart = 37;   		sT[0].sCP[0].sCPR[13].nDCNum = 1;       sT[0].sCP[0].sCPR[13].nSCStart= 38;         sT[0].sCP[0].sCPR[13].nAckStart=0; 		sT[0].sCP[0].sCPR[13].nAckNum=0;      sT[0].sCP[0].sCPR[13].nSPOffsetCS = 226;        sT[0].sCP[0].sCPR[13].nSPOffsetLek = 227;
 sT[0].sCP[0].sCPR[14].nDCStart = 39;   		sT[0].sCP[0].sCPR[14].nDCNum = 1;       sT[0].sCP[0].sCPR[14].nSCStart= 40;         sT[0].sCP[0].sCPR[14].nAckStart=41;		sT[0].sCP[0].sCPR[14].nAckNum=1;      sT[0].sCP[0].sCPR[14].nSPOffsetCS = 242;        sT[0].sCP[0].sCPR[14].nSPOffsetLek = 243;
@@ -550,15 +550,16 @@ sT[0].sTI[10].nType = TYP_TMOK;
 
 
 
-/* 80-96,80-97 TMOK -----------------------------------------------------------*/
+/* 32-64 (80-96,80-97) TMOK -----------------------------------------------------------*/
 sT[0].sTI[11].nType = TYP_TMOK;
 
 	sT[0].sMOT[11].nIEC_SP				= 342;		/* Egybites értékek IEC kezdõcíme*/
-	sT[0].sMOT[11].nIEC_SP_NUM			= 30;		/* Egybites értékek száma*/
 	sT[0].sMOT[11].nIEC_DP				= 20;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[11].nIEC_DP_NUM			= 2;   		/* Két bites értékek száma*/
-	sT[0].sMOT[11].nIEC_NM				= 68;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[11].nIEC_NM				= 1759;		/* Mérések IEC kezdõcíme */
+
 	sT[0].sMOT[11].nNMNum				= 4;		/* Analóg mérések száma*/
+	sT[0].sMOT[11].nIEC_NM2			= 1763;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[11].nNMNum2				= 2;		/* Analóg mérések száma*/
 
 /*  70-19 TMOK -----------------------------------------------------------*/
 sT[0].sTI[12].nType = TYP_TMOK;
