@@ -612,13 +612,13 @@ sT[0].sTI[16].nType = TYP_TMOK;
 	sT[0].sMOT[16].nIEC_DP				= 25;		/* Kétbites értékek IEC kezdõcíme*/
 	sT[0].sMOT[16].nIEC_NM				= 55;		/* Mérések IEC kezdõcíme */
 
-/* 31-66 TMOK -----------------------------------------------------------*/
+/* 32-86 PM6 TMOK -----------------------------------------------------------*/
 sT[0].sTI[17].nType = TYP_TMOK;
 
 	sT[0].sMOT[17].nIEC_SP				= 276;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[17].nIEC_DP				= 26;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[17].nIEC_NM				= 58;		/* Mérések IEC kezdõcíme */
-
+	sT[0].sMOT[17].nIEC_NM				= 1837;		/* Mérések IEC kezdõcíme */
+  sT[0].sMOT[17].nNMNum     		= 4;		/* Mérések száma */
 /* 35-45 TMOK -----------------------------------------------------------*/
 sT[0].sTI[18].nType = TYP_TMOK;
 
