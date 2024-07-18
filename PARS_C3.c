@@ -2019,7 +2019,12 @@ sT[0].sTI[156].nType = TYP_TMOK;
 
 	sT[0].sMOT[156].nIEC_SP				= 2871;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[156].nIEC_DP				= 379;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[156].nIEC_NM				= 484;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[156].nIEC_NM				= 1867;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[156].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[156].nIEC_NM2				= 1871;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[156].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /*  81-60 OK2  -----------------------------------------------------------*/
 sT[0].sTI[157].nType = TYP_TMOK;
 
