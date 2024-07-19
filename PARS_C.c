@@ -234,7 +234,7 @@ ST[0].nSiteList[37]		=5030; 	    ST[0].nLinkList[37]   	=RADIO7_1;	/* RADIO7_1 T
 ST[0].nSiteList[38]		=5067; 	    ST[0].nLinkList[38]   	=LINE6;   	/* RADIO1_8 TMOK, 32-24  		SZVAR*/
 ST[0].nSiteList[39]		=5365; 	    ST[0].nLinkList[39]   	=LINE7;	    /* LINE7    TMOK, 34-60  		SZVAR*/
 ST[0].nSiteList[40]		=5031; 	    ST[0].nLinkList[40]   	=LINE12;	   /* RADIO7_1 TMOK, 15-20  		MOS*/
-ST[0].nSiteList[41]		=5041; 	    ST[0].nLinkList[41]   	=RADIO4_1;	/* RADIO4_1 TMOK, 70-46  		IK*/
+ST[0].nSiteList[41]		=5366; 	    ST[0].nLinkList[41]   	=RADIO4_9;	/* RADIO4_9 TMOK, 35-27 (70-46) 		IK*/
 ST[0].nSiteList[42]		=5049; 	    ST[0].nLinkList[42]   	=RADIO5_8;	/* RADIO5_8 TMOK, 21-39  		IG*/
 ST[0].nSiteList[43]		=5039; 	    ST[0].nLinkList[43]   	=RADIO4_2;	/* RADIO4_2 TMOK, 70-27  		IK*/
 ST[0].nSiteList[44]		=5042; 	    ST[0].nLinkList[44]   	=RADIO4_1;	/* RADIO4_1 TMOK, 90-82 		IK*/
@@ -794,7 +794,7 @@ ST[0].sRAD_K1[0].nIndx[72]=282;
 
 
 /* K2 : SZOM, MOS */
-ST[0].sRAD_K2[0].nRtuNumRad = 48; /*77*/
+ST[0].sRAD_K2[0].nRtuNumRad = 49; /*77*/
 
 ST[0].sRAD_K2[0].nIndx[0]=21;
 ST[0].sRAD_K2[0].nIndx[1]=23;
@@ -844,6 +844,7 @@ ST[0].sRAD_K2[0].nIndx[44]=11;
 ST[0].sRAD_K2[0].nIndx[45]=17;
 ST[0].sRAD_K2[0].nIndx[46]=18;
 ST[0].sRAD_K2[0].nIndx[47]=39;
+ST[0].sRAD_K2[0].nIndx[48]=41;
 
 
 
