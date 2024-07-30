@@ -608,7 +608,7 @@ MOSCAD_init_sitetable();
 /* 284 70-36						IK			*/ MOSCAD_add_new_site(5295,RADIO4_2);
 /* 285 74-28						IK			*/ MOSCAD_add_new_site(5293,RADIO4_2);
 /* 286 91-24						ZEG			*/ MOSCAD_add_new_site(5291,RADIO2_6);
-/* 287 30-12						SZVAR		*/ MOSCAD_add_new_site(5320,RADIO1_5);
+/* 287 30-12						SZVAR		*/ MOSCAD_add_new_site(5320,RADIO1_1);
 /* 288 30-25						SZVAR		*/ MOSCAD_add_new_site(5321,RADIO9_1);
 /* 289 30-30						SZVAR		*/ MOSCAD_add_new_site(5322,RADIO9_1);
 /* 290--------------------------------------299*/
