@@ -974,12 +974,14 @@ sT[0].sTI[53].nType = TYP_TMOK;
 	sT[0].sMOT[53].nIEC_NM				= 1052;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[53].nNMNum      			= 4;
 
-/* 90-90 TMOK  -----------------------------------------------------------*/
+/* 31204 (90-90) TMOK  -----------------------------------------------------------*/
 sT[0].sTI[54].nType = TYP_TMOK;
 
 	sT[0].sMOT[54].nIEC_SP				= 920;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[54].nIEC_DP				= 66;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[54].nIEC_NM				= 174;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[54].nIEC_NM				= 1913;		/* Mérések IEC kezdõcíme */
+  sT[0].sMOT[54].nNMNum     		= 4;		/* Mérések száma */
+
 
 /* 91-96 TMOK  -----------------------------------------------------------*/
 sT[0].sTI[55].nType = TYP_TMOK;
