@@ -1221,12 +1221,16 @@ sT[0].sTI[77].nType = TYP_MOT;
 	sT[0].sMOT[77].nIEC_NM				= 0;		/* Mérések IEC kezdõcíme */
 	sT[0].sMOT[77].nNMNum				= 0;		/* Analóg mérések száma*/
      
-/* 37-50 TMOK  -----------------------------------------------------------*/
+/* 34-66 (37-50) TMOK  -----------------------------------------------------------*/
 sT[0].sTI[78].nType = TYP_TMOK;
 
 	sT[0].sMOT[78].nIEC_SP				= 1383;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[78].nIEC_DP				= 137;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[78].nIEC_NM				= 247;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[78].nIEC_NM				= 1917;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[78].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[78].nIEC_NM2				  = 1921;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[78].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Székesfehérvár, Feherpalota ---------------------------------------------------------------*/
 sT[0].sTI[79].nType = TYP_MOT;	
@@ -2662,7 +2666,12 @@ sT[0].sTI[222].nType = TYP_TMOK;
 
 	sT[0].sMOT[222].nIEC_SP				= 4027;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[222].nIEC_DP				= 575;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[222].nIEC_NM				= 732;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[222].nIEC_NM				= 1897;		/* Mérések IEC kezdõcíme */
+  
+  sT[0].sMOT[222].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[222].nIEC_NM2				= 1901;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[222].nNMNum2				  = 2;		/* Analóg mérések száma*/
+  
 /*  92-48 OK2  -----------------------------------------------------------*/
 sT[0].sTI[223].nType = TYP_TMOK;
 

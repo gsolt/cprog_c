@@ -271,7 +271,7 @@ ST[0].nSiteList[74]		=5098; 	    ST[0].nLinkList[74]   	=RADIO4_1;	/* RADIO4_1 O
 ST[0].nSiteList[75]		=5101; 	    ST[0].nLinkList[75]   	=RADIO1_8;	/* RADIO1_8 Kisvelence			BAR */
 ST[0].nSiteList[76]		=9999; 	    ST[0].nLinkList[76]   	=RADIO3_6;	/* RADIO5_2 Tatabánya, Szõlõs	IG MEGSZÛNT!!! 2013.11.13.*/ 
 ST[0].nSiteList[77]		=5100; 	    ST[0].nLinkList[77]   	=RADIO3_7;	/* RADIO5_2 Tatabánya, Óváros	IG */
-ST[0].nSiteList[78]		=3163; 	    ST[0].nLinkList[78]   	=RADIO1_5;	/* RADIO1_5 TMOK, 37-50			SZVAR */
+ST[0].nSiteList[78]		=5371; 	    ST[0].nLinkList[78]   	=RADIO4_7;	/* RADIO4_7 TMOK, 34-66 (37-50)			SZVAR */
 ST[0].nSiteList[79]		=5102; 	    ST[0].nLinkList[79]   	=RADIO1_1;	/* RADIO1_1 Szvar, Feherpalota	SZVAR */
 ST[0].nSiteList[80]		=314; 	    ST[0].nLinkList[80]   	=RADIO3_7;	/* RADIO3_7 Tatabánya, Szent Borbála gázmotor ORNY */
 ST[0].nSiteList[81]		=5103; 	    ST[0].nLinkList[81]   	=RADIO3_7;	/* RADIO3_7 Tatabánya, Vértes center ORNY */
@@ -794,7 +794,7 @@ ST[0].sRAD_K1[0].nIndx[72]=282;
 
 
 /* K2 : SZOM, MOS */
-ST[0].sRAD_K2[0].nRtuNumRad = 52; /*77*/
+ST[0].sRAD_K2[0].nRtuNumRad = 53; /*77*/
 
 ST[0].sRAD_K2[0].nIndx[0]=21;
 ST[0].sRAD_K2[0].nIndx[1]=23;
@@ -848,6 +848,7 @@ ST[0].sRAD_K2[0].nIndx[48]=41;
 ST[0].sRAD_K2[0].nIndx[49]=44;
 ST[0].sRAD_K2[0].nIndx[50]=46;
 ST[0].sRAD_K2[0].nIndx[51]=54;
+ST[0].sRAD_K2[0].nIndx[52]=78;
 
 
 
