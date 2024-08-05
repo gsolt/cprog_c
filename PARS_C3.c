@@ -1671,13 +1671,16 @@ sT[0].sTI[118].nType = TYP_TMOK;
 	sT[0].sMOT[118].nIEC_NM2				= 1505;		/* Mérések IEC kezdõcíme */	
 	sT[0].sMOT[118].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
-/*  81-41 NPS  -----------------------------------------------------------*/
+/*  81-41 PM6  -----------------------------------------------------------*/
 sT[0].sTI[119].nType = TYP_TMOK;
 
 	sT[0].sMOT[119].nIEC_SP				= 2242;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[119].nIEC_DP				= 334;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[119].nIEC_NM				= 359;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[119].nIEC_NM				= 1753;		/* Mérések IEC kezdõcíme */
 
+  sT[0].sMOT[119].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[119].nIEC_NM2				= 1757;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[119].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Jánossomorja J01, széleromu -----------------------------------------------------------*/
 sT[0].sTI[120].nType = TYP_TAL;
@@ -2058,7 +2061,12 @@ sT[0].sTI[159].nType = TYP_TMOK;
 
 	sT[0].sMOT[159].nIEC_SP				= 2919;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[159].nIEC_DP				= 382;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[159].nIEC_NM				= 493;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[159].nIEC_NM				= 1845;		/* Mérések IEC kezdõcíme */
+  
+  sT[0].sMOT[159].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[159].nIEC_NM2				= 1849;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[159].nNMNum2				  = 2;		/* Analóg mérések száma*/
+  
 /*  81-91 OK2  -----------------------------------------------------------*/
 sT[0].sTI[160].nType = TYP_TMOK;
 
