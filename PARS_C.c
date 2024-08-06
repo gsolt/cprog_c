@@ -293,7 +293,7 @@ ST[0].nSiteList[96]		=5117; 		ST[0].nLinkList[96]		=RADIO4_2;	/* RADIO4_2 Nick, 
 ST[0].nSiteList[97]		=5113; 		ST[0].nLinkList[97]		=RADIO8_1;	/* RADIO8_2 TMOK 42-65				ZEG*/
 ST[0].nSiteList[98]		=5122; 		ST[0].nLinkList[98]		=LINE13;	  /* RADIO6_1 Szombathely, Merkur		SZOM*/
 ST[0].nSiteList[99]		=5121; 		ST[0].nLinkList[99]		=RADIO3_7;	/* RADIO3_7 Tatabánya, Ipari Park	OR*/
-ST[0].nSiteList[100]	=5115; 		ST[0].nLinkList[100]	=RADIO8_2;	/* RADIO8_2 TMOK 42-70				ZEG*/
+ST[0].nSiteList[100]	=5275; 		ST[0].nLinkList[100]	=RADIO2_3;	/* RADIO8_2 TMOK 91-37 (42-70)				ZEG*/
 ST[0].nSiteList[101]	=5114; 		ST[0].nLinkList[101]	=RADIO8_1;	/* RADIO8_1 TMOK 42-81				ZEG*/
 ST[0].nSiteList[102]	=5123; 		ST[0].nLinkList[102]	=RADIO3_6;	/* RADIO3_6 Takács B				ORNY*/
 ST[0].nSiteList[103]	=5124; 		ST[0].nLinkList[103]	=RADIO8_9;	/* RADIO3_6  B						ORNY*/
@@ -445,7 +445,7 @@ ST[0].nSiteList[242]	=5271; 		ST[0].nLinkList[242]	=RADIO7_1;	/* RADIO7_1  12-39
 ST[0].nSiteList[243]	=5272; 		ST[0].nLinkList[243]	=RADIO8_5;	/* RADIO2_8  92-09					ZEG*/
 ST[0].nSiteList[244]	=5273; 		ST[0].nLinkList[244]	=RADIO6_6;	/* RADIO6_1  40-72					SZOM*/
 ST[0].nSiteList[245]	=5274; 		ST[0].nLinkList[245]	=RADIO8_1;	/* RADIO8_1  42-55					ZEG*/
-ST[0].nSiteList[246]	=5275; 		ST[0].nLinkList[246]	=RADIO2_7;	/* RADIO2_7  91-37					ZEG*/
+ST[0].nSiteList[246]	=9999; 		ST[0].nLinkList[246]	=RADIO2_7;	/* RADIO2_7  91-37					ZEG*/
 ST[0].nSiteList[247]	=5276; 		ST[0].nLinkList[247]	=RADIO2_6;	/* RADIO2_7  91-51					ZEG*/
 ST[0].nSiteList[248]	=5277; 		ST[0].nLinkList[248]	=RADIO2_7;	/* RADIO2_8  91-59					ZEG*/
 
@@ -794,7 +794,7 @@ ST[0].sRAD_K1[0].nIndx[72]=282;
 
 
 /* K2 : SZOM, MOS */
-ST[0].sRAD_K2[0].nRtuNumRad = 53; /*77*/
+ST[0].sRAD_K2[0].nRtuNumRad = 54; /*77*/
 
 ST[0].sRAD_K2[0].nIndx[0]=21;
 ST[0].sRAD_K2[0].nIndx[1]=23;
@@ -849,6 +849,7 @@ ST[0].sRAD_K2[0].nIndx[49]=44;
 ST[0].sRAD_K2[0].nIndx[50]=46;
 ST[0].sRAD_K2[0].nIndx[51]=54;
 ST[0].sRAD_K2[0].nIndx[52]=78;
+ST[0].sRAD_K2[0].nIndx[53]=100;
 
 
 
