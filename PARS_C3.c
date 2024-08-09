@@ -1127,13 +1127,14 @@ sT[0].sTI[68].nType = TYP_TMOK;
 	sT[0].sMOT[68].nIEC_NM2				  = 1205;		/* Mérések IEC kezdõcíme */	
 	sT[0].sMOT[68].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
-/* 54-33 TMOK  -----------------------------------------------------------*/
+/* 31-84 (54-33) TMOK  -----------------------------------------------------------*/
 sT[0].sTI[69].nType = TYP_TMOK;
 
 	sT[0].sMOT[69].nIEC_SP				= 1160;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[69].nIEC_DP				= 81;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[69].nIEC_NM				= 219;		/* Mérések IEC kezdõcíme */
-
+	sT[0].sMOT[69].nIEC_NM				= 1909;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[69].nNMNum      			= 4;
+  
 /* Sárvár, Vadkert2 TALUS -------------------------------------------------------------*/
 sT[0].sTI[70].nType = TYP_TAL;	
 

@@ -262,7 +262,7 @@ ST[0].nSiteList[65]		=5054; 	    ST[0].nLinkList[65]   	=RADIO9_5;	/* RADIO1_9 T
 ST[0].nSiteList[66]		=5048; 	    ST[0].nLinkList[66]   	=RADIO5_3;	/* RADIO5_3 TMOK, 21-37 		IG*/
 ST[0].nSiteList[67]		=5056; 	    ST[0].nLinkList[67]   	=RADIO1_5;	/* RADIO1_5 TMOK, 54-24 		SZVAR*/
 ST[0].nSiteList[68]		=5083; 	    ST[0].nLinkList[68]   	=RADIO5_3;	/* RADIO5_3 TMOK, 20-16 		IG*/
-ST[0].nSiteList[69]		=5055; 	    ST[0].nLinkList[69]   	=RADIO1_5;	/* RADIO1_5 TMOK, 54-33 		SZVAR*/
+ST[0].nSiteList[69]		=5370; 	    ST[0].nLinkList[69]   	=LINE5;	    /* LINE5    TMOK, 31-84 (54-33) 		SZVAR*/
 ST[0].nSiteList[70]		=5094; 	    ST[0].nLinkList[70]   	=RADIO4_1;	/* RADIO4_1 Sárvár, Vadkert2	IK*/
 ST[0].nSiteList[71]		=5095; 	    ST[0].nLinkList[71]   	=RADIO4_1;	/* RADIO4_1 Sárvár, Termál Hot.	IK*/
 ST[0].nSiteList[72]		=5096; 	    ST[0].nLinkList[72]   	=RADIO1_1;	/* RADIO1_1 TMOK  34-04			SZVAR*/
@@ -794,7 +794,7 @@ ST[0].sRAD_K1[0].nIndx[72]=282;
 
 
 /* K2 : SZOM, MOS */
-ST[0].sRAD_K2[0].nRtuNumRad = 54; /*77*/
+ST[0].sRAD_K2[0].nRtuNumRad = 55; /*77*/
 
 ST[0].sRAD_K2[0].nIndx[0]=21;
 ST[0].sRAD_K2[0].nIndx[1]=23;
@@ -850,7 +850,7 @@ ST[0].sRAD_K2[0].nIndx[50]=46;
 ST[0].sRAD_K2[0].nIndx[51]=54;
 ST[0].sRAD_K2[0].nIndx[52]=78;
 ST[0].sRAD_K2[0].nIndx[53]=100;
-
+ST[0].sRAD_K2[0].nIndx[54]=69;
 
 
 /* K3 : SZVAR, ORNY, IG */
