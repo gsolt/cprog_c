@@ -304,7 +304,7 @@ ST[0].nSiteList[107]	=5129; 		ST[0].nLinkList[107]	=RADIO3_6;	/* RADIO3_6  7				
 ST[0].nSiteList[108]	=5128; 		ST[0].nLinkList[108]	=RADIO8_9;	/* RADIO3_6  Április 4. utca - 25397 (8	)					ORNY*/
 ST[0].nSiteList[109]	=5130; 		ST[0].nLinkList[109]	=RADIO3_6;	/* RADIO3_6  11						ORNY*/
 ST[0].nSiteList[110]	=5131; 		ST[0].nLinkList[110]	=RADIO3_6;	/* RADIO3_6  33						ORNY*/
-ST[0].nSiteList[111]	=5135; 		ST[0].nLinkList[111]	=RADIO5_3;	/* RADIO5_3  TMOK 21-34, 21-38 NPS-RTU-NPS				IG*/
+ST[0].nSiteList[111]	=5372; 		ST[0].nLinkList[111]	=LINE6;		/* RADIO5_3  TMOK 36-10 (21-34, 21-38 NPS-RTU-NPS)				IG*/
 ST[0].nSiteList[112]	=5132; 		ST[0].nLinkList[112]	=RADIO3_6;	/* RADIO3_6  Eszterházy				ORNY*/
 ST[0].nSiteList[113]	=5142; 		ST[0].nLinkList[113]	=RADIO3_6;	/* RADIO3_6  82-44 NPS					ORNY*/
 ST[0].nSiteList[114]	=5136; 		ST[0].nLinkList[114]	=RADIO3_7;	/* RADIO3_7  Tatabánya, Hõközpont		ORNY*/
@@ -344,7 +344,7 @@ ST[0].nSiteList[146]	=5152; 		ST[0].nLinkList[146]	=RADIO7_1;	/* RADIO7_1  12-37
 ST[0].nSiteList[147]	=5153; 		ST[0].nLinkList[147]	=RADIO7_1;	/* RADIO7_1  14-45					MOS*/
 ST[0].nSiteList[148]	=5154; 		ST[0].nLinkList[148]	=RADIO7_1;	/* RADIO7_1  14-48					MOS*/
 ST[0].nSiteList[149]	=5155; 		ST[0].nLinkList[149]	=RADIO4_1;	/* RADIO4_1  64-76					IK*/
-ST[0].nSiteList[150]	=5188; 		ST[0].nLinkList[150]	=RADIO3_7;	/* RADIO3_7  80-10					ORNY*/
+ST[0].nSiteList[150]	=5188; 		ST[0].nLinkList[150]	=RADIO5_2;	/* RADIO3_7  80-10					ORNY*/
 ST[0].nSiteList[151]	=5189; 		ST[0].nLinkList[151]	=RADIO3_7;	/* RADIO3_7  80-15					ORNY*/
 ST[0].nSiteList[152]	=5190; 		ST[0].nLinkList[152]	=RADIO3_7;	/* RADIO3_7  80-73					ORNY*/
 ST[0].nSiteList[153]	=5191; 		ST[0].nLinkList[153]	=RADIO5_8;	/* RADIO5_8  21-36					IG*/
