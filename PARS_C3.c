@@ -3550,8 +3550,11 @@ sT[0].sTI[320].nType = TYP_TMOK;
 
 	sT[0].sMOT[320].nIEC_SP				= 5636;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[320].nIEC_DP				= 722;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[320].nIEC_NM				= 1033;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[320].nIEC_NM				= 1237;		/* Mérések IEC kezdõcíme */
 
+  sT[0].sMOT[320].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[320].nIEC_NM2				= 1241;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[320].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 /* Front end A -----------------------------------------------------------*/
 sT[0].sTI[321].nType = TYP_FRONTEND;
