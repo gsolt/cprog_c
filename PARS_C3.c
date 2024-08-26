@@ -219,7 +219,7 @@ sT[0].sCP[0].sCPR[107].nDCStart= 389;  		sT[0].sCP[0].sCPR[107].nDCNum =4;      
 sT[0].sCP[0].sCPR[108].nDCStart= 394;  		sT[0].sCP[0].sCPR[108].nDCNum =4;       sT[0].sCP[0].sCPR[108].nSCStart=398;        sT[0].sCP[0].sCPR[108].nAckStart=0;  	sT[0].sCP[0].sCPR[108].nAckNum=0;     sT[0].sCP[0].sCPR[108].nSPOffsetCS= 2078;       sT[0].sCP[0].sCPR[108].nSPOffsetLek= 2079;
 sT[0].sCP[0].sCPR[109].nDCStart= 399;  		sT[0].sCP[0].sCPR[109].nDCNum =4;       sT[0].sCP[0].sCPR[109].nSCStart=403;        sT[0].sCP[0].sCPR[109].nAckStart=0;  	sT[0].sCP[0].sCPR[109].nAckNum=0;     sT[0].sCP[0].sCPR[109].nSPOffsetCS= 2094;       sT[0].sCP[0].sCPR[109].nSPOffsetLek= 2095;
 sT[0].sCP[0].sCPR[110].nDCStart= 404;  		sT[0].sCP[0].sCPR[110].nDCNum =4;       sT[0].sCP[0].sCPR[110].nSCStart=408;        sT[0].sCP[0].sCPR[110].nAckStart=0;  	sT[0].sCP[0].sCPR[110].nAckNum=0;     sT[0].sCP[0].sCPR[110].nSPOffsetCS= 2110;       sT[0].sCP[0].sCPR[110].nSPOffsetLek= 2111;
-sT[0].sCP[0].sCPR[111].nDCStart= 409; 		sT[0].sCP[0].sCPR[111].nDCNum =1;   	sT[0].sCP[0].sCPR[111].nSCStart=413;  		sT[0].sCP[0].sCPR[111].nAckStart=0;  	sT[0].sCP[0].sCPR[111].nAckNum=0; 	  sT[0].sCP[0].sCPR[111].nSPOffsetCS = 2142; 	  sT[0].sCP[0].sCPR[111].nSPOffsetLek= 2143; sT[0].sCP[0].sCPR[111].nSPOffsetCS2 = 2144;   sT[0].sCP[0].sCPR[111].nSPOffsetLek2 = 2145;sT[0].sCP[0].sCPR[111].nSCNum  = 2;
+sT[0].sCP[0].sCPR[111].nDCStart= 409; 		sT[0].sCP[0].sCPR[111].nDCNum =1;   	  sT[0].sCP[0].sCPR[111].nSCStart=413;  		  sT[0].sCP[0].sCPR[111].nAckStart=0;  	sT[0].sCP[0].sCPR[111].nAckNum=0; 	  sT[0].sCP[0].sCPR[111].nSPOffsetCS= 2126; 	    sT[0].sCP[0].sCPR[111].nSPOffsetLek= 2127; 
 sT[0].sCP[0].sCPR[112].nDCStart= 415;  		sT[0].sCP[0].sCPR[112].nDCNum =4;       sT[0].sCP[0].sCPR[112].nSCStart=419;        sT[0].sCP[0].sCPR[112].nAckStart=0;  	sT[0].sCP[0].sCPR[112].nAckNum=0;     sT[0].sCP[0].sCPR[112].nSPOffsetCS= 2160;       sT[0].sCP[0].sCPR[112].nSPOffsetLek= 2161;
 sT[0].sCP[0].sCPR[113].nDCStart= 420;  		sT[0].sCP[0].sCPR[113].nDCNum =1;       sT[0].sCP[0].sCPR[113].nSCStart=421;        sT[0].sCP[0].sCPR[113].nAckStart=0;  	sT[0].sCP[0].sCPR[113].nAckNum=0;     sT[0].sCP[0].sCPR[113].nSPOffsetCS= 2176;       sT[0].sCP[0].sCPR[113].nSPOffsetLek= 2177;
 sT[0].sCP[0].sCPR[114].nDCStart=1236;  		sT[0].sCP[0].sCPR[114].nDCNum =6;       sT[0].sCP[0].sCPR[114].nSCStart=1242;       sT[0].sCP[0].sCPR[114].nAckStart=0;  	sT[0].sCP[0].sCPR[114].nAckNum=0;     sT[0].sCP[0].sCPR[114].nSPOffsetCS= 5698;       sT[0].sCP[0].sCPR[114].nSPOffsetLek= 5699;
@@ -1593,15 +1593,16 @@ sT[0].sTI[110].nType = TYP_MOT;
 	sT[0].sMOT[110].nNMNum				= 0;		/* Analóg mérések száma*/
 
 
-/* 21-34, 21-38 NPS-RTU-NPS TMOK ----------------------------------------------------*/
+/* 36-10 PM6 (21-34, 21-38 NPS-RTU-NPS) TMOK ----------------------------------------------------*/
 sT[0].sTI[111].nType = TYP_TMOK;
 
 	sT[0].sMOT[111].nIEC_SP				= 2112;		/* Egybites értékek IEC kezdõcíme*/
-	sT[0].sMOT[111].nIEC_SP_NUM			= 30;		/* Egybites értékek száma*/
 	sT[0].sMOT[111].nIEC_DP				= 307;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[111].nIEC_DP_NUM			= 2;   		/* Két bites értékek száma*/
-	sT[0].sMOT[111].nIEC_NM				= 350;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[111].nIEC_NM				= 1963;		/* Mérések IEC kezdõcíme */
+
 	sT[0].sMOT[111].nNMNum				= 4;		/* Analóg mérések száma*/
+	sT[0].sMOT[111].nIEC_NM2				= 1967;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[111].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
 
 /* Oroszlány, Eszterházy ---------------------------------------------------------------*/
