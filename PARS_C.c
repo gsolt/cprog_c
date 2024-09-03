@@ -236,7 +236,7 @@ ST[0].nSiteList[39]		=5365; 	    ST[0].nLinkList[39]   	=LINE7;	    /* LINE7    
 ST[0].nSiteList[40]		=5031; 	    ST[0].nLinkList[40]   	=LINE12;	   /* RADIO7_1 TMOK, 15-20  		MOS*/
 ST[0].nSiteList[41]		=5366; 	    ST[0].nLinkList[41]   	=RADIO4_9;	/* RADIO4_9 TMOK, 35-27 (70-46) 		IK*/
 ST[0].nSiteList[42]		=5049; 	    ST[0].nLinkList[42]   	=RADIO5_8;	/* RADIO5_8 TMOK, 21-39  		IG*/
-ST[0].nSiteList[43]		=5039; 	    ST[0].nLinkList[43]   	=RADIO4_2;	/* RADIO4_2 TMOK, 70-27  		IK*/
+ST[0].nSiteList[43]		=5039; 	    ST[0].nLinkList[43]   	=LINE17;	  /* RADIO4_2 TMOK, 70-27  		IK*/
 ST[0].nSiteList[44]		=5367; 	    ST[0].nLinkList[44]   	=RADIO4_9;	/* RADIO4_9 TMOK, 35-28 (90-82) 		IK*/
 ST[0].nSiteList[45]		=5081; 	    ST[0].nLinkList[45]   	=LINE8;	    /* RADIO5_1 TMOK, 81-19 		IG*/
 ST[0].nSiteList[46]		=5368; 	    ST[0].nLinkList[46]   	=RADIO1_5;	/* RADIO1_5 TMOK, 37-82 (37-23) 		SZVAR*/
