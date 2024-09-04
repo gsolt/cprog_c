@@ -1818,12 +1818,17 @@ sT[0].sTI[130].nType = TYP_TMOK;
 	sT[0].sMOT[130].nIEC_NM2				= 1437;		/* Mérések IEC kezdõcíme */	
 	sT[0].sMOT[130].nNMNum2				  = 2;		/* Analóg mérések száma*/
   
-/*  42-66 OK2  -----------------------------------------------------------*/
+/*  93-13 (42-66) OK2  -----------------------------------------------------------*/
 sT[0].sTI[131].nType = TYP_TMOK;
 
 	sT[0].sMOT[131].nIEC_SP				= 2471;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[131].nIEC_DP				= 354;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[131].nIEC_NM				= 406;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[131].nIEC_NM				= 1999;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[131].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[131].nIEC_NM2				= 2003;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[131].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /*  48-500 OK2  -----------------------------------------------------------*/
 sT[0].sTI[132].nType = TYP_TMOK;
 
@@ -2126,7 +2131,11 @@ sT[0].sTI[163].nType = TYP_TMOK;
 
 	sT[0].sMOT[163].nIEC_SP				= 2983;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[163].nIEC_DP				= 386;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[163].nIEC_NM				= 505;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[163].nIEC_NM				= 1993;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[163].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[163].nIEC_NM2				= 1997;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[163].nNMNum2				  = 2;		/* Analóg mérések száma*/
 	
 /* Szentgotthárd, FERSINT ---------------------------------------------------------------*/
 sT[0].sTI[164].nType = TYP_MOT;	
