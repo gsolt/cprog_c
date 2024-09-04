@@ -1829,12 +1829,17 @@ sT[0].sTI[131].nType = TYP_TMOK;
 	sT[0].sMOT[131].nIEC_NM2				= 2003;		/* Mérések IEC kezdõcíme */	
 	sT[0].sMOT[131].nNMNum2				  = 2;		/* Analóg mérések száma*/
 
-/*  48-500 OK2  -----------------------------------------------------------*/
+/*  44-14 (48-500 OK2)  -----------------------------------------------------------*/
 sT[0].sTI[132].nType = TYP_TMOK;
 
 	sT[0].sMOT[132].nIEC_SP				= 2487;		/* Egybites értékek IEC kezdõcíme*/
 	sT[0].sMOT[132].nIEC_DP				= 355;		/* Kétbites értékek IEC kezdõcíme*/
-	sT[0].sMOT[132].nIEC_NM				= 409;		/* Mérések IEC kezdõcíme */
+	sT[0].sMOT[132].nIEC_NM				= 2005;		/* Mérések IEC kezdõcíme */
+
+  sT[0].sMOT[132].nNMNum     			= 4;		/* Mérések száma */
+	sT[0].sMOT[132].nIEC_NM2				= 2009;		/* Mérések IEC kezdõcíme */	
+	sT[0].sMOT[132].nNMNum2				  = 2;		/* Analóg mérések száma*/
+
 /*  48-523 OK2  -----------------------------------------------------------*/
 sT[0].sTI[133].nType = TYP_TMOK;
 

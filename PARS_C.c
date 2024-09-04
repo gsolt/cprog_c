@@ -326,7 +326,7 @@ ST[0].nSiteList[128]	=5171; 		ST[0].nLinkList[128]	=RADIO6_6;	/* RADIO6_1  41-28
 ST[0].nSiteList[129]	=5172; 		ST[0].nLinkList[129]	=RADIO6_6;	/* RADIO6_1  41-68					SZOM*/
 ST[0].nSiteList[130]	=5173; 		ST[0].nLinkList[130]	=RADIO8_1;	/* RADIO8_1  42-63					ZALA*/
 ST[0].nSiteList[131]	=5375; 		ST[0].nLinkList[131]	=RADIO2_7;	/* RADIO2_7  93-13 (42-66)					ZALA*/
-ST[0].nSiteList[132]	=5175; 		ST[0].nLinkList[132]	=RADIO6_1;	/* RADIO6_1  48-500					IK*/
+ST[0].nSiteList[132]	=5376; 		ST[0].nLinkList[132]	=LINE16;	  /* LINE16    44-14 (48-500)					IK*/
 ST[0].nSiteList[133]	=5176; 		ST[0].nLinkList[133]	=RADIO4_2;	/* RADIO4_2  48-523					IK*/
 ST[0].nSiteList[134]	=5177; 		ST[0].nLinkList[134]	=RADIO9_1;	/* RADIO1_8  31-01					SZVAR*/
 ST[0].nSiteList[135]	=5178; 		ST[0].nLinkList[135]	=RADIO1_1;	/* RADIO1_1  30-26					SZVAR*/
@@ -794,7 +794,7 @@ ST[0].sRAD_K1[0].nIndx[72]=282;
 
 
 /* K2 : SZOM, MOS */
-ST[0].sRAD_K2[0].nRtuNumRad = 57; /*77*/
+ST[0].sRAD_K2[0].nRtuNumRad = 58; /*77*/
 
 ST[0].sRAD_K2[0].nIndx[0]=21;
 ST[0].sRAD_K2[0].nIndx[1]=23;
@@ -853,6 +853,7 @@ ST[0].sRAD_K2[0].nIndx[53]=100;
 ST[0].sRAD_K2[0].nIndx[54]=69;
 ST[0].sRAD_K2[0].nIndx[55]=126;
 ST[0].sRAD_K2[0].nIndx[56]=131;
+ST[0].sRAD_K2[0].nIndx[57]=132;
 
 
 /* K3 : SZVAR, ORNY, IG */
